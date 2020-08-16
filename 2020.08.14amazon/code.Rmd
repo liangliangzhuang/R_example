@@ -1,0 +1,170 @@
+---
+title: "亚马逊产品的推荐算法"
+author:
+documentclass: ctexart
+always_allow_html: true
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+classoption: "hyperref,"
+---
+
+# 前言
+
+R的recommenderlab包有许多关于推荐算法建立、处理及可视化的函数。上一次也利用这个包对Movielisence进行了分析，但是这个数据集来源于包本身。本文对于一个实际数据进行分析，该数据集来源于亚马逊网站，我们的目标是利用recommenderlab包构建相应的推荐系统，利用用户对产品的打分，做到给用户个性化推荐，包括
+
+1. 构建多个不同方法的推荐系统，并进行比较，选取最优推荐系统。
+
+2. 给出每个用户Top3的产品推荐。
+
+3. 对于某个产品，预测出用户的评分情况。
+
+
+
+# 数据处理与数据探索性分析
+```{r  message=FALSE, warning=FALSE}
+library(recommenderlab)
+library(reshape)
+```
+
+## 数据处理
+
+选取有用数据，包括：用户名，产品名称,打分情况构建新的数据集。并删除含有缺失值的行，最后数据仅剩下34621行。
+```{r  message=FALSE, warning=FALSE}
+data = read.csv("C:/Users/DELL/Desktop/2020.08.12亚马逊/data.csv",header = T)
+data = data[,c(21,3,15)] #userid,product,rating
+#删除na的行
+data = na.omit(data)
+dim(data)
+names(data) = c('V1','V2','V3')
+unique(data$V2)
+```
+
+## 数据探索性分析
+
+利用`summary()`获取评分数据，可知最大值为5，最小值为1，平均值为4.58。并将其柱状图进行绘制，如下所示。
+
+```{r message=FALSE, warning=FALSE}
+summary(data[, 3])
+
+barplot(prop.table(table(data[, 3])),col="skyblue",
+  main="各评分分数占比情况",xlab="rating",ylab="proportion")
+
+length(unique(data[, 2]))
+unique(data[, 2])
+barplot(table(data[, 2]),col="skyblue",
+  main="",xlab="Product",ylab="Frequent")
+names(table(data[, 2]))
+plot(as.numeric(table(data[, 2])),)
+```
+
+## 数据格式构造
+
+构造新的数据类型`realRatingMatrix`，以便更好的分析。生成一个以v1为行，v2为列的矩阵，使用v3进行填充。最后生成26762 x 39稀疏矩阵。
+```{r message=FALSE, warning=FALSE}
+mydata <- cast(data,V1~V2,value="V3",fun.aggregate=mean) 
+#生成一个以v1为行，v2为列的矩阵，使用v3进行填充
+mydata <- mydata[,-1] #第一列数字为序列，可以删除
+class(mydata)
+class(mydata)<-"data.frame"  #只选取data.frame
+mydata<-as.matrix(mydata)
+mydata<-as(mydata,"realRatingMatrix") 
+mydata
+```
+
+
+# 模型评估与构建最优模型
+
+- 对于realRatingMatrix有六种方法：IBCF(基于物品的推荐)、UBCF（基于用户的推荐）、SVD（矩阵因子化）、PCA（主成分分析）、 RANDOM（随机推荐）、POPULAR（基于流行度的推荐）。
+
+## 模型评估
+
+主要使用：`recommenderlab`包中自带的评估方案，对应的函数是`evaluationScheme`，能够设置采用`n-fold`交叉验证还是简单的`training/train`分开验证，本文采用后一种方法，即将数据集简单分为`training`和`test`，在`training`训练模型，然后在`test`上评估。接下来我们使用三种不同技术进行构建推荐系统，并利用评估方案比较三种技术的好坏。
+
+- 在此我们比较三种方法的结果：IBCF(基于物品的推荐)，RANDOM（随机推荐）,POPULAR（基于流行度的推荐）。结果如下
+```{r  message=FALSE, warning=FALSE}
+scheme <- evaluationScheme(mydata, method = "split",
+  train = 0.9, k = 1, given = 1, goodRating = 4)
+  algorithms <- list(popular = list(name = "POPULAR",
+  param = list(normalize = "Z-score")),random =
+  list(name = "RANDOM",param = list(normalize = "Z-score", method = "Cosine",nn = 25, minRating = 3)),
+  ibcf = list(name = "IBCF", param = list(normalize = "Z-score")))
+results <- evaluate(scheme, algorithms, n = c(1, 3, 5, 10, 15, 20))
+
+plot(results, annotate = 1:3, legend = "topleft") #ROC
+plot(results, "prec/rec", annotate = 3)#precision-recall
+```
+
+- 按照评价方案建立推荐模型
+
+```{r message=FALSE, warning=FALSE}
+# 按照评价方案建立推荐模型
+model.popular <- Recommender(getData(scheme, "train"), method = "POPULAR")
+model.ibcf <- Recommender(getData(scheme, "train"), method = "IBCF")
+model.random <- Recommender(getData(scheme, "train"), method = "RANDOM")
+```
+
+- 对推荐模型进行预测
+
+```{r message=FALSE, warning=FALSE}
+predict.popular <- predict(model.popular, getData(scheme, "known"), 
+  type = "ratings")
+predict.ibcf <- predict(model.ibcf, getData(scheme, "known"), 
+  type = "ratings")
+predict.random <- predict(model.random, getData(scheme, "known"), 
+  type = "ratings")
+```
+
+- 做误差的计算
+
+```{r message=FALSE, warning=FALSE}
+predict.err <- rbind(calcPredictionAccuracy(predict.popular,
+  getData(scheme, "unknown")),calcPredictionAccuracy(predict.random,
+    getData(scheme,"unknown")),
+  calcPredictionAccuracy(predict.ibcf,getData(scheme, "unknown")))
+rownames(predict.err) <- c("POPULAR", "RANDOM", "IBCF")
+predict.err
+```
+
+
+通过结果我们可以看到：三种方法的比较**基于随机推荐系统**对于本案例数据的效果最好，RMSE，MSE，MAE都是三者中的最小值。其次是基于物品的推荐，最后是基于流行度过滤。
+
+## 构建最优模型
+
+利用以上结果，我们构建最优模型：**基于随机推荐系统**。首先先对系数矩阵的行列名进行定义。
+```{r message=FALSE, warning=FALSE}
+	colnames(mydata)<-paste0("asins",1:dim(mydata)[2],sep="")
+mydata.model <- Recommender(mydata[1:dim(mydata)[1]], method = "RANDOM")
+```
+数据处理完毕，接来下是进行预测，可以显示三个用户的Top3推荐列表.
+
+### TopN推荐
+
+给出users201，202，203每人前三个产品的推荐。
+```{r message=FALSE, warning=FALSE}
+##TopN推荐
+mydata.predict1 <- predict(mydata.model,mydata[201:203], n = 3)
+#n指数量
+as(mydata.predict1,"list")
+```
+
+### 用户对产品的评分预测
+
+给出前三个users对前6个产品的评分预测。
+```{r message=FALSE, warning=FALSE}
+mydata.predict2 <- predict(mydata.model, mydata[201:403], type = "ratings")
+mydata.predict2
+a = as(mydata.predict2, "matrix")[1:3, 1:6] 
+knitr::kable(a)
+```
+
+
+# 参考资料{-}
+
+1. [基于协同过滤算法的电影推荐系统](https://blog.csdn.net/weixin_44035441/article/details/90728889)
+
+2. [R语言：recommenderlab包的总结与应用案例](https://www.cnblogs.com/yjd_hycf_space/p/6702764.html)
+
+3. [recommenderlab: A Framework for Developing and Testing Recommendation Algorithms](https://cran.r-project.org/web/packages/recommenderlab/vignettes/recommenderlab.pdf)
+
