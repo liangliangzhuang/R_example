@@ -1,0 +1,187 @@
+---
+title: "饼状图"
+date: 2020-08-05
+author:
+  - 庄闪闪
+documentclass: ctexart
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+classoption: "hyperref,"
+---
+
+# 饼图
+
+饼图（pie chart）被广泛地应用于各个领域，用于表示不同分类的占比情况，通过弧度大小来对比各种分类。饼图通过将一个圆饼按照分类的占比划分成多个切片，整个圆饼代表数据的总量，每个切片（圆弧）表示该分类占总体的比例，所有切片（圆弧）的加和等于100%。
+
+## graphics绘制饼图
+
+```{r message=FALSE, warning=FALSE}
+library(RColorBrewer)  
+library(dplyr)
+library(graphics)
+library(ggplot2)
+```
+
+```{r}
+sessionInfo(
+)
+``` 
+
+init.angle可设定饼图的初始角度，labels可添加标签。颜色用了brewer.pal函数，第一个参数为个数，第二个参数为名字，这里用的是BrBG，具体可help一下。
+```{r message=FALSE, warning=FALSE}
+df <- data.frame(value = c(24.20,30.90,12.50,12.30,8.10,12.10), 
+                 group = c('LVS','SJM','MCE','Galaxy','MGM','Wynn'))
+df <-arrange(df,value)
+
+labs <- paste0(df$group," \n(", round(df$value/sum(df$value)*100,2), "%)") #标签
+lab <- paste0(round(df$value/sum(df$value)*100,2), "%") #标签
+pie(df$value,labels=labs, init.angle=90,col =  brewer.pal(nrow(df), "BrBG"),
+    border="black")
+pie(df$value,labels=lab, init.angle=90,col =  brewer.pal(nrow(df), "Blues"),
+    border="black")
+```
+
+## ggplot2包绘制
+
+使用R中ggplot2包的geom_bar()函数绘制堆积柱形图，然后将直角坐标系转换成极坐标系，
+就可以显示为饼图，但还是需要使用geom_text()函数添加数据标签。注意的是：ymax，ymin也需要自己计算得到。
+```{r message=FALSE, warning=FALSE}
+df$fraction = df$value / sum(df$value)
+df$ymax = cumsum(df$fraction)
+df$ymin = c(0, head(df$ymax, n = -1))
+ggplot(data = df, aes(fill = group, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+  geom_rect(show.legend = F,alpha=0.8) +
+  scale_fill_brewer(palette = 'Set3')+
+  coord_polar(theta = "y") +
+  labs(x = "", y = "", title = "",fill='地区') + 
+  theme_light() +
+  theme(panel.grid=element_blank()) + ## 去掉白色外框
+  theme(axis.text=element_blank()) + ## 把图旁边的标签去掉
+  theme(axis.ticks=element_blank()) + ## 去掉左上角的坐标刻度线
+  theme(panel.border=element_blank()) + ## 去掉最外层的正方形边框
+ geom_text(aes(x = 3.5, y = ((ymin+ymax)/2),label = labs) ,size=3.6)
+```
+
+但是可以看到：由于缺乏饼图与数据标签之间的引导线，总感觉美观度不够，所以推荐使用graphics 包的pie()函数绘制饼图。
+
+# 圆环图
+
+## ggplot绘制圆环图
+
+在刚才的gglpot绘制饼图的基础上，我们只要再加一条代码即可完成：xlim(c(0, 5))，即将x轴范围控制在0-5。
+
+```{r}
+df$fraction = df$value / sum(df$value)
+df$ymax = cumsum(df$fraction)
+df$ymin = c(0, head(df$ymax, n = -1))
+ggplot(data = df, aes(fill = group, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+  geom_rect(show.legend = F,alpha=0.8) +
+  scale_fill_brewer(palette = 'Set3')+
+  coord_polar(theta = "y") +
+  labs(x = "", y = "", title = "",fill='地区') + 
+  xlim(c(0, 5)) +
+  theme_light() +
+  theme(panel.grid=element_blank()) + ## 去掉白色外框
+  theme(axis.text=element_blank()) + ## 把图旁边的标签去掉
+  theme(axis.ticks=element_blank()) + ## 去掉左上角的坐标刻度线
+  theme(panel.border=element_blank()) + ## 去掉最外层的正方形边框
+ geom_text(aes(x = 3.5, y = ((ymin+ymax)/2),label = labs) ,size=3.6)
+```
+
+
+# 复合饼图系列
+
+散点复合饼图（compound scatter and pie chart）可以展示三个数据变量的信息：(x, y, P)，其中x
+和y 决定气泡在直角坐标系中的位置，P 表示饼图的数据信息，决定饼图中各个类别的占比情况，
+如图(a)所示。
+气泡复合饼图（compound bubble and pie chart）可以展示四个数据变量的信息：(x, y, z, P)，其中
+x 和y 决定气泡在直角坐标系中的位置，z 决定气泡的大小，P 表示饼图的数据信息，决定饼图中各
+个类别的占比情况，如图(b)所示。
+
+
+```{r}
+library(ggplot2)
+library(scatterpie)
+library(RColorBrewer)
+
+crime <- read.csv("C:/Users/DELL/Desktop/我的书籍/R语言数据可视化之美/第7章 局部整体型图表/crimeRatesByState2005.tsv",header = TRUE, sep = "\t", stringsAsFactors = F)
+radius <- sqrt(crime$population / pi)
+Max_radius<-max(radius)
+Bubble_Scale<-0.1
+crime$radius <- Bubble_Scale * radius/Max_radius
+
+mydata<-crime[,c(2,4,3,5:8)]  #数据集构造
+Col_Mean<-apply(mydata,2,mean)
+Col_Sort<-sort(Col_Mean,index.return=TRUE,decreasing = TRUE)
+mydata<-mydata[,Col_Sort$ix]
+x<-(mydata$murder-min(mydata$murder))/(max(mydata$murder)-min(mydata$murder))+0.00001
+y<-(mydata$Robbery-min(mydata$Robbery))/(max(mydata$Robbery)-min(mydata$Robbery))+0.00001
+
+xlabel<-seq(0,10,2)
+xbreak<-(xlabel-min(mydata$murder))/(max(mydata$murder)-min(mydata$murder))+0.00001
+ylabel<-seq(0,260,50)
+ybreak<-(ylabel-min(mydata$Robbery))/(max(mydata$Robbery)-min(mydata$Robbery))+0.00001
+
+mydata2<-data.frame(x,y,radius=crime$radius)
+mydata2<-cbind(mydata2,mydata)
+
+Legnd_label<-colnames(mydata2)[4:10]
+colnames(mydata2)[4:10]<-LETTERS[1:7]
+```
+
+
+
+## 散点复合饼图系列(a)
+```{r}
+ggplot() + 
+  geom_scatterpie(aes(x=x, y=y,r=0.05), data=mydata2, cols=colnames(mydata2)[4:10],alpha=0.9,size=0.1) +
+  scale_fill_manual(values=colorRampPalette(brewer.pal(7, "Set2"))(7),labels=Legnd_label)+
+  #geom_scatterpie_legend(mydata2$radius, x=0.1, y=0.95, n=5,labeller=function(x) round((x* Max_radius/ Bubble_Scale)^2*pi))+
+  #geom_scatterpie_legend(mydata2$radius, x=0.009758116, y=0.090868067, n=4,labeller=function(x) round((x* Max_radius/ Bubble_Scale)^2*pi))+
+  scale_x_continuous(breaks=xbreak, labels=xlabel)+
+  scale_y_continuous(breaks=ybreak, labels=ylabel)+
+  xlab("murder")+
+  ylab("Robbery")+
+  coord_fixed()+
+  theme(
+    axis.title=element_text(size=15,face="plain",color="black"),
+    axis.text = element_text(size=13,face="plain",color="black"),
+    legend.title=element_text(size=15,face="plain",color="black"),
+    legend.text = element_text(size=14,face="plain",color="black")
+  )
+```
+
+## 散点复合饼图系列(b)
+```{r}
+ggplot() + 
+  geom_scatterpie(aes(x=x, y=y,r=radius), data=mydata2, cols=colnames(mydata2)[4:10],alpha=0.9,size=0.25) +
+  scale_fill_manual(values=colorRampPalette(brewer.pal(7, "Set2"))(7),labels=Legnd_label)+
+  geom_scatterpie_legend(mydata2$radius, x=0.1, y=0.95, n=5,
+                         labeller=function(x) round((x* Max_radius/ Bubble_Scale)^2*pi))+
+  #geom_scatterpie_legend(mydata2$radius, x=0.009758116, y=0.090868067, n=4,labeller=function(x) round((x* Max_radius/ Bubble_Scale)^2*pi))+
+  scale_x_continuous(breaks=xbreak, labels=xlabel)+
+  scale_y_continuous(breaks=ybreak, labels=ylabel)+
+  xlab("murder")+
+  ylab("Robbery")+
+  coord_fixed()+
+  theme(
+    axis.title=element_text(size=15,face="plain",color="black"),
+    axis.text = element_text(size=13,face="plain",color="black"),
+    legend.title=element_text(size=15,face="plain",color="black"),
+    legend.text = element_text(size=14,face="plain",color="black")
+  )
+
+```
+
+
+
+参考资料
+
+https://zhuanlan.zhihu.com/p/69617844
+
+
+
+
+
