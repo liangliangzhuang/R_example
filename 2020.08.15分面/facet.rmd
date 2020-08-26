@@ -1,0 +1,152 @@
+---
+title: "分面|一页多图"
+date: 2020-08-15
+author:
+  - 庄闪闪
+documentclass: ctexart
+output:
+  rticles::ctex:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+classoption: "hyperref,"
+---
+
+# 前言
+
+双变量数据可视化可能对于我们比较简单， 但是如果变量是三个或者更多，怎么在一幅图一起显示呢？今天我们就来讨论这个问题，解决方案有两种。
+
+
+# 使用图形属性
+
+**使用图形属性**，比如说：散点图点的形状/透明度/颜色用第三个属性表示。
+
+```{r}
+library(ggplot2)
+head(mpg)
+#散点图的点的形状表示第三个属性（离散）
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=cty,shape=as.factor(cyl)),size=2,color='skyblue')
+#散点图点的透明度表示第三个属性
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=cty,alpha=cyl),size=5,color='purple')
+```
+
+`geom_point()`中可以改变的参数alpha，colour，fill，group，shape，size，stroke（边缘的厚度）。所以我们还可以通过其他参数来引进更多的属性，但是越多图就显得越复杂。看下面这个图，但是可读性不是很高。
+
+```{r}
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=cty,shape=drv,color=fl,alpha=cyl), size=2)
+```
+
+# 分面
+
+我们可以将图片按照第三个属性进行**分面**处理。ggplot2的分面有两种方式，分别使用 facet_wrap 或 facet_grid 函数。
+
+## facet_wrap()
+
+当想通过单个变量进行分面，则可以使用函数`facet_wrap()`其第一个参数是一个公式，创建公式的方式是在~符号后面加一个变量名，并且该变量应该是离散的。facet_wrap的参数如下
+
+```{r eval=FALSE, include=TRUE}
+facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+           shrink = TRUE, as.table = TRUE, drop = TRUE)
+```
+
+
+facets：分面参数如 ~cut，表示用 cut 变量进行数据分类
+
+nrow：绘制图形的行数
+
+ncol：绘制图形的列数，一般nrow/ncol只设定一个即可
+
+scales：坐标刻度的范围，可以设定四种类型。fixed
+表示所有小图均使用统一坐标范围；free表示每个小图按照各自数据范围自由调整坐标刻度范围；free_x为自由调整x轴刻度范围；free_y为自由调整y轴刻度范围。
+
+shrinks：也和坐标轴刻度有关，如果为TRUE（默认值）则按统计后的数据调整刻度范围，否则按统计前的数据设定坐标。
+
+as.table：和小图排列顺序有关的选项。如果为TRUE（默认）则按表格方式排列，即最大值（指分组level值）排在表格最后即右下角，否则排在左上角。
+
+drop：是否丢弃没有数据的分组，如果为TRUE（默认），则空数据组不绘图。
+
+strip.position： 条子位置，默认为"top"，可改为bottom", "left", "right"
+
+具体例子如下：
+
+x轴是displ，y轴是hwy，用class（离散，7个分类）进行分面。
+
+```{r}
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=hwy))+
+	facet_wrap(~class,nrow = 2)
+```
+
+
+## facet_grid()
+
+如果想通过两个变量对图进行分面，则使用`facet_grid()`。这个函数第一个参数也是公式，但该公式包含由~隔开的两个变量。
+
+```{r eval=FALSE, include=TRUE}
+facet_grid(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE,
+           labeller = "label_value", as.table = TRUE, drop = TRUE)
+```
+
+和facet_wrap比较，除不用设置ncol和nrow外（facets公式已经包含）外还有几个参数不同：
+
+margins：这不是设定图形边界的参数。它是指用于分面的包含每个变量元素所有数据的数据组。很好用的参数！
+
+具体例子如下：用drv与cyl变量进行分面，x轴方向是cyl，y轴方向是drv的值。注意的是俩都是分类型变量。
+```{r}
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=hwy))+
+	facet_grid(drv~cyl)
+```
+
+
+# 思考及拓展
+
+1. 如果使用连续变量进行分面，得到的图会非常的多，每个数值分一次面，可读性很差，不建议使用该方法。
+
+2. 使用`facet_grid(drv~cyl)`生成的图中，空白单元的意义说明drv与cyl在该单元没有关系。以下代码可以看出两者之间的关系。
+
+```{r}
+ggplot(data=mpg)+
+	geom_point(mapping = aes(drv,cyl))
+```
+
+3. facet_grid()可以转换为facet_wrap图，只需改为facet_grid(drv~.)或facet_grid(.~cyl)。
+```{r}
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=hwy))+
+	facet_grid(drv~.)
+
+ggplot(data=mpg)+
+	geom_point(mapping = aes(x=displ,y=hwy))+
+	facet_grid(.~cyl)
+```
+
+4.要在每个面板中重复相同的数据，只需构造一个不包含faceting变量的数据框架。
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
+  geom_point(color='purple') +
+  facet_wrap(~class)
+```
+
+5. 去除条子框以及改变条子位置
+
+加入参数：strip.position = "top"（默认），可改为其他（见上面参数详解）并加入theme将strip.placement="outside"就可以去除条子的框了
+```{r}
+ggplot(economics_long, aes(date, value)) +
+  geom_line() +
+  facet_wrap(vars(variable), scales = "free_y", nrow = 2, strip.position = "top") +
+  theme(strip.background = element_blank(), strip.placement = "outside")
+```
+
+
+
+# 参考资料{-}
+
+[ggplot2作图详解4：分面（faceting）](https://blog.csdn.net/u014801157/article/details/24372507)
+
+[R数据科学](R数据科学.pdf)
