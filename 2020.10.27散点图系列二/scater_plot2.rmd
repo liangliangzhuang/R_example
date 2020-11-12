@@ -1,0 +1,258 @@
+---
+title: "散点图系列(2)"
+author:
+  - 庄亮亮
+date: "2020/10/27"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+记得安装prettydoc包，html模板在该包渲染而成。
+
+![](https://mmbiz.qpic.cn/mmbiz_jpg/MIcgkkEyTHgfkvXafZE9scXp4icvdcNFyic0z7THajQBAyLNRiau3CKnZ3L9Y9K2YXObhaiblBm0Jbnicaq9lW3pz4g/640?wx_fmt=jpeg)  
+欢迎**关注**我的**公众号**，**点赞，在看，收藏\~\~\~**
+
+---------
+
+
+## 1.前言
+
+**散点图**（scatter graph、point graph、X-Y plot、scatter chart ）是科研绘图中最常见的图表类型之一，通常用于显示和比较数值。散点图是使用一系列的散点在直角坐标系中展示变量的数值分布。在二维散点图中，可以通过观察两个变量的数据变化，发现两者的关系与相关性。
+
+散点图可以提供三类关键信息：
+
+（1）变量之间是否存在数量关联趋势；
+
+（2）如果存在关联趋势，那么其是线性还是非线性的；
+
+（3）观察是否有存在离群值，从而分析这些离群值对建模分析的影响。
+
+-----
+
+本文可以看作是[《R语言数据可视化之美》](https://github.com/EasyChart/Beautiful-Visualization-with-R "《R语言数据可视化之美》")的学习笔记。该书第四章——**数据关系型图表**中展示的散点图系列包括以下四个方面：
+
+1. [趋势显示的二维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485142&idx=1&sn=564bffc9e7765ebae9b9b81a17a188d9&chksm=ea24f932dd5370241a05c75975ff24a34423a8f182bf6c716c8c9ed981788d0492dcb268248a&token=1544929502&lang=zh_CN#rd)
+
+2. 分布显示的二维散点图
+
+3. 气泡图 
+
+4. 三维散点图
+
+本文主要对**第二部分**进行介绍，并加上小编自己的理解。下面几个部分也会在最近陆续推出，敬请关注。
+
+
+## 3.单数据系列
+
+### 3.1数据格式
+
+这里我们使用正态分布随机产生250个数据（这个就是实际我们采集的一维数据）。`step`是指按照多少的区间进行划分类别。我们通过`hist()`将直方图内部数据进行存储(我也是第一次见这种操作，以后学起来)。输出`hg`.
+
+其中breaks表示边界点，counts表示每个区间内的个数，density表示密度函数值。mids表示区间的中间点，并利用这些参数来构建后续绘图所需要的数据。通过循环语句，计算出x，y坐标数据。
+完整代码如下：
+
+```{r message=FALSE, warning=FALSE}
+#加载包
+library(ggplot2)
+library(RColorBrewer) #颜色
+library(scales)
+
+x <- rnorm(250 , mean=10 , sd=1) 
+step<-0.2
+breaks<- seq(min(x)-step,max(x)+step,step)
+
+hg <- hist(x, breaks = breaks , plot = FALSE)#使用直方图数据，但不绘图
+
+bins <- length(hg$counts) # bin类别数
+yvals <- numeric(0)       
+xvals <- numeric(0) 
+for(i in 1:bins) {       
+  yvals <- c(yvals, hg$counts[i]:0)  
+  xvals <- c(xvals, rep(hg$mids[i], hg$counts[i]+1))  
+}    
+                                                   
+dat <- data.frame(xvals, yvals)  # 变成dataframe格式
+dat <- dat[yvals > 0, ]          # 去除小于0的数
+
+colormap <- colorRampPalette(rev(brewer.pal(11,'Spectral')))(32) #颜色选择
+```
+
+
+
+
+### 3.2原始数据绘制
+
+接下来我们使用该数据（单数据）进行绘制：
+
+- **柱状图（正态分布）**
+
+```{r message=FALSE, warning=FALSE}
+ggplot(dat, aes(x=xvals,y=yvals,fill=yvals))+
+  geom_tile(colour="black")+
+  scale_fill_gradientn(colours=colormap)+
+  ylim (0, max(yvals)*1.3)+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",
+      face="bold.italic",hjust=.5,color="black"),
+    legend.background = element_blank(),
+    legend.position=c(0.9,0.75)
+  )
+```
+
+
+`geom_tile(colour="black")`改为`geom_point(colour="black",shape=21,size=4)`会得到以下图片
+
+```{r message=FALSE, warning=FALSE}
+ggplot(dat, aes(x=xvals,y=yvals,fill=yvals))+
+  geom_point(colour="black",shape=21,size=4)+
+  scale_fill_gradientn(colours=colormap)+
+  ylim (0, max(yvals)*1.3)+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",hjust=.5,color="black"),
+    legend.background = element_blank(),
+    legend.position=c(0.9,0.75)
+  )
+```
+
+### 3.3 Q-Q图的绘制
+
+在R中可以使用`CircStats`包的`pp.plot()`函数绘制P-P图；`ggplot2` 包的`geom_qq()`函数和`geom_qq_line()`函数结合可以绘制Q-Q 图；另外，`ggplot2`包结合`ggpubr`包也可以绘制，[当然改包还有其他好用的功能](https://rpkgs.datanovia.com/ggpubr/index.html "ggpubr简介")。
+
+下面对第三种方式进行实现：
+`ggpubr`包中的`ggqqplot`相应参数如下，包括了非常多的参数，前两个参数分别表示：数据，要绘制的变量。当然其他数据包括设置主题（`ggtheme`）;添加qqline（`add = c("qqline")）`等。
+
+```
+ggqqplot(
+  data,  x,  combine = FALSE,  merge = FALSE,  color = "black",  palette = NULL,  size = NULL,  shape = NULL,  add = c("qqline", "none"),  add.params = list(linetype = "solid"),  conf.int = TRUE,  conf.int.level = 0.95,
+  title = NULL,  xlab = NULL,  ylab = NULL,  facet.by = NULL,  panel.labs = NULL,  short.panel.labs = TRUE,  ggtheme = theme_pubr(),  ...
+)
+```
+
+为了更好解释这个函数，我们重新模拟一个数据集。
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+# 创建一个数据集
+set.seed(1234)
+wdata = data.frame(
+   sex = factor(rep(c("F", "M"), each=200)),
+   weight = c(rnorm(200, 55), rnorm(200, 58)))
+head(wdata, 4)
+```
+
+
+```
+# 基本的Q-Q图
+ggqqplot(wdata, x = "weight")
+```
+
+
+
+```
+# 按性别改变颜色和形状
+ggqqplot(wdata, x = "weight",
+   color = "sex",
+  ggtheme = ggplot2::theme_grey())#更改主题（灰色）当然可以用其他主题
+```
+
+
+### 3.4 带透明度设置的散点图
+
+- 数据设定
+
+这个数据是张杰老师书中的数据，是经过一定处理得到的，结果图可以看下面。
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(RColorBrewer)  
+
+mydata<-read.csv("HighDensity_Scatter_Data.csv",stringsAsFactors=FALSE)
+head(mydata)
+```
+
+
+我们利用`ggplot()`简单绘制二维数据的散点图，之后在对该数据进行聚类。
+
+```{r message=FALSE, warning=FALSE}
+ggplot(data = mydata, aes(x,y)) +
+  geom_point( colour="black",alpha=0.1)+
+  labs(x = "Axis X",y="Axis Y")+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",hjust=.5,color="black"),
+    legend.position="none"
+  )
+```
+
+
+
+### 3.5 kmeans聚类的散点图
+
+对上面数据进行kmeans聚类，这里使用base中的 `kmeans()`进行分类（两类），然后将分类情况(`cluster`)进行存储，并转化成因子类型。绘图时，cluster来设置颜色，这样就可以很明显看出分类结果。
+
+```{r message=FALSE, warning=FALSE}
+kmeansResult<- kmeans(mydata, 2, nstart = 20)
+mydata$cluster <- as.factor(kmeansResult$cluster)
+ggplot(data = mydata, aes(x,y,color=cluster)) +
+  geom_point( alpha=0.2)+
+  scale_color_manual(values=c("#00AFBB",  "#FC4E07"))+
+  labs(x = "Axis X",y="Axis Y")+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",color="black"),
+    legend.background=element_blank(),
+    legend.position=c(0.85,0.15)
+  )
+```
+
+
+
+### 3.6 带椭圆标定的聚类散点图
+
+有时候我们想突出聚类结果会在结果上画上椭圆，那么可以使用`stat_ellipse()`。
+
+```{r message=FALSE, warning=FALSE}
+ggplot(data = mydata, aes(x,y,color=cluster)) +
+  geom_point (alpha=0.2)+  # 绘制透明度为0.2 的散点图
+  stat_ellipse(aes(x=x,y=y,fill= cluster), geom="polygon", level=0.95, alpha=0.2)+#绘制椭圆标定不同类别
+  scale_color_manual(values=c("#00AFBB","#FC4E07"))+#使用不同颜色标定不同数据类别
+  scale_fill_manual(values=c("#00AFBB","#FC4E07"))+#使用不同颜色标定不同椭类别
+  labs(x = "Axis X",y="Axis Y")+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",color="black"),
+    legend.background=element_blank(),
+    legend.position=c(0.85,0.15)
+  )
+```
+
+
+
+## 3.7 多数据系列
+
+多数据系列，其实在聚类散点图就已经涉及到。这里对较少数据进行绘制，这样看起来结果更加美观。
+
+```{r message=FALSE, warning=FALSE}
+mydata<-mydata[round(runif(300,0,10000)),]
+kmeansResult<- kmeans(mydata, 2, nstart = 20)
+mydata$cluster <- as.factor(kmeansResult$cluster)
+ggplot(data = mydata, aes(x,y,fill=cluster,shape=cluster)) +
+  geom_point(size=4,colour="black",alpha=0.7)+
+  scale_shape_manual(values=c(21,23))+
+  scale_fill_manual(values=c("#00AFBB",  "#FC4E07"))+
+  labs(x = "Axis X",y="Axis Y")+
+  scale_y_continuous(limits = c(-5, 10))+
+  scale_x_continuous(limits = c(-5, 10))+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",color="black"),
+    legend.background=element_blank(),
+    legend.position=c(0.85,0.15)
+  )
+```
+
