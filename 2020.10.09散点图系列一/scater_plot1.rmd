@@ -1,0 +1,216 @@
+---
+title: "散点图系列(1)"
+author:
+  - 庄亮亮
+date: "2020/10/09"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+记得安装prettydoc包，html模板在该包渲染而成。
+
+![](https://mmbiz.qpic.cn/mmbiz_jpg/MIcgkkEyTHgfkvXafZE9scXp4icvdcNFyic0z7THajQBAyLNRiau3CKnZ3L9Y9K2YXObhaiblBm0Jbnicaq9lW3pz4g/640?wx_fmt=jpeg)  
+欢迎**关注**我的**公众号**，**点赞，在看，收藏\~\~\~**
+
+---------
+
+## 简介
+
+**散点图**（scatter graph、point graph、X-Y plot、scatter chart ）是科研绘图中最常见的图表类型之一，通常用于显示和比较数值。散点图是使用一系列的散点在直角坐标系中展示变量的数值分布。在二维散点图中，可以通过观察两个变量的数据变化，发现两者的关系与相关性。
+
+散点图可以提供三类关键信息：
+
+（1）变量之间是否存在数量关联趋势；
+
+（2）如果存在关联趋势，那么其是线性还是非线性的；
+
+（3）观察是否有存在离群值，从而分析这些离群值对建模分析的影响。
+
+-----
+
+本文可以看作是[《R语言数据可视化之美》](https://github.com/EasyChart/Beautiful-Visualization-with-R "《R语言数据可视化之美》")的学习笔记。该书第四章——**数据关系型图表**中展示的散点图系列包括以下四个方面：
+
+1. 趋势显示的二维散点图 
+
+2. 分布显示的二维散点图
+
+3. 气泡图 
+
+4. 三维散点图
+
+本文主要对第一部分进行介绍，并加上小编自己的理解。下面几个部分也会在这星期陆续推出，敬请关注。
+
+## 2.本文框架 
+
+
+![](https://imgkr2.cn-bj.ufileos.com/0dce4c7a-cf88-4cd7-a5fb-a387a81ca46a.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=yw7%252BqqJH9pFaw0RcxoVcXlJTpc4%253D&Expires=1602321049)
+
+
+
+## 2.数据介绍
+
+随机产生2列20行的数据，列名分别为x，y。x为序号，y由标准正态分布中产生。
+
+```{r}
+library(ggplot2)
+mydata = data.frame('x'= 1:20,'y'=sort(rnorm(20)))
+head(mydata)
+```
+
+
+## 3. 不同类型拟合曲线的绘制
+
+### 3.1 loess数据平滑曲线
+
+**局部加权回归**（Locally Weighted Scatterplot Smoothing，LOESS）主要思想是取一定比例的局部数据，在这部分子集中拟合多项式回归曲线，这样就可以观察到数据在局部展现出来的规律和趋势。曲线的光滑程度与选取数据比例有关：比例越少，拟合越不光滑，反之越光滑。
+
+ggplot2绘制时，使用`geom_point`绘制散点图，`geom_smooth`加入拟合曲线，`method`选择为loess,`se=TRUE`表示加入置信带，`span`控制loess平滑的平滑量，较小的数字产生波动线，较大的数字产生平滑线。其他参数对颜色，填充色以及透明度进行了修改。
+
+```{r}
+ggplot(data = mydata, aes(x,y)) +
+geom_point(fill="black",colour="black",size=3,shape=21) +
+geom_smooth(method = 'loess',span=0.4,se=TRUE,
+colour="#00A5FF",fill="#00A5FF",alpha=0.2)
+```
+
+
+
+### 3.2 样条数据平滑曲线
+
+这里使用了splines包中的样条函数，df=5，样条具有五个基函数，其他参数变化不大。具体非线性模型相关资料可参考：[R语言里的非线性模型：多项式回归、局部样条、平滑样条、广义加性模型分析](http://tecdat.cn/r%e8%af%ad%e8%a8%80%e9%87%8c%e7%9a%84%e9%9d%9e%e7%ba%bf%e6%80%a7%e6%a8%a1%e5%9e%8b%ef%bc%9a%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92%e3%80%81%e5%b1%80%e9%83%a8%e6%a0%b7%e6%9d%a1%e3%80%81%e5%b9%b3/ "R语言里的非线性模型：多项式回归、局部样条、平滑样条、广义加性模型分析")
+
+```{r}
+ggplot(data = mydata, aes(x,y)) +
+geom_point(fill="black",colour="black",size=3,shape=21) +
+geom_smooth(method="lm",se=TRUE,
+formula=y ~ splines::bs(x, 5),colour="red")
+```
+
+
+
+### 3.3 GAM 数据平滑曲线
+
+GAM 模型的拟合是通过一个迭代过程（向后拟合算法）对每个预测变量进行样条平滑的。其算法要在拟合误差和自由度之间进行权衡最终达到最优。
+
+```{r}
+ggplot(data = mydata, aes(x,y)) +
+geom_point(fill="black",colour="black",size=3,shape=21) +
+geom_smooth(method = 'gam',formula=y ~s(x))
+```
+
+
+
+## 4. 残差分析图
+
+**残差分析**（residual analysis）就是通过残差所提供
+的信息，分析出数据的可靠性、周期性或其他干扰。用于分析模型的假定正确与否的方法。所谓残
+差是指观测值与预测值（拟合值）之间的差，即实际观察值与回归估计值的差。以下给出两种拟合方法的残差分析图。**注意：** 这里还是使用前面随机模拟产生的数据。
+
+
+### 4.1 线性拟合
+
+通过lm函数进行回归分析，公式为 $y = ax+b$。并将预测值 $\hat{y}$，残差$\varepsilon$，残差的绝对值$|\varepsilon|$进行存储，结果如下所示。
+
+```{r}
+fit <- lm(y ~ x, data = mydata)
+mydata$predicted <- predict(fit) # Save the predicted values
+mydata$residuals <- residuals(fit) # Save the residual values
+mydata$Abs_Residuals <- abs(mydata$residuals)
+head(mydata)
+```
+
+
+完整代码如下所示：
+
+```{r include=FALSE}
+ggplot(mydata, aes(x = x, y = y)) +
+  geom_point(aes(fill =Abs_Residuals, size = Abs_Residuals),shape=21,colour="black") + # size also mapped
+  scale_fill_continuous(low = "black", high = "red") +
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +
+  geom_point(aes(y = predicted), shape = 1) +
+  geom_segment(aes(xend = x, yend = predicted), alpha = .2) +
+  guides(fill = guide_legend((title="Rresidual")),
+         size = guide_legend((title="Rresidual")))+
+  xlab("X-Axis")+
+  ylab("Y-Axis")+
+  theme(text=element_text(size=15,face="plain",color="black"),
+        axis.title=element_text(size=10,face="plain",color="black"),
+        axis.text = element_text(size=10,face="plain",color="black"),
+        legend.position = "right",
+        legend.title  = element_text(size=13,face="plain",color="black"),
+        legend.text = element_text(size=10,face="plain",color="black"),
+        legend.background = element_rect(fill=alpha("white",0)))
+```
+
+#### 代码详解
+
+绘制的方式比较简单，根据ggplot的思想不断叠加图层。我们对以下代码进行详细分析：
+
+1. 以x为横坐标，y为纵坐标，`geom_point()`绘制散点图，以Abs_Residuals的大小来填充点和尺寸，颜色为黑色。`scale_fill_continuous()`将填充色从"black"到"red"渐变。`geom_smooth()`给数据加入拟合曲线，这里使用`lm()`方法，置信带不展示，颜色为"lightgrey"。这时候的图形如下：
+
+![](https://imgkr2.cn-bj.ufileos.com/07b50a94-50de-4f7d-a995-b825789986d7.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=0Hkgl4JPfi%252FokI6OtholM0UxFBg%253D&Expires=1602318448)
+
+
+2. 将预测值的点进行绘制，`geom_segment()`可加入线段，其中`xend = x, yend = predicted`表示从x到x，y到predicted，所以就会产生下图中的竖直线了。
+
+![](https://imgkr2.cn-bj.ufileos.com/10d02b70-707a-4361-ac15-dfb1096e5757.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=AGI6HCOJsJf6kxDDBHUpjpeh%252B6A%253D&Expires=1602318537)
+
+3. 这时残差图基本完成，但是可以看到横纵坐标的标题有问题，右边的legend太累赘了以及字体颜色和大小还可以再做修改。最后图形如下所示：
+
+![](https://imgkr2.cn-bj.ufileos.com/4c9a07c1-b7d0-41fa-ac8b-c3c92439c30f.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=xoAbaDqw7uzKX3nZP%252FHpEus%252BjxI%253D&Expires=1602315306)
+
+
+
+
+
+### 4.2 非线性拟合
+
+非线性拟合绘制残差图与线性拟合类似，唯一不同的点在：利用lm函数拟合不同的回归模型，以下使用了公式：$y = ax+bx^2+c$，后面的绘制与上面相同。
+
+```{r}
+d<-mydata
+fit <- lm(y ~ x+I(x^2), data = d)
+d$predicted <- predict(fit) 
+d$residuals0 <- residuals(fit)
+d$Residuals<-abs(d$residuals0 )
+```
+
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+geom_smooth(method = "lm",formula = y ~ x+I(x^2), se = FALSE, color = "lightgrey") +
+geom_segment(aes(xend = x, yend = predicted), alpha = .2) +
+geom_point(aes(fill =Residuals, size = Residuals),shape=21,colour="black") + # size also mapped
+scale_fill_continuous(low = "black", high = "red") +
+geom_point(aes(y = predicted), shape = 1) +
+xlab("X-Axis")+ ylab("Y-Axis")+
+geom_point(aes(y = predicted), shape = 1) +
+guides(fill = guide_legend((title="Rresidual")),
+size = guide_legend((title="Rresidual")))+
+theme(text=element_text(size=15,face="plain",color="black"),
+axis.title=element_text(size=10,face="plain",color="black"),
+axis.text = element_text(size=10,face="plain",color="black"),
+legend.position = "right",
+legend.title = element_text(size=13,face="plain",color="black"),
+legend.text = element_text(size=10,face="plain",color="black"),
+legend.background = element_rect(fill=alpha("white",0)))
+```
+
+
+
+这两个图采用黑色到红色渐变颜色和气泡面积大小两个视觉暗示对应残差的绝对值大小，用于实际数据点的表示；而拟合数据点则用小空心圆圈表示，并放置在灰色的拟合曲线上。用直线连接实际数据点和拟合数据点。残差的绝对值越大，颜色越红、气泡也越大，连接直线越长，这样可以很清晰地观察数据的拟合效果。
+
+### 4.3 有趣的拓展
+
+R 中的[ggimage](https://cran.r-project.org/web/packages/ggimage/vignettes/ggimage.html "ggimage")包提供了`geom_image()`函数可以将对应的圆形数据点使用图片替代展示。我们将其运用到上面的数据集中，就可以得到有趣的图了。
+
+```{r}
+library(ggimage)
+mydata$image = "https://www.r-project.org/logo/Rlogo.png"
+ggplot(mydata, aes(x, y)) + geom_image(aes(image=image))+
+  geom_smooth(method = 'lm')
+```
+
+
