@@ -26,4 +26,11 @@
 
 - R可视乎|分面一页多面[2020.08.15分面](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484186&idx=1&sn=c913a65f88132b3611e580b0318404d9&chksm=ea24fcfedd5375e87adfc3028850ee4034a0a0d34dd3855cf155b28eea9c71bfedb381d2c9e9&token=222682915&lang=zh_CN#rd)
 
+- [R可视乎|马赛克图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484309&idx=1&sn=d79ce748d43fe066a0bad0221ae8e068&chksm=ea24fc71dd537567c3ca322cb216e92c2ca4bdd96c20c9873e762d81cfb892583af10198b757&token=682523778&lang=zh_CN#rd)
+
+-[R可视乎|混合多个图形](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484367&idx=1&sn=30a54bd7dbf44852c380192d11a10ab9&chksm=ea24fc2bdd53753d239bbe995dfcb88232223e0a24f595acb343433fd4a053116e9f26dbf983&token=682523778&lang=zh_CN#rd)
+
+-[R可视乎|华夫饼图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484631&idx=1&sn=6402ba80ab417c1d8a99c7778a48c7db&chksm=ea24fb33dd537225a7488a578b876b6da2f2157e0048b9515100d4ab64301fad2ad4f460e822&token=682523778&lang=zh_CN#rd)
+
+
 - R可视乎|气泡图[2020.11.12气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=682523778&lang=zh_CN#rd)
