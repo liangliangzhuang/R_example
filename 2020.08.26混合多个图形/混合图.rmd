@@ -1,0 +1,115 @@
+---
+title: "混合图"
+author:
+  - 庄亮亮
+date: "2020/11/10"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+记得安装prettydoc包，html模板在该包渲染而成。
+
+![](https://mmbiz.qpic.cn/mmbiz_jpg/MIcgkkEyTHgfkvXafZE9scXp4icvdcNFyic0z7THajQBAyLNRiau3CKnZ3L9Y9K2YXObhaiblBm0Jbnicaq9lW3pz4g/640?wx_fmt=jpeg)  
+欢迎**关注**我的**公众号**，**点赞，在看，收藏\~\~\~**
+
+
+创作不易！感谢大家支持。
+
+-----------------------
+
+
+## 前言
+
+在同一页面上混合多个图形是一种常见的做法。它可以在同一数字上
+总结大量信息，例如，它被广泛用于科学出版物。
+
+## 基础包——par()
+
+一页多图用mfrow参数或mfcol参数规定，这也是我几年前经常用的一种方法。
+```{r}
+x <- rnorm(50)
+y <- rnorm(50,2,2)
+```
+随便模拟产生数据，并对数据绘制一些简单的图，用该函数将一页中对他们进行全部展示。
+```{r}
+par(mfrow=c(2,2))
+plot(x, y, xlab = "", ylab = "")
+hist(x,main='')
+qqnorm(x,main = '');qqline(x)
+barplot(x, axes = FALSE, space = 0,col='white')
+```
+
+
+
+## 基础包——layout()
+
+```
+layout(mat, widths = rep.int(1, ncol(mat)),
+       heights = rep.int(1, nrow(mat)), respect = FALSE)
+```      
+       
+- mat 参数为一个矩阵，提供了作图的顺序以及图形版面的安排。0代表空缺，不绘制图形，大于0 的数代表绘图顺序，相同数字代表占位符。
+
+- widths 和 heights 参数提供了各个矩形作图区域的长和宽的比例。
+
+- respect 参数控制着各图形内的横纵轴刻度长度的比例尺是否一样。
+
+- n 参数为欲显示的区域的序号。
+
+生成2行2列的版面，并设置宽度和高度。par()中oma参数指四个外边空的行数
+```{r}
+par(oma = c(2,2,2,2))
+nf <- layout(matrix(c(1,2,1,3),2,2),widths = c(1, 3), heights = c(1, 2))
+layout.show(nf)
+```
+
+
+再将各个图进行填充
+
+```{r}
+plot(x, y, xlab = "", ylab = "")
+hist(x,main='')
+qqnorm(x,main = '');qqline(x)
+```
+
+
+前面两种方法，说实话可以实现，但是比较费劲。那么下面看看gridExtra包。
+
+## gridExtra包——混合多个图形
+
+gridExtra包让混合多个图片变得轻而易举。它提供了grid.arrange() 函数来完成这个任务。它的nrow参数允许指定如何安排布局。
+
+对于更复杂的布局，arrangeGrob() 函数允许做一些嵌套。这里有 4 个
+例子来说明 gridExtra 是如何工作的:
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+```
+
+这里我们用ggplot绘图，并存在变量名称（g1,g2,g3）中，然后用grid.arrange()将各个变量名称展现出来。
+
+
+
+```{r}
+# Make 3 simple graphics:
+g1 <- ggplot(mtcars, aes(x=qsec)) + geom_density(fill="slateblue")
+g2 <- ggplot(mtcars, aes(x=drat, y=qsec, color=cyl)) + geom_point(size=5) + theme(legend.position="none")
+g3 <- ggplot(mtcars, aes(x=factor(cyl), y=qsec, fill=cyl)) + geom_boxplot() + theme(legend.position="none")
+g4 <- ggplot(mtcars , aes(x=factor(cyl), fill=factor(cyl))) + geom_bar()
+# Plots
+grid.arrange(g1, g2, g3, nrow = 3)
+
+```
+
+```{r}
+grid.arrange(g2, arrangeGrob(g3, g4, ncol=2), nrow = 2)
+```
+
+```{r}
+grid.arrange(g2, arrangeGrob(g3, g4,g1, ncol=3), nrow = 2)
+
+```
+
