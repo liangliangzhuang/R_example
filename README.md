@@ -32,5 +32,7 @@
 
 - R可视乎|华夫饼图[2020.09.01华夫饼图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484631&idx=1&sn=6402ba80ab417c1d8a99c7778a48c7db&chksm=ea24fb33dd537225a7488a578b876b6da2f2157e0048b9515100d4ab64301fad2ad4f460e822&token=682523778&lang=zh_CN#rd)
 
+-R可视乎|散点图系列（1）[2020.10.09散点图系列一](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485142&idx=1&sn=564bffc9e7765ebae9b9b81a17a188d9&chksm=ea24f932dd5370241a05c75975ff24a34423a8f182bf6c716c8c9ed981788d0492dcb268248a&token=682523778&lang=zh_CN#rd)
 
+- R可视乎|散点图系列（2）[2020.10.27散点图系列二](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485276&idx=1&sn=f98a2aede13555fa1c372f08c3cdec44&chksm=ea24f8b8dd5371ae9e13f3df41ff73e070775eb1ab871370783bb3f396a0a9c29d42c6a89210&token=682523778&lang=zh_CN#rd)
 - R可视乎|气泡图[2020.11.12气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=682523778&lang=zh_CN#rd)
