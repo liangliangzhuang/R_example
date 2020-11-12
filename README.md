@@ -42,6 +42,22 @@
 
 - 志愿填报|温州大学"非官方"招办专家帮你支招！[2020.07.29温大招生](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483954&idx=1&sn=047a1b1b3e9c5ce46e3876bb05b54282&chksm=ea24fdd6dd5374c0c119c680cbd595b77a0bc7479889b34d378ae3282bce5e07eff93a5d08e5&mpshare=1&scene=1&srcid=0729IxeNwC6yyOwYcJh7C7Px&sharer_sharetime=1596027172994&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=d3c7cb8eeb23bc8322a73076864458cac5ef3808dd487c233e6eda4d377bdf5bb87322ee7ffc1b6b68f86e3799092502da7e5839e8080dc5d265dbdc5a880b93c2c286acab339bbe8bf9a06458dfa653&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A1EDrAZkVUF2VzXm2Nm2UpQ%3D&pass_ticket=GHX0j6fsfiEATjqcMrcVQQYSihtF3L6yDim2tm78a1XP0v2qucpofrFRF8%2Bz4zjt)
 
+-----
+
+# R包介绍
+
+- reticulate包——数据科学者的福音[2020.09.15reticulate](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484515&idx=1&sn=26b03b6ad26f2315cdc04049f740f1c0&chksm=ea24fb87dd537291d5184c28a9c9f2cdda591e4c17a7e7daaff34a9a1c3949ee0e86f9b355b7&token=682523778&lang=zh_CN#rd)
+
+- 用ggpubr包制图 [2020.10.30ggpubr](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485615&idx=1&sn=47ac21f131bf2ac6c90c50fb9fb7966b&chksm=ea24f74bdd537e5d74f60919388f683dfe779fe8a2d11999e55e290d4bdb25c64e36cc74ccc1&token=682523778&lang=zh_CN#rd)
+
+------------
+
+# R数据科学
+
+- [R数据科学] 1.6几何对象[2020.08.23几何对象](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484261&idx=1&sn=6b451f752f86a284717d958e13738686&chksm=ea24fc81dd537597080427826e52dd4c1dac24e9cee9cc07897497f0dd9649ff63cc6a50f232&token=682523778&lang=zh_CN#rd)
+
+- [R数据科学]tidyverse数据清洗案例详解[2020.09.27tidyverse数据清洗](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484881&idx=1&sn=2f5330b23e376ceb2ef746184935174f&chksm=ea24fa35dd53732319b16bed64e42a8dfa2da2a578cc2f7d4ef043f000bff81d5113c4e9dca1&token=682523778&lang=zh_CN#rd)
+
 
 
 
