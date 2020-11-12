@@ -1,0 +1,140 @@
+---
+title: "马赛克图"
+author:
+  - 庄亮亮
+date: "2020/11/10"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+记得安装prettydoc包，html模板在该包渲染而成。
+
+## 1.前言
+
+**马赛克图**（mosaic plot），显示分类数据中一对变量之间的关系，原理类似双向的100%堆叠式条形图，但其中所有条形在数值/标尺轴上具有相等长度，并会被划分成段。可以通过这两个变量来检测类别与其子类别之间的关系。
+
+### 主要优点
+
+马赛克图能按行或按列展示多个类别的比较关系。
+
+### 主要缺点 
+
+难以阅读，特别是当含有大量分段的时候。此外，我们也很难准确地对每个分段进行比较，因为它们并非沿着共同基线排列在一起。
+
+
+### 适用
+
+马赛克图比较适合提供数据概览。
+
+### 注意
+
+**非坐标轴非均匀的马赛克图**也是统计学领域标准的马赛克图，一个非均匀的马赛克图包含以下构成元素：①非均匀的分类坐标轴；②面积、颜色均有含义的矩形块；③图例。对于非均匀的马赛克图，关注的数据维度非常多，一般的用户很难直观理解，在多数情况下可以被拆解成多个不同的图表，以下我们会对其进行绘制。
+
+## 2.数据介绍
+
+数据构建代码来源《R数据可视化之美》，任意拟定一个数据框。并用melt()函数将数据转化成以下结果：
+
+```{r}
+library(ggplot2)
+library(RColorBrewer)
+library(reshape2)  #提供melt()函数
+library(plyr)      #提供ddply()函数,join()函数
+
+df <- data.frame(segment = c("A", "B", "C","D"),Alpha = c(2400	,1200,	600	,250), 
+         Beta = c(1000	,900,	600,	250),
+         Gamma = c(400,	600	,400,	250), 
+         Delta = c(200,	300	,400,	250))
+
+melt_df<-melt(df,id="segment")
+str(melt_df)
+```
+
+
+计算出每行的最大，最小值，并计算每行各数的百分比。ddply()对data.frame分组计算，并利用join()函数进行两个表格连接。
+
+```{r}
+segpct<-rowSums(df[,2:ncol(df)])
+for (i in 1:nrow(df)){
+  for (j in 2:ncol(df)){
+    df[i,j]<-df[i,j]/segpct[i]*100  #将数字转换成百分比
+  }
+}
+
+segpct<-segpct/sum(segpct)*100
+df$xmax <- cumsum(segpct)
+df$xmin <- (df$xmax - segpct)
+
+dfm <- melt(df, id = c("segment", "xmin", "xmax"),value.name="percentage")
+colnames(dfm)[ncol(dfm)]<-"percentage"
+
+#ddply()函数使用自定义统计函数，对data.frame分组计算
+dfm1 <- ddply(dfm, .(segment), transform, ymax = cumsum(percentage))
+dfm1 <- ddply(dfm1, .(segment), transform,ymin = ymax - percentage)
+dfm1$xtext <- with(dfm1, xmin + (xmax - xmin)/2)
+dfm1$ytext <- with(dfm1, ymin + (ymax - ymin)/2)
+
+#join()函数，连接两个表格data.frame
+dfm2<-join(melt_df, dfm1, by = c("segment", "variable"), type = "left", match = "all")
+str(dfm2)
+```
+
+## 2.方法
+
+绘制马赛克图可以使用ggplot2包的geom_rect()函数、ggmosaic包的geom_mosai()函数、graphics包的mosaicplot()函数，或者vcd包的mosaic()函数绘制马赛克图。接下来对他们进行一一实现。
+
+### 2.1 ggplot2包的geom_rect()函数
+
+这个方法比较复杂，图层一层一层叠加得到的，不过灵活性比较强，可根据自己喜好进行修改。
+
+```{r}
+ggplot()+
+  geom_rect(aes(ymin = ymin, ymax = ymax, xmin = xmin, xmax = xmax, fill = variable),dfm2,colour = "black") + 
+  geom_text(aes(x = xtext, y = ytext,  label = value),dfm2 ,size = 4)+
+  geom_text(aes(x = xtext, y = 103, label = paste("Seg ", segment)),dfm2 ,size = 4)+
+  geom_text(aes(x = 102, y = seq(12.5,100,25), label = c("Alpha","Beta","Gamma","Delta")), size = 4,hjust = 0)+
+  scale_x_continuous(breaks=seq(0,100,25),limits=c(0,110))+
+  theme(panel.background=element_rect(fill="white",colour=NA),
+        panel.grid.major = element_line(colour = "grey60",size=.25,linetype ="dotted" ),
+        panel.grid.minor = element_line(colour = "grey60",size=.25,linetype ="dotted" ),
+        text=element_text(size=15),
+        legend.position="none")
+```
+
+**图形解释：**这个马赛克图，从A这列纵向看可以看出各个指标(Delta,Gamma等)的占比情况，从横向来看，不同变量（A,B等）的宽度代表该变量占所有数据的占比情况，越宽说明该变量数据总和越大。
+
+
+
+
+### 2.2 vcd包的mosaic()函数
+
+用该函数，我们就不用前面那么复杂的数据集进行绘制了，只要使用xtabs转换成以下数据格式即可，方便简单。
+
+```{r}
+library(vcd)
+table<-xtabs(value ~variable+segment, melt_df)
+mosaic( ~segment+variable,table,shade=TRUE,legend=TRUE,color=TRUE)
+```
+
+
+### 2.3 graphics包的mosaicplot()函数
+
+该方法和上面类似，掉包就行，数据类型与上面相同。
+
+```{r}
+library(graphics)
+library(wesanderson) #颜色提取
+mosaicplot( ~segment+variable,table, color = wes_palette("GrandBudapest1"),main = '')
+```
+
+
+
+## 参考
+
+1.  《R数据可视化之美》 
+
+2.  https://blog.csdn.net/tobeyourlover/article/details/52704333?%3E
+
+![](https://mmbiz.qpic.cn/mmbiz_jpg/MIcgkkEyTHgfkvXafZE9scXp4icvdcNFyic0z7THajQBAyLNRiau3CKnZ3L9Y9K2YXObhaiblBm0Jbnicaq9lW3pz4g/640?wx_fmt=jpeg)  
+欢迎**关注**我的**公众号**，**点赞，在看，收藏\~\~\~**
