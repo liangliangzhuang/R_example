@@ -35,8 +35,6 @@
 
 - R可视乎|气泡图[2020.11.12气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=682523778&lang=zh_CN#rd)
 
-- gghalves包-你五毛我五毛[2020.11.14gghalves](https://mp.weixin.qq.com/s/WaMCCmT2eAP9DmCjPOtcMg)
-
 
 -------
 # R案例分析
@@ -52,6 +50,9 @@
 - reticulate包——数据科学者的福音[2020.09.15reticulate](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484515&idx=1&sn=26b03b6ad26f2315cdc04049f740f1c0&chksm=ea24fb87dd537291d5184c28a9c9f2cdda591e4c17a7e7daaff34a9a1c3949ee0e86f9b355b7&token=682523778&lang=zh_CN#rd)
 
 - 用ggpubr包制图 [2020.10.30ggpubr](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485615&idx=1&sn=47ac21f131bf2ac6c90c50fb9fb7966b&chksm=ea24f74bdd537e5d74f60919388f683dfe779fe8a2d11999e55e290d4bdb25c64e36cc74ccc1&token=682523778&lang=zh_CN#rd)
+
+
+- gghalves包-你五毛我五毛[2020.11.14gghalves](https://mp.weixin.qq.com/s/WaMCCmT2eAP9DmCjPOtcMg)
 
 ------------
 
