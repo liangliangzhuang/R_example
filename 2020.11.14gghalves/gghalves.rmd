@@ -1,0 +1,314 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# gghalves包
+
+## 介绍
+
+`gghalves`可以通过`ggplot2`轻松地编写自己想要的一半一半（half-half plots）的图片。比如：在散点旁边显示箱线图、在小提琴图旁边显示点图。
+
+
+[gghalves](https://github.com/erocoar/gghalves)将`_half_`扩展添加到选定的`geom`。比如：`geom_half_violin()`函数，相当于`geom_violin()`函数的变体，该函数主要作用就是展示一半的小提琴图，然后与其他图形组合。还包含以下函数：
+
+- geom_half_boxplot
+- geom_half_violin
+- geom_half_point
+
+## 安装
+
+gghalves通过GitHub安装:
+```
+if (!require(devtools)) {
+    install.packages('devtools')
+}
+devtools::install_github('erocoar/gghalves')
+```
+
+
+## 函数介绍
+
+```
+geom_half_violin(mapping = NULL, data = NULL, stat = "half_ydensity",
+  position = "dodge", ..., side = "l", nudge = 0,
+  draw_quantiles = NULL, trim = TRUE, scale = "area",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+```
+其参数包括：翻译来源[生信玩家](https://blog.csdn.net/weixin_43700050/article/details/107512448)
+
+| 参数 | 解释 |
+| --- | --- |
+| `mapping` | 通过`aes()`指定图形属性映射。默认为`NULL`，使用`ggplot()`中`aes()`指定的映射。 |
+| `data` | 指定数据框。默认为`NULL`，使用`ggplot()`中的数据。 |
+| `stat` | 覆盖geom\_density\(\)和stat\_density\(\)之间的默认连接。 |
+| `position` | 位置调整，可以是字符串，默认为`"dodge"`，也可以是位置调整函数的调用结果。 |
+| `side` | 画半小提琴图的一侧。 “ l”代表左，“ r”代表右，默认为“ l”。 |
+| `nudge` | 在小提琴图和分配给x轴上给定因子的空间中间之间添加空间。 |
+| `draw_quantiles` | 如果不是`MULL`（默认为`NULL`），在给定的密度估计分位数处绘制水平线。 |
+| `trim` | 若为`TRUE`（默认），将小提琴的尾部修整到数据范围。 若为`FALSE`，不修剪尾巴。 |
+| `scale` | 如果为`"area"`（默认），则所有小提琴都具有相同的面积（修剪尾部之前）。  
+| `na.rm` | 如果为`FALSE`（默认），则会使用警告删除缺失值。如果为`TRUE`，则会自动删除缺少的值。 |
+| `show.legend` | 逻辑值，默认为`NA`，若为`FALSE`，不显示该图层的图例；  若为`TRUE`，则显示该图层的图例。  它也可以是带有名称（图形属性）的逻辑向量，用来选择要显示的图形属性。 如`show.legend = c(size = TRUE,color = FALSE)`表示显示`size`对应的图例，而不显示`color`对应的图例。 |
+| `inherit.aes` | 默认为`TRUE`，若为`FALSE`，覆盖`ggplot()`中`aes()`默认属性，而不是与他们组合。 |
+| `geom` | 覆盖`geom_density()`和`stat_density()`之间的默认连接。 |
+| `bw` | 要使用的平滑带宽度。如果是数字，则为平滑内核的标准差。 |
+| `adjust` | 多次带宽调整。这使得可以在仍使用带宽估计器的情况下调整带宽。例如，`adjust = 1/2`表示使用默认带宽的一半。 |
+
+## 示例
+
+### 单个函数
+
+我们以iris数据集作为本例数据，先使用单个函数进行绘制。
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+if (!require(devtools)) {
+	install.packages('devtools')
+}
+devtools::install_github('erocoar/gghalves')
+```
+
+### geom_half_boxplot
+
+```{r}
+library(gghalves)
+
+ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
+	geom_half_boxplot() 
+```
+
+默认为箱子在右，使用`center = TRUE`将箱子居中。下面函数参数调整类似，就不再绘制结果了，就把最原始的进行展示。
+```{r}
+ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
+	geom_half_boxplot(center = TRUE) 
+```
+
+### geom_half_violin
+
+
+```{r}
+ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
+	geom_half_violin()
+```
+
+
+### geom_half_point
+
+```{r}
+ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
+	geom_half_point()
+```
+
+### 综合案例
+
+#### 云雨图
+
+该案例来自**生信玩家**公众号[ggplot扩展包--gghalves](https://blog.csdn.net/weixin_43700050/article/details/107512448)但并没有对代码进行详细解释。
+
+这里小编对代码进行详细解释，喜欢的伙伴，可以按照解释自己理解，并用到自己实际所需的复合图中。
+
+先将数据的统计摘要进行计算存到了`summ_iris`中，包含了均值，标准差，数量标准误差。`iris_plot`为所需数据，这里将`Species`变量设置为因子，因为要用它作为分类变量。
+```{r}
+library(tidyverse)
+# 统计摘要
+summ_iris <- iris %>% 
+	group_by(Species) %>% 
+	summarise(
+		mean = mean(Sepal.Length),
+		sd = sd(Sepal.Length),
+		n = n()
+	) %>% 
+	mutate(se = sd/sqrt(n),
+				 Species = factor(Species, levels = c('versicolor', 'setosa', 'virginica')))
+summ_iris
+# 数据转换  
+iris_plot <- iris %>% 
+	mutate(Species = factor(Species, levels = c('versicolor', 'setosa', 'virginica')))
+head(iris_plot) 
+```
+接下来进行绘图，我们想要得到`Species`与`Sepal.Length`的关系，其中`Species`为离散变量，`Sepal.Length`为连续变量。并绘制了半边的小提琴图，并将该图往右移了0.15，上下位置不变（`position_nudge(x = .15, y = 0)`），为了后面绘制其他图形留位置。
+
+```{r}
+library(gghalves)
+library(ggsignif)
+library(ggsci)
+library(ggpubr)
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									  side = 'r')
+```
+
+
+接下来加入散点图，并使x坐标往左移动0.1（`x = as.numeric(Species)-0.1`），使用`position_jitter`使得重复的点分散开。
+
+
+```{r}
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									 side = 'r') +
+	geom_point(aes(x = as.numeric(Species)-0.1,
+								 y = Sepal.Length,color = Species),
+						 position = position_jitter(width = .05),size = .25, shape = 20)
+```
+
+在原来基础上加入箱子图，位置放在正中间
+
+
+```{r}
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									 adjust=1.5, trim=FALSE, colour=NA, side = 'r') +
+	geom_point(aes(x = as.numeric(Species)-0.1,
+								 y = Sepal.Length,color = Species),
+						 position = position_jitter(width = .05),size = .25, shape = 20) +
+	geom_boxplot(aes(x = Species,y = Sepal.Length, fill = Species),
+							 outlier.shape = NA,
+							 width = .05,
+							 color = "black")
+```
+
+这里比较有趣的是，作者还通过`geom_point`和`geom_errorbar`加入和汇总信息以及对应的误差项。
+
+```{r}
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									 adjust=1.5, trim=FALSE, colour=NA, side = 'r') +
+	geom_point(aes(x = as.numeric(Species)-0.1,
+								 y = Sepal.Length,color = Species),
+						 position = position_jitter(width = .05),size = .25, shape = 20) +
+	geom_boxplot(aes(x = Species,y = Sepal.Length, fill = Species),
+							 outlier.shape = NA,
+							 width = .05,
+							 color = "black")+
+	geom_point(data=summ_iris,
+						 aes(x=Species,y = mean,group = Species, color = Species),
+						 shape=18,
+						 size = 1.5,
+						 position = position_nudge(x = .1,y = 0)) +
+	geom_errorbar(data = summ_iris,
+								aes(x = Species, y = mean, group = Species, colour = Species,
+										ymin = mean-se, ymax = mean+se),
+								width=.05,
+								position=position_nudge(x = .1, y = 0)
+	)
+```
+
+这里使用`ggsci`包的`scale_color_aaas()`,`scale_fill_aaas()`将尺度的颜色进行改变（非常好用！)在下面展示另外一种配色（`scale_color_jco`）
+
+
+```{r}
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									 adjust=1.5, trim=FALSE, colour=NA, side = 'r') +
+	geom_point(aes(x = as.numeric(Species)-0.1,
+								 y = Sepal.Length,color = Species),
+						 position = position_jitter(width = .05),size = .25, shape = 20) +
+	geom_boxplot(aes(x = Species,y = Sepal.Length, fill = Species),
+							 outlier.shape = NA,
+							 width = .05,
+							 color = "black")+
+	geom_point(data=summ_iris,
+						 aes(x=Species,y = mean,group = Species, color = Species),
+						 shape=18,
+						 size = 1.5,
+						 position = position_nudge(x = .1,y = 0)) +
+	geom_errorbar(data = summ_iris,
+								aes(x = Species, y = mean, group = Species, colour = Species,
+										ymin = mean-se, ymax = mean+se),
+								width=.05,
+								position=position_nudge(x = .1, y = 0)
+	) +
+	scale_color_aaas() +
+	scale_fill_aaas()
+```
+
+
+最后使用`ggpubr`包的`geom_signif`加入显著性结果，`ggsave`保存图片。
+
+```{r}
+# 绘图
+ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
+	geom_half_violin(aes(fill = Species),
+									 position = position_nudge(x = .15, y = 0),
+									 adjust=1.5, trim=FALSE, colour=NA, side = 'r') +
+	geom_point(aes(x = as.numeric(Species)-0.1,
+								 y = Sepal.Length,color = Species),
+						 position = position_jitter(width = .05),size = .25, shape = 20) +
+	geom_boxplot(aes(x = Species,y = Sepal.Length, fill = Species),
+							 outlier.shape = NA,
+							 width = .05,
+							 color = "black")+
+	geom_point(data=summ_iris,
+						 aes(x=Species,y = mean,group = Species, color = Species),
+						 shape=18,
+						 size = 1.5,
+						 position = position_nudge(x = .1,y = 0)) +
+	geom_errorbar(data = summ_iris,
+								aes(x = Species, y = mean, group = Species, colour = Species,
+										ymin = mean-se, ymax = mean+se),
+								width=.05,
+								position=position_nudge(x = .1, y = 0)
+	) +
+	scale_color_jco() +
+	scale_fill_jco() +
+	geom_signif(comparisons = list(c("versicolor", "setosa"),
+																 c("versicolor", "virginica"),
+																 c("setosa", "virginica")),
+							y_position = c(8.2, 8.6, 8.4),
+							map_signif_level = c("***" = 0.001, "**" = 0.01, "*" = 0.05)) +
+	ggsave('云雨图.pdf', width = 6, height = 8)
+```
+
+### 混合图
+
+最后是混合图，根据自己想要的图，可以自行添加。相信这个代码简单的图给大家学术作图上省了不少时间。
+
+```{r}
+library(tidyverse)
+ggplot() +
+	geom_half_boxplot(
+		data = iris %>% filter(Species=="setosa"), 
+		aes(x = Species, y = Sepal.Length, fill = Species), outlier.color = NA) +
+	ggbeeswarm::geom_beeswarm(
+		data = iris %>% filter(Species=="setosa"),
+		aes(x = Species, y = Sepal.Length, fill = Species, color = Species), beeswarmArgs=list(side=+1)
+	) +
+	geom_half_violin(
+		data = iris %>% filter(Species=="versicolor"), 
+		aes(x = Species, y = Sepal.Length, fill = Species), side="r") +
+	geom_half_dotplot(
+		data = iris %>% filter(Species=="versicolor"), 
+		aes(x = Species, y = Sepal.Length, fill = Species), method="histodot", stackdir="down") +
+	geom_half_boxplot(
+		data = iris %>% filter(Species=="virginica"), 
+		aes(x = Species, y = Sepal.Length, fill = Species), side = "r", errorbar.draw = TRUE,
+		outlier.color = NA) +
+	geom_half_point(
+		data = iris %>% filter(Species=="virginica"), 
+		aes(x = Species, y = Sepal.Length, fill = Species, color = Species), side = "l") +
+	scale_fill_manual(values = c("setosa" = "#cba1d2", "versicolor"="#7067CF","virginica"="#B7C0EE")) +
+	scale_color_manual(values = c("setosa" = "#cba1d2", "versicolor"="#7067CF","virginica"="#B7C0EE")) +
+	theme(legend.position = "none") +	
+	ggsave('综合图.pdf', width = 8, height = 6)
+```
+### 其他参考资料
+
+[Using gghalves--Frederik Tiedemann](https://erocoar.github.io/gghalves/)
+
+[gghalves: Compose Half-Half Plots Using Your Favourite Geoms](https://cran.r-project.org/web/packages/gghalves/index.html)
+
+[CRAN](https://rdrr.io/cran/gghalves/f/vignettes/gghalves.Rmd)
+
