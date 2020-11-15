@@ -1,0 +1,246 @@
+---
+title: "气泡图"
+author:
+  - 庄亮亮
+date: "2020/11/10"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+# 气泡图
+
+气泡图是一种多变量图表，是散点图的变体，也可以认为是
+[散点图和百分比区域图的组合](R语言数据可视化之美 )。气泡图最基本的用法是使用三个值来确定每个数据序列，和散点图一样。气泡图通过气泡的位置及面积大小，可分析数据之间的相关性。
+
+本文可以看作是《R语言数据可视化之美》的学习笔记。前两部分可见（跳转）：
+
+- [趋势显示的二维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485142&idx=1&sn=564bffc9e7765ebae9b9b81a17a188d9&chksm=ea24f932dd5370241a05c75975ff24a34423a8f182bf6c716c8c9ed981788d0492dcb268248a&token=1544929502&lang=zh_CN&scene=21#wechat_redirect)
+
+- [分布显示的二维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485276&idx=1&sn=f98a2aede13555fa1c372f08c3cdec44&chksm=ea24f8b8dd5371ae9e13f3df41ff73e070775eb1ab871370783bb3f396a0a9c29d42c6a89210&token=682523778&lang=zh_CN#rd)
+
+该书对气泡图的绘制并不是非常详细，小编将内容进行了大量拓展。下面的例子将一步步带你完成气泡图的绘制。本文内容丰富，希望大家都能学到自己想要的内容。
+
+
+## 本文框架
+
+![](https://imgkr2.cn-bj.ufileos.com/b4382ada-392f-4868-be6b-53e619921374.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=qppb6xaOmm72QdYDTIA9aO34REA%253D&Expires=1605239247)
+
+
+
+## 数据介绍
+
+数据集来源gapminder包中，包含了1704行和6个变量。其中6个变量含义分别为：
+
+- country 国家142个水平
+
+- continent 大陆5个水平
+
+- year 1952年-2007年（间隔为5年）
+
+- lifeExp 出生预期寿命，以年计数
+
+- pop 人口数
+
+- gdpPercap 人均国内生产总值(扣除通货膨胀因素后的美元)
+
+由于数据过多，我们感兴趣的是年份为2007年的数据，所以使用dplyr包进行数据处理，具体数据处理案例可见我写的另一篇推送：[[R数据科学]tidyverse数据清洗案例详解](https://mp.weixin.qq.com/s/ozH-TsltnLwp51i3aDNpSQ)。数据缩略版如下：
+
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+```
+
+## 手把手绘制
+
+### geom_point()函数构建
+
+气泡图是添加了第三维度的散点图：附加数值变量的值通过点的大小表示。(来源:[data-to-viz](https://www.data-to-viz.com/graph/bubble.html "data-to-viz"))。
+使用ggplot2，可以通过`geom_point()`函数构建气泡图。`aes()`设定至少三个变量:x、y和size。其实就是散点图绘制的升级版吧，`aes()`中多了一个参数。
+
+```{r}
+ggplot(data, aes(x=gdpPercap, y=lifeExp, size = pop)) +
+    geom_point(alpha=0.7)
+```
+
+上图展示了世界各国的预期寿命(y)与人均国内生产总值(x)之间的关系。每个国家的人口用圆的大小表示。但是这个图不是非常美观，而且圆的大小并不是很直观，大家都差不多大。接下来对圆的大小进行设定。
+
+### scale_size()控制圆的大小
+
+scale_size()允许使用range参数设置最小和最大的圆的大小，用`name`改变图例名称(`scale_size(range = c(0.1, 24), name="Population (M)")`)。
+
+- 图中可以看到，有些圆圈重叠了。k可将点的透明度进行调整（`geom_point(alpha=0.5)`）
+
+- 为了避免在图表顶部出现大的圆圈，可以将数据集进行排序(`arrange(desc(pop))`)，代码如下。
+
+```{r}
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size = pop)) +
+    geom_point(alpha=0.5) +
+    scale_size(range = c(.1, 24), name="Population (M)")
+```
+
+
+现在图可读性有所提高，但如果数据集中还有一个变量想加入图中该怎么办呢？
+
+### 添加第四个维度：颜色
+
+这里可以用每个国家的洲来控制圆圈的颜色（`aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)`）:
+
+```{r}
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent)) +
+    geom_point(alpha=0.5) +
+    scale_size(range = c(.1, 24), name="Population (M)")
+```
+
+该图基本可以满足我们日常生活的气泡图的可视化了。相信大家通过前面的详细的介绍，应该可以自行绘制，只要换个数据，懂得各个代码的含义即可。后面是图表美化的过程，参考[thr R Graph Gallery: Bubble plot with ggplot2](https://www.r-graph-gallery.com/320-the-basis-of-bubble-plot.html "thr R Graph Gallery: Bubble plot with ggplot2")。
+
+
+## 美化气泡图
+
+### 一些经典的改进
+
+- 使用viridis包的调色板：（`scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A")`）
+
+- 使用`hrbrthemes`包的`theme_ipsum()`
+
+- 使用xlab和ylab自定义轴标题
+
+- 为圆添加描边：将形状改为21，并指定颜色(描边)和填充
+
+
+```{r message=FALSE, warning=FALSE}
+# Libraries
+library(hrbrthemes)
+library(viridis)
+
+# Most basic bubble plot
+data %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, fill=continent)) +
+    geom_point(alpha=0.5, shape=21, color="black") +
+    scale_size(range = c(.1, 24), name="Population (M)") #+
+    #scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A") +
+    #theme_ipsum() +
+    #theme(legend.position="bottom") +
+    #ylab("Life Expectancy") +
+    #xlab("欢迎关注：庄闪闪的成长手册 \nq  Gdp per Capita") +
+    #theme(legend.position = "none")
+```
+
+### 带数据标签
+
+这里使用ggrepel包中的(`geom_text_repel()`)，可以给每个点自动加入标签，我这里是加入了各个国家名字，其他可以根据你实际需求进行设置。
+
+```{r message=FALSE, warning=FALSE}
+library(ggrepel)
+library(viridis)
+library(hrbrthemes)
+data1 = data %>%
+  mutate(country = factor(country)) %>% head(20)
+attach(data1)
+  ggplot(data1,aes(x=gdpPercap, y=lifeExp, size=pop, fill=continent)) +
+    geom_point(alpha=0.5, shape=21, color="black") +
+    scale_size(range = c(.1, 24), name="Population (M)") +
+    geom_text_repel(label = country,size=5)#+
+    #scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A") +
+    #theme_ipsum() +
+    #theme(legend.position="bottom") #+
+    #ylab("Life Expectancy") +
+    #xlab("欢迎关注：庄闪闪的成长手册 \nq  Gdp per Capita") +
+    #theme(legend.position = "none")
+```
+如果不喜欢圆形的气泡图，可以将代码中的`shape=21`进行更改，正方形是`shape=22`，得到的图如下：
+```{r message=FALSE, warning=FALSE}
+library(ggrepel)
+data1 = data %>%
+  mutate(country = factor(country)) %>% head(20)
+attach(data1)
+  ggplot(data1,aes(x=gdpPercap, y=lifeExp, size=pop, fill=continent)) +
+    geom_point(alpha=0.5, shape=22, color="black") +
+    scale_size(range = c(.1, 24), name="Population (M)") +
+    geom_text_repel(label = country,size=5)+
+    scale_fill_viridis(discrete=TRUE, guide=FALSE, option="A") #+
+    #theme_ipsum() +
+    #theme(legend.position="bottom") +
+    #ylab("Life Expectancy") +
+    #xlab("欢迎关注：庄闪闪的成长手册 \nq  Gdp per Capita") +
+    #theme(legend.position = "none")
+```
+
+## 拓展知识
+
+其他扩展可自行学（小编做推送的时候已经学过啦，但是篇幅有限，就没继续整理下去了）
+
+- [GOplot包](https://wencke.github.io/ "GOplot包")提供了直接做气泡图的方法，函数是：GOBubble。
+
+
+![](https://imgkr2.cn-bj.ufileos.com/bdf4074a-8cb1-440d-9194-6e8d487e8ae5.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=190m6qR3V1exwcuPayCDULY0Ios%253D&Expires=1605238660)
+
+
+- [BUBBLE PLOT理论定义](https://www.data-to-viz.com/graph/bubble.html "BUBBLE PLOT理论定义")
+
+![](https://imgkr2.cn-bj.ufileos.com/40810411-d8fc-413f-b665-ece61d55531c.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=9tj23TfNB23j468EBKqr46wN1Ec%253D&Expires=1605238689)
+
+- [plotly包](https://plotly.com/r/bubble-charts/ "plotly包")绘制可以互动的气泡图
+
+
+![](https://imgkr2.cn-bj.ufileos.com/47d4f17c-9b83-4340-9a09-ad122467565b.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=2uehzuNnkzKRhgkrmPmOmnEpGWg%253D&Expires=1605238713)
+
+
+## R语言数可视化书内代码
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(RColorBrewer)
+library(ggrepel)
+attach(mtcars)
+head(mtcars)
+```
+
+### 带数据标签的气泡图
+```{r message=FALSE, warning=FALSE}
+ ggplot(data=mtcars, aes(x=wt,y=mpg))+
+   geom_point(aes(size=disp,fill=disp),shape=21,colour="black",alpha=0.8)+
+   scale_fill_gradient2(low="#377EB8",high="#E41A1C",midpoint = mean(mtcars$disp))+
+   geom_text_repel(label = disp )+
+   scale_size_area(max_size=12)+
+   guides(size = guide_legend((title="Value")),
+          fill = guide_legend((title="Value")))+
+   theme(
+     legend.text=element_text(size=10,face="plain",color="black"),
+     axis.title=element_text(size=10,face="plain",color="black"),
+     axis.text = element_text(size=10,face="plain",color="black"),
+     legend.position = "right"
+   )
+```
+
+
+
+### 方块状的气泡图
+
+```{r message=FALSE, warning=FALSE}
+ggplot(mtcars, aes(wt,mpg))+
+  geom_point(aes(size=disp,fill=disp),shape=22,colour="black",alpha=0.8)+
+  scale_fill_gradient2(low=brewer.pal(7,"Set1")[2],high=brewer.pal(7,"Set1")[1],
+                       midpoint = mean(mtcars$disp))+
+  scale_size_area(max_size=12)+
+  guides(fill = guide_legend((title="Value")),
+         size =  guide_legend((title="Value")))+
+  theme(
+    text=element_text(size=15,color="black"),
+    plot.title=element_text(size=15,family="myfont",face="bold.italic",color="black")#,
+    #legend.position=c(0.9,0.05)
+  )
+```
