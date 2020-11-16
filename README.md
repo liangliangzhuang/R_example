@@ -1,18 +1,6 @@
-# <p align="center">interesting-python: 有趣的Python爬虫和数据分析小项目</p>
-
+# <p align="center">公众号资料留档</p>
 
 ## 简介
-
-可以用Python实现的有趣的小项目，内容包括Python爬虫、Python数据分析、机器学习、深度学习等，持续更新中。  
-本Repository主要用于存放项目代码，对应的项目文章可以关注公众号。  
-</br>
-
-
-</br>
-
-
-
-# 公众号资料留档
 
 公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。
 
@@ -20,6 +8,10 @@
 微信公众号：[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
 合作请加微信号：a641292753
 
+</br>
+
+
+</br>
 -------
 
 # R可视乎系列
