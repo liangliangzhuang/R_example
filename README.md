@@ -54,6 +54,8 @@
 
 - gghalves包-你五毛我五毛[2020.11.14gghalves](https://mp.weixin.qq.com/s/WaMCCmT2eAP9DmCjPOtcMg)
 
+- flexdashboard包：用于R的简单交互式仪表盘[2020.11.16flexdashboard](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486237&idx=1&sn=571544510c7e3e48a280dd4d677656e5&chksm=ea24f4f9dd537defa493c419973f75943159316765ac61093a195b83fde314dd7fffe61349cd&token=1801328502&lang=zh_CN#rd)
+
 ------------
 
 # R数据科学
