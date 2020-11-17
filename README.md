@@ -1,9 +1,17 @@
-# 公众号资料留档
+# <p align="center">公众号资料留档</p>
 
-公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。QQ：641292753。
+## 简介
 
-有意合作，转载公众号内容可加小编微信Wechat:a641292753。欢迎关注:[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect)
+公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。
 
+作者：庄闪闪
+微信公众号：[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
+合作请加微信号：a641292753
+
+</br>
+
+
+</br>
 -------
 
 # R可视乎系列
@@ -53,6 +61,8 @@
 
 
 - gghalves包-你五毛我五毛[2020.11.14gghalves](https://mp.weixin.qq.com/s/WaMCCmT2eAP9DmCjPOtcMg)
+
+- flexdashboard包：用于R的简单交互式仪表盘[2020.11.16flexdashboard](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486237&idx=1&sn=571544510c7e3e48a280dd4d677656e5&chksm=ea24f4f9dd537defa493c419973f75943159316765ac61093a195b83fde314dd7fffe61349cd&token=1801328502&lang=zh_CN#rd)
 
 ------------
 
