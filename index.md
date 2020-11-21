@@ -1,4 +1,4 @@
-# <p align="center">公众号资料留档</p>
+# 公众号资料留档
 
 ## 简介
 
@@ -8,10 +8,6 @@
 微信公众号：[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
 合作请加微信号：a641292753
 
-</br>
-
-
-</br>
 -------
 
 # R可视乎系列
