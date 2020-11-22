@@ -1,0 +1,217 @@
+---
+title: "三维散点图"
+author: "庄闪闪"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+上期我们说了[气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=1457590009&lang=zh_CN#rd)。如果我们将[气泡图的三维数据绘制到三维坐标系](R语言数据可视化之美 "R语言数据可视化之美")中，通常称其为**三维散点图**，即用在三维X-Y-Z图上针对一个或多个数据序列绘出三个度量的一种图表。
+
+
+有关散点图前几部分系列可见（可跳转）：
+
+- [趋势显示的二维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485142&idx=1&sn=564bffc9e7765ebae9b9b81a17a188d9&chksm=ea24f932dd5370241a05c75975ff24a34423a8f182bf6c716c8c9ed981788d0492dcb268248a&token=1544929502&lang=zh_CN&scene=21#wechat_redirect)
+
+- [分布显示的二维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485276&idx=1&sn=f98a2aede13555fa1c372f08c3cdec44&chksm=ea24f8b8dd5371ae9e13f3df41ff73e070775eb1ab871370783bb3f396a0a9c29d42c6a89210&token=682523778&lang=zh_CN#rd)
+
+- [气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=1457590009&lang=zh_CN#rd)
+
+R 中`scatterplot3d`包的`scatterplot3d()`函数、`rgl`包的[plot3d()](http://www.rforscience.com/rpackages/visualisation/oceanview/)函数、`plot3D`包的`scatter3D()`函数等都可以绘制三维散点图。
+
+下面将从两个包（`scatter3D()`,`plot3d()`）入手，一步步带你完成三维散点图的绘制。本文内容丰富，希望大家都能学到自己想要的内容，学习不易，欢迎反馈建议。
+
+
+```{r message=FALSE, warning=FALSE}
+library(plot3D)
+library(scales)
+library(RColorBrewer)
+```
+
+## 数据介绍
+```{r}
+df<-read.csv("ThreeD_Scatter_Data.csv",header=T)
+head(df)
+```
+```{r}
+knitr::kable(head(iris))
+```
+
+
+## plot3D包scatter3D()
+
+```
+scatter3D (x, y, z, ..., colvar = z, phi = 40, theta = 40,
+           col = NULL, NAcol = "white", breaks = NULL,
+           colkey = NULL, panel.first = NULL, 
+           clim = NULL, clab = NULL, 
+           bty = "b", CI = NULL, surf = NULL, 
+           add = FALSE, plot = TRUE)
+```
+
+
+
+```{r}
+# pmar <- par(mar = c(5.1, 4.1, 4.1, 6.1))
+with(iris, scatter3D(x = Sepal.Length, y = Sepal.Width, z = Petal.Length,
+  pch = 21, cex = 1.5,col="black",bg="#F57446",
+                   xlab = "Sepal.Length",
+                   ylab = "Sepal.Width",
+                   zlab = "Petal.Length", 
+                   # zlim=c(40,180),
+                   ticktype = "detailed",bty = "f",box = TRUE,
+                   #panel.first = panelfirst,
+                   theta = 60, phi = 20, d=3,
+                   colkey = FALSE)#list(length = 0.5, width = 0.5, cex.clab = 0.75))
+)
+```
+
+将Z轴变量数据“Power(KW)”映射到数据点颜色，这样可以更加清晰地观察Z 轴变量与X、Y 轴变量数据的变化关系。
+
+我们先自己构造一个颜色映射的颜色条RdYlGn，再绘制三维散点图，然后根据映射的数值添加图例颜色条。
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+iris = iris %>% mutate(quan = ntile(Petal.Width,6))
+colormap <- colorRampPalette(rev(brewer.pal(11,'RdYlGn')))(6)#legend颜色配置
+pmar <- par(mar = c(5.1, 4.1, 4.1, 6.1))
+# 绘图
+with(iris, scatter3D(x = Sepal.Length, y = Sepal.Width, z = Petal.Length,pch = 21, cex = 1.5,col="black",bg=colormap[iris$quan],
+     xlab = "Sepal.Length",
+     ylab = "Sepal.Width",
+     zlab = "Petal.Length", 
+     ticktype = "detailed",bty = "f",box = TRUE,
+     theta = 60, phi = 20, d=3,
+     colkey = FALSE)
+)
+colkey (col=colormap,clim=range(iris$quan),clab = "Petal.Width", add=TRUE, length=0.4,side = 4)
+```
+
+三维散点图可以展示三维数据，如果添加一维数据，则使图表展示四维数据。第1种方法就是将图4-1-14(c)的填充颜色渐变映射到第四维数据，而不是原来的第三维数据
+
+第2种方法就是将第四维数据映射到数据点的大小上，即三维气泡图
+```{r message=FALSE, warning=FALSE}
+pmar <- par(mar = c(5.1, 4.1, 4.1, 6.1))
+# 绘图
+with(iris, scatter3D(x = Sepal.Length, y = Sepal.Width, z = Petal.Length,pch = 21, 
+                     cex = rescale(iris$quan, c(.5, 4)),col="black",bg=colormap[iris$quan],
+                     xlab = "Sepal.Length",
+                     ylab = "Sepal.Width",
+                     zlab = "Petal.Length", 
+                     ticktype = "detailed",bty = "f",box = TRUE,
+                     theta = 30, phi = 15, d=2,
+                     colkey = FALSE)
+)
+breaks =1:6
+legend("right",title =  "Weight",legend=breaks,pch=21,
+       pt.cex=rescale(breaks, c(.5, 4)),y.intersp=1.6,
+       pt.bg = colormap[1:6],bg="white",bty="n")
+```
+
+```{r}
+library(wesanderson)
+pmar <- par(mar = c(5.1, 4.1, 4.1, 7.1))
+colors0 <-  wes_palette(n=3, name="Darjeeling1")
+colors <- colors0[as.numeric(iris$Species)]
+with(iris, scatter3D(x = Sepal.Length, y = Sepal.Width, z = Petal.Length, #bgvar = mag,
+                   pch = 21, cex = 1.5,col="black",bg=colors,
+                   xlab = "longitude", ylab = "latitude",
+                   zlab = "depth, km", 
+                   ticktype = "detailed",bty = "f",box = TRUE,
+                   #panel.first = panelfirst,
+                   theta = 140, phi = 20, d=3,
+                   colkey = FALSE)#list(length = 0.5, width = 0.5, cex.clab = 0.75))
+)
+
+legend("right",title =  "Species",legend=c("setosa", "versicolor", "virginica"),pch=21,
+       cex=1,y.intersp=1,pt.bg = colors0,bg="white",bty="n")
+```
+
+
+
+## rgl包 plot3d()
+
+[rgl包](https://www.rdocumentation.org/packages/rgl/versions/0.100.54)是在r中构建3d图表的最佳选择，请参阅这篇介绍3d散点图使用它的文章。
+
+
+```
+plot3d(x, y, z,  
+	xlab, ylab, zlab, type = "p", col,  
+	size, lwd, radius,
+	add = FALSE, aspect = !add, 
+	xlim = NULL, ylim = NULL, zlim = NULL, 
+	forceClipregion = FALSE, ...)
+```
+
+```{r webgl=TRUE, results='hide'}
+# library
+library(rgl)
+
+# Add a new column with color
+mycolors <- c('royalblue1', 'darkcyan', 'oldlace')
+iris$color <- mycolors[ as.numeric(iris$Species) ]
+
+# Plot
+plot3d( 
+  x=iris$`Sepal.Length`, y=iris$`Sepal.Width`, z=iris$`Petal.Length`, 
+  col = iris$color, 
+  type = 's', 
+  radius = .1,
+  xlab="Sepal Length", ylab="Sepal Width", zlab="Petal Length")
+
+# writeWebGL( filename="HtmlWidget/3dscatter.html" ,  width=600, height=600)
+```
+
+它还提供了plot3d()和play3d()函数，允许将3d图表动画化，并最终以.gif格式导出结果。下面是著名iris数据集的一个应用程序，它具有一个很好的动画3d散点图。
+
+## 动态3D图
+
+[Animated 3d chart with R.](https://www.r-graph-gallery.com/3-r-animated-cube.html)
+
+```{r }
+library(rgl)
+library(magick)
+
+# This is ugly
+colors <- c("royalblue1", "darkcyan", "oldlace")
+iris$color <- colors[ as.numeric( as.factor(iris$Species) ) ]
+
+# Static chart
+# plot3d( iris[,1], iris[,2], iris[,3], col = iris$color, type = "s", radius = .2 )
+
+# We can indicate the axis and the rotation velocity
+# play3d( spin3d( axis = c(0, 0, 1), rpm = 20), duration = 50 )
+
+# Save like gif
+# movie3d(
+#   movie="3dAnimatedScatterplot", 
+#   spin3d( axis = c(0, 0, 1), rpm = 7),
+#   duration = 10, 
+#   dir = "~/Desktop",
+#   type = "gif", 
+#   clean = TRUE
+# )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
