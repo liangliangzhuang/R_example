@@ -1,0 +1,145 @@
+---
+title: "等高线图"
+author: "庄闪闪"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+# 等高线图
+
+**等高线图（contour map）** 是[可视化二维空间标量场的基本方法](https://github.com/EasyChart/Beautiful-Visualization-with-R "R语言数据可视化之美")，可以将三维数据使用二维的方法可视化，同时用颜色视觉特征表示第三维数据，如地图上的等高线、天气预报中的等压线和等温线等。假设 $f(x, y)$ 是在点 $(x, y)$ 处的数值，等值线是在二维数据场中满足 $f(x, y)=c$ 的空间点集按一定的顺序连接而成的线。数值为c的等值线可以将二维空间标量场分为两部分：如果 函数大于c，则该点在等值线内；反之，则该点在等值线外。
+
+
+
+
+```{r message=FALSE, warning=FALSE}
+library(directlabels)
+library(reshape2)
+library(ggplot2)
+library(grDevices)
+library(RColorBrewer)
+```
+
+## 数据介绍
+
+```{r message=FALSE, warning=FALSE}
+rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
+colormap <- colorRampPalette(rev(brewer.pal(11,'Spectral')))(32)
+# 数据
+z <- as.matrix(read.table("等高线.txt",header=TRUE))
+colnames(z) <- seq(1,ncol(z),by=1) #列名设置
+max_z <- max(z)
+min_z <- min(z)
+breaks_lines <- seq(min(z),max(z),by=(max_z-min_z)/10)
+map <- melt(z) #这个函数来自reshape2（处理数据的包）介绍一下这个函数，以及相关函数
+colnames(map)<-c("Var1","Var2","value")
+```
+
+```{r}
+knitr::kable(head(z[,1:10]),caption = "转换前数据")
+```
+
+```{r}
+knitr::kable(head(map),caption = "转换后数据")
+```
+
+## 热力分布图
+
+
+使用ggplot2包中的`geom_tile()`或者`geom_raster()`绘制热
+力分布图。其主要区别在于`geom_raster()`函数中存在`interpolate=TRUE/FALSE`这个参数，决定是否对热力图进行平滑处理。
+
+这里使用`geom_tile()`进行演示，将三维数据`(x,y,z)`中`(x,y)`表示位置信息，`z`映射到颜色。这里的`scale_fill_gradientn()`将颜色填充呈n个梯度。
+
+- **拓展：**`scale_*_gradient`创建一个双色梯度(低-高)，`scale_*_gradient2`创建一个渐变的颜色梯度(低-中-高)，`scale_*_gradientn`创建一个n色梯度。
+
+```{r}
+ggplot(map,aes(x=Var1,y=Var2,z=value))+
+	geom_tile(aes(fill=value))+
+	scale_fill_gradientn(colours=colormap)
+```
+
+## 添加等高线
+
+使用`geom_contour()`在上图基础上添加等高线，同一轮廓上的数值相同。
+
+```{r}
+ggplot(map,aes(x=Var1,y=Var2,z=value))+
+	geom_tile(aes(fill=value))+#根据高度填充
+	scale_fill_gradientn(colours=colormap)+
+	geom_contour(breaks=breaks_lines,color="black")+#
+	labs(x="X-Axis",y="Y-Axis",fill="Z-Value")
+```
+
+## 设置主题
+
+对主题进行稍微的调整。改变x轴题目(`axis.title`,大小为15，字体形式为常规体`face="plain"`，颜色黑色)，x轴文字(`axis.text`),图例标题(`legend.title`)图例文字,(`legend.text`),(图例背景`legend.background`),图例位置(`legend.position`)
+
+- *拓展*：face还可以设置其他字体形式：plain（常规体）、bold（粗体）、italic（斜体）、bold.italic（粗斜体）
+
+```{r}
+Contour <- ggplot(map,aes(x=Var1,y=Var2,z=value))+
+	geom_tile(aes(fill=value))+#根据高度填充
+	scale_fill_gradientn(colours=colormap)+
+	geom_contour(aes(colour= ..level..),breaks=breaks_lines,color="black")+#
+	labs(x="X-Axis",y="Y-Axis",fill="Z-Value")+
+	theme(
+		axis.title = element_text(size=15,face="plain",color="black"),
+		axis.text = element_text(size=13,face="plain",color="black"),
+		legend.title = element_text(size=13,face="plain",color="black"),
+		legend.text = element_text(size=11,face="plain",color="black"),
+		legend.background = element_blank(),
+		legend.position = c(0.15,0.2)
+	)
+Contour
+```
+
+
+## 添加等高线的具体数值
+
+在上面的图基础上，添加等高线的具体数值，从而不需要颜色映射的图例，同一轮廓上的数值相同。
+
+- **作用**：在二维屏幕上，等高线可以有效地表达相同数值的区域，揭示走势和陡峭程度及两者之间的关系，寻找坡、峰、谷等形状。
+
+```{r}
+direct.label(Contour, list("bottom.pieces", cex=0.8, 													 fontface="plain", fontfamily="serif", colour='black'))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
