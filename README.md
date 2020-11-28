@@ -39,6 +39,8 @@
 
 - R可视乎|气泡图[2020.11.12气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=682523778&lang=zh_CN#rd)
 
+- R可视乎|三维散点图[2020.11.22三维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=1&sn=b47d8f89f032bbf1ead4f0db75d45ef7&chksm=ea24f47add537d6c5d50a73bd64318f473071e1474be95c9d5c2f250a39a64a6877ba4d61b68&token=761595288&lang=zh_CN#rd)
+
 - R可视乎|等高线图[2020.11.28等高线](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&tempkey=MTA4OV91RDN5NjJXY1RuNlpkZWhDQ1p1WmhsbjAwX1podTU2TWdnRVNuOEdvOU1uckF6YkhWTDV4VXg5ekpMcmJpSjRHYk5icy1RZ0NRd3JWTUVIQ2c4RWhBd3g1LXlRUWh3S2hHRkJfTUdQNmpZNmJtUnBEUzNwTFktV202UnZkbnlnWVY5LXFiZktLbi1ab1RBTXdSSXRLV1BhVW9yVGRXSGR2TGFtUlVnfn4%3D&chksm=6a24f2c95d537bdf8623dae8553c8a4968b77ac57727d2337ebc6ea6891c1cbc8f0566c5b407&__mpa_temp_link_flag=1&token=761595288#rd)
 
 -------
@@ -69,6 +71,6 @@
 
 - [R数据科学]tidyverse数据清洗案例详解[2020.09.27tidyverse数据清洗](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484881&idx=1&sn=2f5330b23e376ceb2ef746184935174f&chksm=ea24fa35dd53732319b16bed64e42a8dfa2da2a578cc2f7d4ef043f000bff81d5113c4e9dca1&token=682523778&lang=zh_CN#rd)
 
-
+- 数据处理|数据按从小到大分成n类[2020.11.22数据处理ntile()](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=2&sn=839daca8d94687bb2d2c07b4d61ee505&chksm=ea24f47add537d6c1601e07d3692c28a9d1ff89215478c9f1e0a0dd8c020f0bbd6f7d902f7d9&token=761595288&lang=zh_CN#rd)
 
 
