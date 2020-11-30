@@ -50,6 +50,7 @@
 
 - 志愿填报|温州大学"非官方"招办专家帮你支招！[2020.07.29温大招生](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483954&idx=1&sn=047a1b1b3e9c5ce46e3876bb05b54282&chksm=ea24fdd6dd5374c0c119c680cbd595b77a0bc7479889b34d378ae3282bce5e07eff93a5d08e5&mpshare=1&scene=1&srcid=0729IxeNwC6yyOwYcJh7C7Px&sharer_sharetime=1596027172994&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=d3c7cb8eeb23bc8322a73076864458cac5ef3808dd487c233e6eda4d377bdf5bb87322ee7ffc1b6b68f86e3799092502da7e5839e8080dc5d265dbdc5a880b93c2c286acab339bbe8bf9a06458dfa653&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A1EDrAZkVUF2VzXm2Nm2UpQ%3D&pass_ticket=GHX0j6fsfiEATjqcMrcVQQYSihtF3L6yDim2tm78a1XP0v2qucpofrFRF8%2Bz4zjt)
 
+- 协同过滤算法—MovieLense数据集分析[2020.07.22Movielense](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483889&idx=1&sn=b56b5ee3374bb8e2ec0e5643f62cd4bb&chksm=ea24fe15dd5377034e245dddb4c47ae5fc4a07ffc0d117734ec81910d733173b729e11a4fd29&token=1309493585&lang=zh_CN#rd)
 -----
 
 # R包介绍
@@ -65,12 +66,21 @@
 
 ------------
 
-# R数据科学
+# R数据科学系列
+
+> 该系列代码数据都在[R数据科学系列](xx)
 
 - [R数据科学] 1.6几何对象[2020.08.23几何对象](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484261&idx=1&sn=6b451f752f86a284717d958e13738686&chksm=ea24fc81dd537597080427826e52dd4c1dac24e9cee9cc07897497f0dd9649ff63cc6a50f232&token=682523778&lang=zh_CN#rd)
+
+- R速查表分享[2020.08.23速查表](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484290&idx=1&sn=edfe8a910e87353dc8e68f3f42e34c7c&chksm=ea24fc66dd537570f2bcda65b1ae0457ac9906fd14e74da6a0ffd3ee62a304ed465fd8ea9637&token=1309493585&lang=zh_CN#rd)
 
 - [R数据科学]tidyverse数据清洗案例详解[2020.09.27tidyverse数据清洗](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484881&idx=1&sn=2f5330b23e376ceb2ef746184935174f&chksm=ea24fa35dd53732319b16bed64e42a8dfa2da2a578cc2f7d4ef043f000bff81d5113c4e9dca1&token=682523778&lang=zh_CN#rd)
 
 - 数据处理|数据按从小到大分成n类[2020.11.22数据处理ntile()](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=2&sn=839daca8d94687bb2d2c07b4d61ee505&chksm=ea24f47add537d6c1601e07d3692c28a9d1ff89215478c9f1e0a0dd8c020f0bbd6f7d902f7d9&token=761595288&lang=zh_CN#rd)
+
+----------
+- 欢迎关注我的公众号[庄闪闪的成长手册]，创作不易，感谢打赏
+
+> ![微信扫码即可](vcode.jpg)
 
 
