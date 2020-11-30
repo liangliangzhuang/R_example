@@ -12,8 +12,6 @@
 
 # R可视乎系列
 
-- igraph包——绘制网络图
- [2020.07.13Network_igraph](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000088&idx=1&sn=3b7b79c2587e930a79cf11a84bcdb3e4&chksm=6a24febc5d5377aa3615fb6a0e3ec4e383162d694ad50d6a414482f8244de447ca5b2922c352&mpshare=1&scene=1&srcid=0714Vu2WALNMi27VcRfIFXH9&sharer_sharetime=1594708423633&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=3c22c88777da856c2f08a877b1939ceea75ba76d52067d706d44418948b4568c7e4e0ed9e4f0d00539c1e2cbbf51700d4f0b4f2642d757270ed6eeca83bbffa59947c9f38399e0e6cd58299f9d1d61e6&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Ax5Q4wOen8wg5nPK10PFOqA%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
 
 
 - 国内疫情图绘制（静态）  [2020.07.14China_map](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483799&idx=1&sn=da1acf1004a6d2f25cc296bcaf972063&chksm=ea24fe73dd537765132f64e79f7ba86ec225ecf6e81c43ba4d7aec9a75df42062728e110ad0e&mpshare=1&scene=1&srcid=07142HT0hZAFaVLTlpac4zAV&sharer_sharetime=1594708107631&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=65fe14863667915bc7e0151836657ceb6c523eaf07ca95785ed82332713ffd495369b1fd5b97cefc7cf7a8e1c66a5f880921fba19ce1d0e4832cb61609b1bcc76d99204dbc6dd77b97c47ad62d3e0e56&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Aw4fL5T557lBWbSWfFSE37M%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
@@ -54,6 +52,10 @@
 -----
 
 # R包介绍
+
+- igraph包——绘制网络图
+ [2020.07.13Network_igraph](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000088&idx=1&sn=3b7b79c2587e930a79cf11a84bcdb3e4&chksm=6a24febc5d5377aa3615fb6a0e3ec4e383162d694ad50d6a414482f8244de447ca5b2922c352&mpshare=1&scene=1&srcid=0714Vu2WALNMi27VcRfIFXH9&sharer_sharetime=1594708423633&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=3c22c88777da856c2f08a877b1939ceea75ba76d52067d706d44418948b4568c7e4e0ed9e4f0d00539c1e2cbbf51700d4f0b4f2642d757270ed6eeca83bbffa59947c9f38399e0e6cd58299f9d1d61e6&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Ax5Q4wOen8wg5nPK10PFOqA%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
+
 
 - reticulate包——数据科学者的福音[2020.09.15reticulate](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484515&idx=1&sn=26b03b6ad26f2315cdc04049f740f1c0&chksm=ea24fb87dd537291d5184c28a9c9f2cdda591e4c17a7e7daaff34a9a1c3949ee0e86f9b355b7&token=682523778&lang=zh_CN#rd)
 
