@@ -74,6 +74,15 @@
 - 数据处理|数据按从小到大分成n类[2020.11.22数据处理ntile()](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=2&sn=839daca8d94687bb2d2c07b4d61ee505&chksm=ea24f47add537d6c1601e07d3692c28a9d1ff89215478c9f1e0a0dd8c020f0bbd6f7d902f7d9&token=761595288&lang=zh_CN#rd)
 
 
-欢迎关注我的公众号[庄闪闪的成长手册]，创作不易，感谢打赏
+> 欢迎关注我的公众号[庄闪闪的成长手册]，创作不易，感谢打赏
 
-![微信扫码即可](vcode.jpg)
+> ![微信扫码即可](vcode.jpg)
+
+>>> ### 三级引用示例
+>>>
+>>> 读一本好书，就是在和高尚的人谈话。 **——歌德**
+>>>
+>>> [Markdown Nice最全功能介绍](https://mp.weixin.qq.com/s/lM808MxUu6tp8zU8SBu3sg)
+>>> 
+>>> ![这里写图片描述](https://files.mdnice.com/pic/cd3ca20c-896f-4cfc-9bdd-c4c58e69ba26.jpg)
+
