@@ -75,14 +75,6 @@
 
 
 > 欢迎关注我的公众号[庄闪闪的成长手册]，创作不易，感谢打赏
-
 > ![微信扫码即可](vcode.jpg)
 
->>> ### 三级引用示例
->>>
->>> 读一本好书，就是在和高尚的人谈话。 **——歌德**
->>>
->>> [Markdown Nice最全功能介绍](https://mp.weixin.qq.com/s/lM808MxUu6tp8zU8SBu3sg)
->>> 
->>> ![这里写图片描述](https://files.mdnice.com/pic/cd3ca20c-896f-4cfc-9bdd-c4c58e69ba26.jpg)
 
