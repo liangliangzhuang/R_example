@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)https://www.mdnice.com/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="icon" href="https://www.mdnice.com/favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><link rel="manifest" href="https://www.mdnice.com/manifest.json"><script src="./速查表_files/hm.js.下载"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?f857e607ecc7cde02ed32a561f10efb2";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><title>让微信排版变 Nice</title><meta name="keywords" content="mdnice 编辑器,Markdown 编辑器,Markdown 微信文章排版,Markdown 微信图文美化,Markdown 公众号内容编辑,Markdown 新媒体编辑,Markdown 微信编辑器, Markdown 公众号在线编辑, Markdown 微信图文排版"><meta name="description" content="mdnice 微信 Markdown 编辑器是一款 Markdown 微信编辑器,拥有良好的兼容性、海量主题样式、免费的图床、强大的技术团队，提供文章一键排版，同时支持知乎、掘金、微信订阅号等多个平台。"><link href="./速查表_files/7.bd9d6b76.chunk.css" rel="stylesheet"><link href="./速查表_files/main.9fc69ba1.chunk.css" rel="stylesheet"><style id="font-theme"></style><style id="basic-theme">/*默认样式，最佳实践*/
+
+/*全局属性*/
+#nice {
+  font-size: 16px;
+  color: black;
+  padding: 0 10px;
+  line-height: 1.6;
+  word-spacing: 0px;
+  letter-spacing: 0px;
+  word-break: break-word;
+  word-wrap: break-word;
+  text-align: left;
+  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* margin-top: -10px; 解决开头空隙过大问题*/
+}
+
+/*段落*/
+#nice p {
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
+  line-height: 26px;
+  color: black;
+}
+
+/*标题*/
+#nice h1,
+#nice h2,
+#nice h3,
+#nice h4,
+#nice h5,
+#nice h6 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding: 0px;
+  font-weight: bold;
+  color: black;
+}
+#nice h1 {
+  font-size: 24px;
+}
+#nice h2 {
+  font-size: 22px;
+}
+#nice h3 {
+  font-size: 20px;
+}
+#nice h4 {
+  font-size: 18px;
+}
+#nice h5 {
+  font-size: 16px;
+}
+#nice h6 {
+  font-size: 16px;
+}
+
+#nice h1 .prefix,
+#nice h2 .prefix,
+#nice h3 .prefix,
+#nice h4 .prefix,
+#nice h5 .prefix,
+#nice h6 .prefix {
+  display: none;
+}
+
+#nice h1 .suffix
+#nice h2 .suffix,
+#nice h3 .suffix,
+#nice h4 .suffix,
+#nice h5 .suffix,
+#nice h6 .suffix {
+  display: none;
+}
+
+/*列表*/
+#nice ul,
+#nice ol {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-left: 25px;
+  color: black;
+}
+#nice ul {
+  list-style-type: disc;
+}
+#nice ul ul {
+  list-style-type: square;
+}
+
+#nice ol {
+  list-style-type: decimal;
+}
+
+#nice li section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 26px;
+  text-align: left;
+  color: rgb(1,1,1); /* 只要是纯黑色微信编辑器就会把color这个属性吞掉。。。*/
+  font-weight: 500;
+}
+
+/*引用*/
+#nice blockquote {
+  display: block;
+  font-size: 0.9em;
+  overflow: auto;
+  overflow-scrolling: touch;
+  border-left: 3px solid rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.05);
+  color: #6a737d;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#nice blockquote p {
+  margin: 0px;
+  color: black;
+  line-height: 26px;
+}
+
+#nice .table-of-contents a {
+  border: none;
+  color: black;
+  font-weight: normal;
+}
+
+/*链接*/
+#nice a {
+  text-decoration: none;
+  color: #1e6bb8;
+  word-wrap: break-word;
+  font-weight: bold;
+  border-bottom: 1px solid #1e6bb8;
+}
+
+/*加粗*/
+#nice strong {
+  font-weight: bold;
+  color: black;
+}
+
+/*斜体*/
+#nice em {
+  font-style: italic;
+  color: black;
+}
+
+/*加粗斜体*/
+#nice em strong {
+  font-weight: bold;
+  color: black;
+}
+
+/*删除线*/
+#nice del {
+  font-style: italic;
+  color: black;
+}
+
+/*分隔线*/
+#nice hr {
+  height: 1px;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-top: 1px solid black;
+}
+
+/*代码块*/
+#nice pre {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#nice pre code {
+  display: -webkit-box;
+  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+  border-radius: 0px;
+  font-size: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+#nice pre code span {
+  line-height: 26px;
+}
+
+/*行内代码*/
+#nice p code,
+#nice li code {
+  font-size: 14px;
+  word-wrap: break-word;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 0 2px;
+  color: #1e6bb8;
+  background-color: rgba(27,31,35,.05);
+  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+  word-break: break-all;
+}
+
+/*图片*/
+#nice img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/*图片*/
+#nice figure {
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*图片描述文字*/
+#nice figcaption {
+  margin-top: 5px;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+
+/*表格容器 */
+#nice .table-container{
+  overflow-x: auto;
+}
+
+/*表格*/
+#nice table {
+  display: table;
+  text-align: left;
+}
+#nice tbody {
+  border: 0;
+}
+
+#nice table tr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  background-color: white;
+}
+
+#nice table tr:nth-child(2n) {
+  background-color: #F8F8F8;
+}
+
+#nice table tr th,
+#nice table tr td {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  text-align: left;
+}
+
+#nice table tr th {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+/* 表格最小列宽4个汉字 */
+#nice table tr th:nth-of-type(n),
+#nice table tr td:nth-of-type(n){
+  min-width:85px;
+}
+
+/* 微信代码块 */
+#nice .code-snippet__fix {
+  word-wrap: break-word !important;
+  font-size: 14px;
+  margin: 10px 0;
+  display: block;
+  color: #333;
+  position: relative;
+  background-color: rgba(0,0,0,0.03);
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  display: flex;
+  line-height: 20px;
+}
+#nice .code-snippet__fix pre {
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+#nice .code-snippet__fix .code-snippet__line-index {
+  counter-reset: line;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 1em;
+  list-style-type: none;
+  padding: 16px;
+  margin: 0;
+}
+#nice .code-snippet__fix .code-snippet__line-index li {
+  list-style-type: none;
+  text-align: right;
+  line-height: 26px;
+  color: black;
+  margin: 0;
+}
+#nice .code-snippet__fix .code-snippet__line-index li::before {
+  min-width: 1.5em;
+  text-align: right;
+  left: -2.5em;
+  counter-increment: line;
+  content: counter(line);
+  display: inline;
+  color: rgba(0,0,0,0.3);
+}
+#nice .code-snippet__fix pre {
+  overflow-x: auto;
+  padding: 16px;
+  padding-left: 0;
+  white-space: normal;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+#nice .code-snippet__fix code {
+  text-align: left;
+  font-size: 14px;
+  display: block;
+  white-space: pre;
+  display: flex;
+  position: relative;
+  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  padding: 0px;
+}
+
+#nice .footnote-word {
+  color: #1e6bb8;
+  font-weight: bold;
+}
+
+#nice .footnote-ref {
+  color: #1e6bb8;
+  font-weight: bold;
+}
+
+#nice .footnote-item {
+  display: flex;
+}
+
+#nice .footnote-num {
+  display: inline;
+  width: 10%; /*神奇，50px就不可以*/
+  background: none;
+  font-size: 80%;
+  opacity: 0.6;
+  line-height: 26px;
+  font-family: ptima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#nice .footnote-item p {
+  display: inline;
+  font-size: 14px;
+  width: 90%;
+  padding: 0px;
+  margin: 0;
+  line-height: 26px;
+  color: black;
+  word-break:break-all;
+  width: calc(100%-50)
+}
+
+#nice sub, sup {
+  line-height: 0;
+}
+
+#nice .footnotes-sep:before {
+  content: "参考资料";
+  display: block;
+}
+
+/* 解决公式问题 */
+#nice .block-equation {
+  display:block;
+  text-align: center;
+  overflow: auto;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
+#nice .block-equation svg {
+  max-width: 300% !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+#nice .inline-equation {
+}
+
+#nice .inline-equation svg {
+}
+
+#nice .imageflow-layer1 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  white-space: normal;
+  border: 0px none;
+  padding: 0px;
+  overflow: hidden;
+}
+
+#nice .imageflow-layer2 {
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+#nice .imageflow-layer3 {
+  display: inline-block;
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
+  width: 100%;
+}
+
+#nice .imageflow-img {
+  display: inline-block;
+}
+
+#nice .imageflow-caption {
+  text-align: center;
+  margin-top: 0px;
+  padding-top: 0px;
+  color: #888;
+}
+
+#nice .nice-suffix-juejin-container {
+  margin-top: 20px !important;
+}
+
+#nice figure a {
+  border: none;
+}
+
+#nice figure a img {
+  margin: 0px;
+}
+
+#nice figure {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 图片链接嵌套 */
+#nice figure a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 图片链接嵌套，图片解释 */
+#nice figure a + figcaption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: -35px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  line-height: 35px;
+  z-index: 20;
+}
+</style><script charset="utf-8" src="./速查表_files/3.e00a7e4b.chunk.js.下载"></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+</style><style type="text/css"></style><style type="text/css">.CodeMirror-line, .cm-header.cm-header-2, .cm-strong, .cm-image.cm-image-marker, .cm-image.cm-image-alt-text.cm-link, .cm-string.cm-url, .cm-image.cm-image-alt-text.cm-link.CodeMirror-matchingbracket, .CodeMirror-lines, .ant-input, .cc_cursor, body, .ogdlpmhglpejoiomcodnpjnfgcpmgale_default, body, html, input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"], input::-webkit-contacts-auto-fill-button, input:read-only {cursor: url("data:image/png;base64,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") 1 1 , auto !important; }.nice-themeselect-theme-item-name, .nice-themeselect-theme-item, .nice-codetheme-item, .nice-codetheme-item-name, .nice-menu-item, .nice-menu-name, .ant-select-selection-selected-value, .ant-select-selection__rendered, .ant-select-selection
+...........ant-select-selection--single, .ant-btn.ant-btn-primary, .ant-btn.ant-btn-primary.cc_pointer, .ant-btn, .ant-btn.cc_pointer, .ant-select-selection__rendered.cc_pointer, .ant-select-selection-selected-value.cc_pointer, .nice-menu-link.ant-dropdown-trigger, .nice-menu-link.ant-dropdown-trigger.cc_pointer, .nice-menu-link.ant-dropdown-trigger.ant-dropdown-open, .nice-menu-link.ant-dropdown-trigger.ant-dropdown-open.cc_pointer, .nice-btn-zhihu, .ant-modal-close-x, .ant-modal-close-x.cc_pointer, .nice-btn-previewtype.ant-tooltip-open, .nice-themeselect-theme-item-author, .nice-themeselect-theme-item-author.cc_pointer, .nice-themeselect-theme-item-name.nice-menu-subscribe-more, .nice-themeselect-theme-item-name.nice-menu-subscribe-more.cc_pointer, .nice-menu-shortcut, .nice-menu-shortcut.cc_pointer, .nice-footer-message, .nice-footer-engine.ant-dropdown-trigger, .nice-footer-engine.ant-dropdown-trigger.cc_pointer, .nice-footer-message.cc_pointer, .ant-btn.nice-btn-login.ant-btn-circle, .ant-btn.nice-btn-login.ant-btn-circle.cc_pointer, .cc_pointer,[type="search"]::-webkit-search-cancel-button, [type="search"]::-webkit-search-decoration, .paper-button, .ytp-progress-bar-container, input[type=submit], :link, :visited, a > *, img, button, ::-webkit-scrollbar-button, .ogdlpmhglpejoiomcodnpjnfgcpmgale_pointer, ::-webkit-file-upload-button, button, .ytp-volume-panel, #myogdlpmhglpejoiomcodnpjnfgcpmgale .icon { cursor: url("data:image/png;base64,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") 22 3, auto !important; } </style><style id="markdown-theme">/*自定义样式，实时生效*/
+#nice {
+}
+
+#nice p {
+	margin: 0 0 20px;
+	padding: 0;
+	line-height: 1.8em;
+	color: #3a3a3a;
+}
+
+/* 一级标题 */
+#nice h1 {
+  font-size: 2.1em;
+	line-height: 1.1em;
+	padding-top: 16px;
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #c99833;
+}
+/* 一级标题内容 */
+#nice h1 .content {
+  color: #515151;
+  font-weight: 700;
+}
+
+#nice h2, h3, h4, h5, h6 {
+ line-height: 1.5em;
+ margin-top: 2.2em;
+ margin-bottom: 4px;
+}
+
+/* 一级标题修饰 请参考有实例的主题 */
+#nice h1:after {}
+
+/* 二级标题 */
+#nice h2 {
+ margin-bottom: 35px;
+}
+
+/* 二级标题内容 */
+
+#nice h2 .content {
+  display: inline-block;
+  font-weight: bold;
+  background: linear-gradient(#fff 60%, #ffb11b 40%);
+  color: #515151;
+  padding: 2px 13px 2px;
+  margin-right: 3px;
+  height: 50%;
+}
+
+/* 二级标题修饰 请参考有实例的主题 */
+#nice h2:after {}
+
+/* 三级标题 */
+#nice h3 {
+  line-height: 1.4;
+  padding-top: 10px;
+  margin: 10px 0 5px;
+}
+
+/* 三级标题内容 */
+#nice h3 .content {
+  color: #515151;
+  font-weight: 700;
+ font-size: 1.0em;
+  padding-left: 20px;
+  border-left: 3px solid #f9bf45;
+}
+
+/* 三级标题修饰 请参考有实例的主题 */
+#nice h3:after {}
+
+/* 引用
+* 左边缘颜色 border-left-color: black;
+* 背景色 background: gray;
+*/
+#nice blockquote {
+  border-left-color: #ffb11b;
+ background: #fff5e3;
+}
+
+/* 引用文字 */
+#nice blockquote p {
+  color: #595959;
+}
+
+/* 链接 */
+#nice a {
+  border: none;
+  text-decoration: none;
+  color: #dda52d;
+}
+
+#nice a:hover {
+  color: #f9bf45;
+  text-decoration: underline;
+}
+
+/* 无序列表整体样式
+ * list-style-type: square|circle|disc;
+ */
+#nice ul {
+}
+
+/* 有序列表整体样式
+ * list-style-type: upper-roman|lower-greek|lower-alpha;
+ */
+#nice ol {
+}
+
+/* 列表内容，不要设置li
+ */
+#nice li section {
+}
+
+/* 加粗 */
+#nice strong {}
+
+/* 斜体 */
+#nice em {}
+
+/* 加粗斜体 */
+#nice em strong {}
+
+/* 删除线 */
+#nice del {
+  color: #d19826;
+}
+
+/* 分隔线
+* 粗细、样式和颜色
+* border-top: 1px solid #3e3e3e;
+*/
+#nice hr {
+  border-top: 1px solid #f9bf45;
+  margin: 20px 0px;
+}
+
+/* 图片
+* 宽度 width: 80%;
+* 居中 margin: 0 auto;
+* 居左 margin: 0 0;
+*/
+#nice img {
+  width: 100%;
+ border-radius: 5px;
+ display: block;
+ margin-bottom: 15px;
+ height: auto;
+}
+
+/* 图片描述文字 */
+#nice figcaption {
+  color: #dda52d;
+  font-size: 14px;
+}
+
+/* 行内代码 */
+#nice p code, #nice li code {
+  color: #9b6e23;
+  background-color: #fff5e3;
+  padding: 3px;
+  margin: 3px;
+}
+
+/* 非微信代码块
+ * 代码块不换行 display: -webkit-box !important;
+ * 代码块换行 display: block;
+ */
+#nice pre code {}
+
+/*
+ * 表格内的单元格
+ * 字体大小 font-size: 16px;
+ * 边框 border: 1px solid #ccc;
+ * 内边距 padding: 5px 10px;
+ */
+#nice table tr th,
+#nice table tr td {
+  text-align: center;
+}
+
+/* 脚注文字 */
+#nice .footnote-word {
+  color: #ffb11b;
+  padding: 3px;
+}
+
+/* 脚注上标 */
+#nice .footnote-ref {
+  color: #dda52d;
+  margin: 2px;
+  padding: 3px;
+}
+
+/* "参考资料"四个字 
+ * 内容 content: "参考资料";
+ */
+#nice .footnotes-sep:before {
+  margin: 30px 0px 15px 0px;
+  font-weight: 800;
+}
+
+
+/* 参考资料编号 */
+#nice .footnote-num {
+}
+
+/* 参考资料文字 */
+#nice .footnote-item p { 
+}
+
+/* 参考资料解释 */
+#nice .footnote-item p em {
+}
+
+/* 行间公式
+ * 最大宽度 max-width: 300% !important;
+ */
+#nice .block-equation svg {
+}
+
+/* 行内公式
+ */
+#nice .inline-equation svg {  
+}
+
+/* 滑动图片
+ */
+#nice .imageflow-img {
+  display: inline-block;
+  width:100%;
+  margin-bottom: 0;
+}</style><style id="code-theme">/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 16px;
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+  color: #50a14f;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
+
+#nice .custom code {
+  padding-top: 15px;
+  background: #fafafa;
+  border-radius: 5px;
+}
+
+#nice .custom:before {
+  content: '';
+  display:block;
+  background: url(https://my-wechat.mdnice.com/point.png);
+  height: 30px;
+  width: 100%;
+  background-size:40px;
+  background-repeat: no-repeat;
+  background-color: #fafafa;
+  margin-bottom: -7px;
+  border-radius: 5px;
+  background-position: 10px 10px;
+}
+
+#nice .custom {
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.55) 0px 2px 10px;
+}</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div style="display: flex;"><div class="nice-app"><div class="nice-navbar"><div class="nice-left-nav"><section id="nice-title" class="nice-title">Markdown Nice</section><a id="nice-menu-file" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">文件</a><a id="nice-menu-pattern" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">格式</a><a id="nice-menu-function" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">功能</a><a id="nice-menu-view" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">查看</a><a id="nice-menu-theme" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">主题</a><a id="nice-menu-codetheme" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">代码主题</a><a id="nice-menu-setting" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">设置</a><a id="nice-menu-help" class="nice-menu-link ant-dropdown-trigger" href="https://www.mdnice.com/#">帮助</a></div><div class="nice-right-nav"><button type="button" class="ant-btn nice-btn-login ant-btn-circle cc_pointer"><svg viewBox="0 0 1024 1024" class="nice-btn-login-icon" fill="rgba(0,0,0,0.65)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M512 16C238 16 16 238 16 512s222 496 496 496 496-222 496-496S786 16 512 16z m256 843.2c-71.8 53-160.2 84.8-256 84.8s-184.2-31.8-256-84.8V832c0-70.6 57.4-128 128-128 22.2 0 55 22.8 128 22.8 73.2 0 105.6-22.8 128-22.8 70.6 0 128 57.4 128 128v27.2z m61.2-55c-13.6-92.8-92.6-164.2-189.2-164.2-41 0-60.8 22.8-128 22.8S425.2 640 384 640c-96.6 0-175.6 71.4-189.2 164.2C123.8 727.2 80 624.8 80 512c0-238.2 193.8-432 432-432s432 193.8 432 432c0 112.8-43.8 215.2-114.8 292.2zM512 240c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176z m0 288c-61.8 0-112-50.2-112-112s50.2-112 112-112 112 50.2 112 112-50.2 112-112 112z" p-id="5538"></path></svg></button></div></div><div class="nice-text-container"><div id="nice-md-editor" class="nice-md-editing"><textarea style="display: none;"></textarea><div class="CodeMirror cm-s-md-mirror CodeMirror-wrap CodeMirror-focused" style="width: 100%; height: 100%;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 272px; left: 187.225px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="bottom: 0px; display: block;"><div style="min-width: 1px; height: 2033px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="right: 6px; left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true" style="height: 6px; width: 6px;"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: -5px; border-right-width: 25px; min-height: 1992px; padding-right: 5px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 167.225px; top: 248px; height: 24.8px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-link">[R数据科学]</span> R速查表</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-2">## 前言</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">R相关包的速查表如下：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### 基础</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/31cff8bc-c3f7-41d9-8d4a-b791c947cc26.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=l9R5bULa866eIzEw%252Feq7uRtLs4c%253D&amp;Expires=1598259449)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### ggplot2（版本一）</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/3097a1b4-5470-4f8e-a958-bb09c83b9bf8.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=VfqQ%252B7KMM8kwu9%252BP4HfshShmxwY%253D&amp;Expires=1598259307)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/b94499a4-0d73-411e-a950-ac8658f7dcb2.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=8tZbJIdpBOnhp5cRXHbq6BTcosE%253D&amp;Expires=1598259317)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### ggplot2（版本二）</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/0bca34e0-f859-44f4-b3f4-2b668a47f598.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=DFBtf9o6b1wqv7KB5rRvatMgFlk%253D&amp;Expires=1598259405)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/f80dd042-071f-4054-aef8-d9becf5c9618.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=kKZOVm2SflLAPB8pFVDuUVIlFF4%253D&amp;Expires=1598259417)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Rmarkdown</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-image cm-image-marker">!</span><span class="cm-image cm-image-alt-text cm-link">[]</span><span class="cm-string cm-url">(https://imgkr2.cn-bj.ufileos.com/a7632e1e-1be2-4a65-94dd-bd4098fc6e01.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&amp;Signature=B2fwf%252Fsq27ifq1WEHBjN%252BSKrdJQ%253D&amp;Expires=1598259187)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 25px; width: 1px; border-bottom: 0px solid transparent; top: 1992px;"></div><div class="CodeMirror-gutters" style="display: none; height: 2017px;"></div></div></div></div><div id="nice-rich-text" class="nice-marked-text nice-marked-text-pc"><div class="nice-sidebar"><a id="nice-sidebar-wechat" class="nice-btn-wechat"><svg viewBox="0 0 40 40" class="nice-btn-wechat-icon" fill="rgba(0,0,0,0.65)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><g><path fill="#07C060" d="M38.7,15.3c-3.7-4.9-10.2-6.2-16.1-4.1c0.2,0.1,0.4,0.1,0.6,0.2c8.7,2.9,13.3,12.3,10.4,21 c-0.8,2.3-2,4.3-3.5,6c1.9-0.5,3.8-1.3,5.4-2.5C42.1,30.8,43.4,21.4,38.7,15.3z"></path></g><g><path fill="#07C060" d="M17,10.4L17,10.4C17,10.4,17,10.4,17,10.4c0.4-0.3,0.7-0.5,1.1-0.8c0,0,0,0,0.1,0c0.4-0.2,0.8-0.4,1.1-0.7 c0,0,0.1,0,0.1-0.1c0.8-0.4,1.6-0.7,2.4-1c0.1,0,0.1,0,0.2-0.1c0.4-0.1,0.8-0.3,1.2-0.4c0,0,0.1,0,0.1,0c0.4-0.1,0.8-0.2,1.2-0.2 c0.1,0,0.1,0,0.2,0C25.3,7,25.7,7,26.1,7c0.1,0,0.2,0,0.3,0c0.4,0,0.9-0.1,1.3-0.1c0.5,0,1,0,1.5,0.1c0.1,0,0.1,0,0.2,0 c0.5,0,0.9,0.1,1.4,0.2c0.1,0,0.2,0,0.2,0c0.5,0.1,0.9,0.2,1.3,0.3c0.1,0,0.1,0,0.2,0.1C33,7.7,33.5,7.8,33.9,8 c-0.2-0.4-0.4-0.7-0.4-0.7C30.6,2.7,25.8,0,20.6,0c-3.1,0-7.9,1.1-11.5,5.4c-2.4,2.9-3.2,6.3-2.7,9.7c0.3,2.3,1.6,5.4,3.5,7.3 C10.6,17.5,13.2,13.2,17,10.4z"></path></g><g><path fill="#07C060" d="M20.6,30.9c-1.3,0-2.6-0.2-3.8-0.4c-0.1,0-0.3,0-0.5,0c-0.4,0-0.7,0.1-1,0.3l-4,2.6 c-0.1,0.1-0.2,0.1-0.4,0.1c-0.3,0-0.6-0.3-0.7-0.6c0-0.2,0-0.3,0.1-0.5c0-0.1,0.4-2,0.7-3.2c0-0.1,0.1-0.3,0-0.4 c0-0.4-0.2-0.8-0.6-1c-4.3-2.9-7.2-7.5-7.8-12.2c-1.1,1.7-1.6,3-2.2,5c-2.1,7.3,2.5,16,9.9,18.4c8.6,2.8,16.7-0.3,19.5-7.6 c0.3-0.9,0.7-2.4,0.8-3.6C27.7,29.9,24.6,30.9,20.6,30.9z"></path></g></g></g></svg></a><a id="nice-sidebar-zhihu" class="nice-btn-zhihu"><svg viewBox="0 0 1024 1024" class="nice-btn-zhihu-icon" fill="rgba(0,0,0,0.65)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M564.7 230.1V803h60l25.2 71.4L756.3 803h131.5V230.1H564.7z m247.7 497h-59.9l-75.1 50.4-17.8-50.4h-18V308.3h170.7v418.8zM526.1 486.9H393.3c2.1-44.9 4.3-104.3 6.6-172.9h130.9l-0.1-8.1c0-0.6-0.2-14.7-2.3-29.1-2.1-15-6.6-34.9-21-34.9H287.8c4.4-20.6 15.7-69.7 29.4-93.8l6.4-11.2-12.9-0.7c-0.8 0-19.6-0.9-41.4 10.6-35.7 19-51.7 56.4-58.7 84.4-18.4 73.1-44.6 123.9-55.7 145.6-3.3 6.4-5.3 10.2-6.2 12.8-1.8 4.9-0.8 9.8 2.8 13 10.5 9.5 38.2-2.9 38.5-3 0.6-0.3 1.3-0.6 2.2-1 13.9-6.3 55.1-25 69.8-84.5h56.7c0.7 32.2 3.1 138.4 2.9 172.9h-141l-2.1 1.5c-23.1 16.9-30.5 63.2-30.8 65.2l-1.4 9.2h167c-12.3 78.3-26.5 113.4-34 127.4-3.7 7-7.3 14-10.7 20.8-21.3 42.2-43.4 85.8-126.3 153.6-3.6 2.8-7 8-4.8 13.7 2.4 6.3 9.3 9.1 24.6 9.1 5.4 0 11.8-0.3 19.4-1 49.9-4.4 100.8-18 135.1-87.6 17-35.1 31.7-71.7 43.9-108.9L497 850l5-12c0.8-1.9 19-46.3 5.1-95.9l-0.5-1.8-108.1-123-22 16.6c6.4-26.1 10.6-49.9 12.5-71.1h158.7v-8c0-40.1-18.5-63.9-19.2-64.9l-2.4-3z" fill="#1296db" p-id="8715"></path></svg></a><a id="nice-sidebar-preview-type" class="nice-btn-previewtype"><svg viewBox="0 0 1024 1024" class="nice-btn-previewtype-icon" fill="rgba(0,0,0,0.65)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M736 0l-448 0c-52.8 0-96 43.2-96 96l0 832c0 52.8 43.2 96 96 96l448 0c52.8 0 96-43.2 96-96l0-832c0-52.8-43.2-96-96-96zM384 48l256 0 0 32-256 0 0-32zM512 960c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM768 768l-512 0 0-640 512 0 0 640z"></path></svg></a></div><div id="nice-rich-text-box" class="nice-wx-box nice-wx-box-pc"><section id="nice" data-tool="mdnice编辑器" data-website="https://www.mdnice.com"><p>[R数据科学] R速查表</p>
+<h2><span class="prefix"></span><span class="content">前言</span><span class="suffix"></span></h2>
+<p>R相关包的速查表如下：</p>
+<h3><span class="prefix"></span><span class="content">基础</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/31cff8bc-c3f7-41d9-8d4a-b791c947cc26.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">ggplot2（版本一）</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/3097a1b4-5470-4f8e-a958-bb09c83b9bf8.png" alt=""></figure>
+<figure><img src="./速查表_files/b94499a4-0d73-411e-a950-ac8658f7dcb2.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">ggplot2（版本二）</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/0bca34e0-f859-44f4-b3f4-2b668a47f598.png" alt=""></figure>
+<figure><img src="./速查表_files/f80dd042-071f-4054-aef8-d9becf5c9618.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">Rmarkdown</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/a7632e1e-1be2-4a65-94dd-bd4098fc6e01.png" alt=""></figure>
+<figure><img src="./速查表_files/ff197626-b340-43e2-8a6b-608d77aaca1b.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">dplyr</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/ef71736f-0b28-45c0-9f69-2ea54677f267.png" alt=""></figure>
+<figure><img src="./速查表_files/76caf006-e560-436b-b5bf-95181ad4ee83.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">stringr</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/2cf04768-102e-4482-a772-49c2009bbb8f.png" alt=""></figure>
+<figure><img src="./速查表_files/7d82200e-78d0-44e4-8955-c525055a03f4.png" alt=""></figure>
+<h3><span class="prefix"></span><span class="content">forcats</span><span class="suffix"></span></h3>
+<figure><img src="./速查表_files/88fc1f2f-dba2-4d11-b200-9ac94c6d172f.png" alt=""></figure>
+</section></div></div><div></div><ul id="nice-editor-menu" class="ant-menu nice-editor-menu ant-menu-light ant-menu-root ant-menu-vertical" role="menu"><li class="ant-menu-item ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-link-to-foot" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">微信外链转脚注</span></span><span class="nice-menu-shortcut">Ctrl+Alt+L</span></div></li><li class="ant-menu-item ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-format" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">格式化文档</span></span><span class="nice-menu-shortcut">Ctrl+Alt+F</span></div></li><li class="ant-menu-item ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-image" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">图片</span></span><span class="nice-menu-shortcut">Ctrl+Alt+I</span></div></li></ul></div><div class="nice-footer-container"><p>行数：56</p><p>字数：318</p><p>主题：山吹</p></div></div></div></div><script>!function(b){function e(e){for(var r,t,f=e[0],c=e[1],a=e[2],n=0,d=[];n<f.length;n++)t=f[n],Object.prototype.hasOwnProperty.call(u,t)&&u[t]&&d.push(u[t][0]),u[t]=0;for(r in c)Object.prototype.hasOwnProperty.call(c,r)&&(b[r]=c[r]);for(s&&s(e);d.length;)d.shift()();return i.push.apply(i,a||[]),o()}function o(){for(var e,r=0;r<i.length;r++){for(var t=i[r],f=!0,c=1;c<t.length;c++){var a=t[c];0!==u[a]&&(f=!1)}f&&(i.splice(r--,1),e=l(l.s=t[0]))}return e}var t={},u={6:0},i=[];function l(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return b[e].call(r.exports,r,r.exports,l),r.l=!0,r.exports}l.e=function(c){var e=[],t=u[c];if(0!==t)if(t)e.push(t[2]);else{var r=new Promise(function(e,r){t=u[c]=[e,r]});e.push(t[2]=r);var f,a=document.createElement("script");a.charset="utf-8",a.timeout=120,l.nc&&a.setAttribute("nonce",l.nc),a.src=l.p+"static/js/"+({}[c]||c)+"."+{0:"dcdb4350",1:"6c5646d1",2:"6ce2d67d",3:"e00a7e4b",4:"769554b1",8:"c2486027",9:"5dc65e06",10:"1ca8a441",11:"10b31372",12:"acd4da66",13:"a9c0cfde",14:"ac1175b4",15:"217b68e5",16:"fea6fbd0",17:"a4eda780",18:"6c163952",19:"dd29f385",20:"f8cf4699",21:"33bff36b",22:"8607ae61",23:"ee286d1f",24:"cf39c700",25:"1c1a73c1",26:"8ba17600",27:"199de333",28:"84217116",29:"e1592684",30:"2f86a0a1",31:"b06b99ec",32:"cbbee03d",33:"57f4656c",34:"938f5198",35:"3fbe0962",36:"ff90b613",37:"d0b26df2",38:"c152160f",39:"fffc31dd",40:"bd9701de",41:"13e0c785",42:"a61eff22",43:"336ebca3",44:"d913e5b0",45:"0619f26c",46:"a8379998",47:"30a01d4d",48:"8199aebe",49:"7be91eeb",50:"48b11fd7",51:"4ead5442",52:"abeb0bb9",53:"35f97910",54:"82b855d6",55:"bd9873a7",56:"071ec056",57:"1a42991d",58:"b127d5ab",59:"aad5d606",60:"0bf0b48e",61:"c3b3959f",62:"638b868c",63:"085260df",64:"f53ea1f5",65:"b369f8d1",66:"cd826464",67:"7c31898e",68:"24f32d6f",69:"b8b787d7",70:"3673b44c",71:"52ff0fcb",72:"99e1d03c",73:"4ff9469b",74:"5e0e1181",75:"c1e2feae",76:"5c8b1d4e",77:"2030436f",78:"16403451",79:"a54ac4de",80:"dee16890",81:"e2eede3a",82:"b5d4c205",83:"b20c902b",84:"3f02c5c1",85:"e7e6f532",86:"8f425bca",87:"0fa87560",88:"fbd91fe7",89:"2b7e81be",90:"08dbe1c4",91:"08595e93",92:"7e8d0d97",93:"2d8e7001",94:"2edaf07e",95:"7975175e",96:"37968bc2",97:"81c0a2b8",98:"768afebb",99:"3d73b38e",100:"97f0880c",101:"44e25b8b",102:"794ac002",103:"d4cce98e",104:"41cd3fba",105:"a85a5be4",106:"e66e76ff",107:"f9bad912",108:"6b3fd72b",109:"74f85fcf",110:"e801e18f",111:"6224d820",112:"4dd24e29",113:"10768d9b",114:"8613e7d1",115:"dbeb87f4",116:"b2d15397",117:"9b73a69f",118:"07b19a15",119:"24c6ed99",120:"6482b10d",121:"66b0bcce"}[c]+".chunk.js";var n=new Error;f=function(e){a.onerror=a.onload=null,clearTimeout(d);var r=u[c];if(0!==r){if(r){var t=e&&("load"===e.type?"missing":e.type),f=e&&e.target&&e.target.src;n.message="Loading chunk "+c+" failed.\n("+t+": "+f+")",n.name="ChunkLoadError",n.type=t,n.request=f,r[1](n)}u[c]=void 0}};var d=setTimeout(function(){f({type:"timeout",target:a})},12e4);a.onerror=a.onload=f,document.head.appendChild(a)}return Promise.all(e)},l.m=b,l.c=t,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(r,e){if(1&e&&(r=l(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var f in r)l.d(t,f,function(e){return r[e]}.bind(null,f));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="/",l.oe=function(e){throw console.error(e),e};var r=this["webpackJsonpmarkdown-nice-editor"]=this["webpackJsonpmarkdown-nice-editor"]||[],f=r.push.bind(r);r.push=e,r=r.slice();for(var c=0;c<r.length;c++)e(r[c]);var s=f;o()}([])</script><script src="./速查表_files/7.53360f9c.chunk.js.下载"></script><script src="./速查表_files/main.29adf6a5.chunk.js.下载"></script><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 338px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-normal" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">默认主题</span></span><span class="nice-themeselect-theme-item-author"></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-1" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">橙心</span></span><span class="nice-themeselect-theme-item-author">zhning12</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-3" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">姹紫</span></span><span class="nice-themeselect-theme-item-author">djmaxwow</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-4" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">嫩青</span></span><span class="nice-themeselect-theme-item-author">画手</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-5" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">绿意</span></span><span class="nice-themeselect-theme-item-author">夜尽天明</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-6" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">红绯</span></span><span class="nice-themeselect-theme-item-author">HeyRain</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-8" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">蓝莹</span></span><span class="nice-themeselect-theme-item-author">谭淞宸</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-10" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">兰青</span></span><span class="nice-themeselect-theme-item-author">Krahets</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-11" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"><span>✔️</span></span><span class="nice-themeselect-theme-item-name">山吹</span></span><span class="nice-themeselect-theme-item-author">ElyhG</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-12" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">前端之巅同款</span></span><span class="nice-themeselect-theme-item-author cc_pointer">HeyRain</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-13" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">极客黑
+
+</span></span><span class="nice-themeselect-theme-item-author">hyper-xx</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-15" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">蔷薇紫</span></span><span class="nice-themeselect-theme-item-author">HeyRain</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-16" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">萌绿</span></span><span class="nice-themeselect-theme-item-author">koala</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-17" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">全栈蓝</span></span><span class="nice-themeselect-theme-item-author">Nealyang</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-18" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">极简黑</span></span><span class="nice-themeselect-theme-item-author">小鱼</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-19" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">橙蓝风</span></span><span class="nice-themeselect-theme-item-author">axuebin</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-custom" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">自定义</span></span><span class="nice-themeselect-theme-item-author"></span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="nice-themeselect-menu-item"><div id="nice-menu-subscribe-more" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name nice-menu-subscribe-more cc_pointer">订阅更多主题</span></span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="nice-themeselect-menu-item"><div id="nice-menu-view-css" class="nice-themeselect-theme-item"><span><span class="nice-themeselect-theme-item-flag"></span><span class="nice-themeselect-theme-item-name">查看主题 CSS</span></span></div></li></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 290px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-full-screen" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">全屏</span></span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-edit-area" class="nice-menu-item"><span><span class="nice-menu-flag"><span>✔️</span></span><span class="nice-menu-name">编辑区域</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-preview-area" class="nice-menu-item"><span><span class="nice-menu-flag"><span>✔️</span></span><span class="nice-menu-name">预览区域</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-theme-area" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">主题CSS区域</span></span></div></li></ul></div></div></div><input id="copy-input" style="position: absolute; left: -1000px; z-index: -1000;"><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 386px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-wechat" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">微信代码主题</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-atomOneDark" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">atom-one-dark</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-atomOneLight" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"><span>✔️</span></span><span class="nice-codetheme-item-name">atom-one-light</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-monokai" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">monokai</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-github" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">github</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-vs2015" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">vs2015</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-xcode" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"></span><span class="nice-codetheme-item-name">xcode</span></span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-codetheme-apple" class="nice-codetheme-item"><span><span class="nice-codetheme-item-flag"><span>✔️</span></span><span class="nice-codetheme-item-name">Mac 风格</span></span></div></li></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 462px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-sync-scroll" class="nice-menu-item"><span><span class="nice-menu-flag"><span>✔️</span></span><span class="nice-menu-name">同步滚动</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-contain-img-name" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">上传图片时包含名称</span></span></div></li></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 194px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-del" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">删除线</span></span><span class="nice-menu-shortcut">Ctrl+U</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-bold" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">加粗</span></span><span class="nice-menu-shortcut">Ctrl+B</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-italic" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">倾斜</span></span><span class="nice-menu-shortcut">Ctrl+I</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-code" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">代码</span></span><span class="nice-menu-shortcut">Ctrl+Alt+C</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-inline-code" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">行内代码</span></span><span class="nice-menu-shortcut">Ctrl+Alt+V</span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-link" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">链接</span></span><span class="nice-menu-shortcut">Ctrl+K</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-form" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">表格</span></span><span class="nice-menu-shortcut">Ctrl+Alt+T</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-image" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">图片</span></span><span class="nice-menu-shortcut">Ctrl+Alt+I</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-font" class="nice-menu-item"><span><span class="nice-menu-flag"><span>✔️</span></span><span class="nice-menu-name">衬线字体</span></span></div></li><li class=" ant-dropdown-menu-item-divider"></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-link-to-foot" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">微信外链转脚注</span></span><span class="nice-menu-shortcut">Ctrl+Alt+L</span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-format" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">格式化文档</span></span><span class="nice-menu-shortcut cc_pointer">Ctrl+Alt+F</span></div></li></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-dropdown nice-overlay ant-dropdown-placement-bottomLeft  ant-dropdown-hidden" style="left: 146px; top: -995px;"><ul class="ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical" role="menu" tabindex="0"><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-export-markdown" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">导出 Markdown</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><div id="nice-menu-export-pdf" class="nice-menu-item"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">导出 PDF</span></span></div></li><li class="ant-dropdown-menu-item" role="menuitem"><label id="nice-menu-import-file" class="nice-menu-item" for="importFile"><span><span class="nice-menu-flag"></span><span class="nice-menu-name">导入</span><input type="file" id="importFile" accept=".txt,.md" style="display: none;"></span></label></li></ul></div></div></div><div style="position: absolute; top: 0px; left: 0px; width: 100%;"><div><div class="ant-tooltip  ant-tooltip-placement-left  ant-tooltip-hidden" style="left: 1763px; top: 50px; transform-origin: 112px 50%;"><div class="ant-tooltip-content"><div class="ant-tooltip-arrow"></div><div class="ant-tooltip-inner" role="tooltip">复制到公众号</div></div></div></div></div><div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div><div><div class="ant-message"><span></span></div></div></body></html>
