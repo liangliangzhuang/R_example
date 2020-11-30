@@ -66,9 +66,13 @@
 
 ------------
 
-# R数据科学
+# R数据科学系列
+
+> 该系列代码数据都在[R数据科学系列](xx)
 
 - [R数据科学] 1.6几何对象[2020.08.23几何对象](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484261&idx=1&sn=6b451f752f86a284717d958e13738686&chksm=ea24fc81dd537597080427826e52dd4c1dac24e9cee9cc07897497f0dd9649ff63cc6a50f232&token=682523778&lang=zh_CN#rd)
+
+- R速查表分享[2020.08.23速查表](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484290&idx=1&sn=edfe8a910e87353dc8e68f3f42e34c7c&chksm=ea24fc66dd537570f2bcda65b1ae0457ac9906fd14e74da6a0ffd3ee62a304ed465fd8ea9637&token=1309493585&lang=zh_CN#rd)
 
 - [R数据科学]tidyverse数据清洗案例详解[2020.09.27tidyverse数据清洗](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484881&idx=1&sn=2f5330b23e376ceb2ef746184935174f&chksm=ea24fa35dd53732319b16bed64e42a8dfa2da2a578cc2f7d4ef043f000bff81d5113c4e9dca1&token=682523778&lang=zh_CN#rd)
 
