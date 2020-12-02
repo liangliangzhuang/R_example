@@ -76,10 +76,14 @@ if (!require(devtools)) {
 devtools::install_github('erocoar/gghalves')
 ```
 
+
 ### geom_half_boxplot
 
+
+
+
 ```{r}
-library(gghalves)
+library(gghalves) # Compose Half-Half Plots Using Your Favourite Geoms # Compose Half-Half Plots Using Your Favourite Geoms
 
 ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
 	geom_half_boxplot() 
@@ -117,7 +121,7 @@ ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) +
 
 先将数据的统计摘要进行计算存到了`summ_iris`中，包含了均值，标准差，数量标准误差。`iris_plot`为所需数据，这里将`Species`变量设置为因子，因为要用它作为分类变量。
 ```{r}
-library(tidyverse)
+library(tidyverse) # Easily Install and Load the 'Tidyverse' # Easily Install and Load the 'Tidyverse'
 # 统计摘要
 summ_iris <- iris %>% 
 	group_by(Species) %>% 
@@ -137,10 +141,11 @@ head(iris_plot)
 接下来进行绘图，我们想要得到`Species`与`Sepal.Length`的关系，其中`Species`为离散变量，`Sepal.Length`为连续变量。并绘制了半边的小提琴图，并将该图往右移了0.15，上下位置不变（`position_nudge(x = .15, y = 0)`），为了后面绘制其他图形留位置。
 
 ```{r}
-library(gghalves)
-library(ggsignif)
-library(ggsci)
-library(ggpubr)
+library(gghalves) # Compose Half-Half Plots Using Your Favourite Geoms # Compose Half-Half Plots Using Your Favourite Geoms
+library(ggsignif) # Significance Brackets for 'ggplot2'
+library(ggsci) # Scientific Journal and Sci-Fi Themed Color Palettes for
+'ggplot2'
+library(ggpubr) # 'ggplot2' Based Publication Ready Plots
 ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
 	geom_half_violin(aes(fill = Species),
 									 position = position_nudge(x = .15, y = 0),
@@ -277,7 +282,7 @@ ggplot(iris_plot , aes(x = Species, y = Sepal.Length, fill = Species))+
 最后是混合图，根据自己想要的图，可以自行添加。相信这个代码简单的图给大家学术作图上省了不少时间。
 
 ```{r}
-library(tidyverse)
+library(tidyverse) # Easily Install and Load the 'Tidyverse' # Easily Install and Load the 'Tidyverse'
 ggplot() +
 	geom_half_boxplot(
 		data = iris %>% filter(Species=="setosa"), 
@@ -311,4 +316,5 @@ ggplot() +
 [gghalves: Compose Half-Half Plots Using Your Favourite Geoms](https://cran.r-project.org/web/packages/gghalves/index.html)
 
 [CRAN](https://rdrr.io/cran/gghalves/f/vignettes/gghalves.Rmd)
+
 
