@@ -1,0 +1,235 @@
+---
+title: "Calendar plot in R using ggplot2"
+author: "庄亮亮"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+# 前言
+
+一眨眼2020即将过去，2020年是杂乱的一年，感谢我们还活着。让我们放下这年，展望2021年吧。要不用R给2021年做个私人定制版日历吧？
+
+翻了翻张杰老师的可视化书，咦，确实有这么一小节讲诉用`ggplot2`做的日历图。再次就不做过多的描述，文章链接为：[R-ggTimeSeries | ggplot2: 热力日历图](https://mp.weixin.qq.com/s?__biz=MzUzMzMwNjgzNA==&mid=2247487080&idx=1&sn=e99b010770511753f1b2b0920e5086b1&chksm=faa742d5cdd0cbc396dea26f9f24ce10363bee75762c03a6eeab7ba458c916a020d4301f089b&mpshare=1&scene=1&srcid=1202LQdRnMwGfpGu9w5vG0VJ&sharer_sharetime=1607056249516&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=35453224e4849a3f2e1b846bcbdae94e88d62e0b594baaaef17c053fcd23cc0c554934b75f5c2fa015afd3f32585dc05dbb4492f1e421038b2360e3bead8b29a8c2745d869ae5f5aedfcae695f3f5e3f3d1e401053ad65f04868c5cd59148e21b350f750f9ba904eede978cee1e0d4bb8aac2d3183bd55148377feaabd517b39&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=6300002f&lang=zh_CN&exportkey=AwwRzNCUFY4Ht%2BeREdgnlk4%3D&pass_ticket=PQvOS5Jb4M7eokaaGvIxBgeKPMDokgkBrMyupV4lH3YcterR3XWsw2pD24LMmzfC&wx_header=0)。但是对于R小白的我而言，私人定制2021年日历，不简单啊。
+
+找了下必应，找到了下面这个包，强烈给R小白安利，简单几行代码就可以实现私人化日历定制了，还可以打印出来，挂在书桌旁。
+
+`calendR`包允许创建一个可定制的日历。此外，该软件包还提供了创建热图类型日历的参数。在本教程中，你将学习如何在R中创建年度和月度日历图。
+
+
+# R中的年历图
+
+该软件包非常易容易使用，因为它仅包含一个命名函数`calendR`。默认情况下，如果未指定任何参数，则该函数将以横向形式创建当年的日历，并且所有文本将使用系统的语言，如下所示：
+
+```{r message=FALSE, warning=FALSE}
+# install.packages("calendR") #直接install安装包
+library(calendR)
+calendR() # 默认为当前年份
+```
+
+如果您不希望日历使用操作系统的语言，则可以对其进行修改。例如，如果您希望日历使用英语，则在执行calendR之前输入：
+```{r}
+Sys.setlocale("LC_ALL","English")
+```
+
+
+如果您希望创建其他年份的年度日历图，则可以在`year`参数上指定它，如下所示：
+```{r}
+calendR(year = 2021) 
+```
+
+在以下小节中，我们将讨论如何在星期日或星期一开始，以及如何为某些日子添加颜色。
+
+## 日历周开始的设定
+
+日历的周数默认情况下将从星期日开始。可以将参数`start`设置为"M"来获得从星期一开始日历图。
+
+```{r}
+calendR(year = 2021,
+        start = "M") # Start the week on Monday
+```
+
+## 为日子增添色彩
+
+该`special.days`参数将为数字矢量内的指定日期添加颜色。`special.col`设置颜色，`low.col`设置其他日期的颜色。
+
+```{r}
+calendR(year = 2025,
+        start = "M",
+        special.days = c(9, 19, 56, 79, 102,  # Days to color
+                         126, 257, 300, 342),
+        special.col = "lightblue",            # Color of the specified days
+        low.col = "white")                    # Background color of the rest of the days
+```
+
+
+如果要突出显示日历中的所有周末，可以将`special.days`参数设置为`"weekend"`，此快捷方式将立即为它们全部着色。
+
+
+```{r}
+calendR(year = 2025,
+        start = "M",
+        special.days = "weekend") # Color all weekends
+```
+
+
+为了添加多个事件，您将需要创建一个NA值向量，该向量的长度与相应年份的天数相同。然后，您可以将事件添加到矢量上一年中相应的日期，您需要在`special.days`参数中指定这些事件。请注意，您将需要指定与事件一样多的颜色。
+
+```{r}
+# Vector of NA of the same length of the number of days of the year
+events <- rep(NA, 365)
+
+# Set the corresponding events
+events[40:45] <- "Trip"
+events[213:240] <- "Holidays"
+events[252] <- "Birthday"
+events[359] <- "Christmas" 
+
+# Creating the calendar with a legend
+calendR(year = 2025,
+        special.days = events,
+        special.col = c("pink", "lightblue", # Colors
+                        "lightgreen", "lightsalmon"),
+        legend.pos = "right") # Legend to the right
+```
+
+
+# R中的月历图
+
+年度日历的先前描述的功能也可用于每月日历。但是，如果需要，每月日历还可以将文本添加到每月的某几天。
+
+为了创建月度日历，您需要指定年份和月份，如下所示：
+
+```{r}
+calendR(year = 2021, month = 8)
+```
+
+## 为日子增添色彩
+
+如前一节所述，您可以添加special.days参数中指定的日期的颜色。
+
+一方面，对于只有一个事件，彩色的日子将是special.days参数中指定的日期，而颜色将是与special.col参数一起选择的日期。您还可以指定special.days = "weekend"在所有周末着色。
+
+
+```{r}
+calendR(year = 2021, month = 8,
+        special.days = c(1, 9, 12, 23, 28),
+        special.col = "#bfe2f2",
+        low.col = "white")
+```
+
+## 在日子里添加文字
+
+使用月度日历图时，您还可以使用text参数向日期添加一些文本，并使用参数指定其位置（日期）text.pos。请注意，您可以分别使用text.size和text.col参数修改文本的大小和颜色。
+
+```{r}
+calendR(year = 2021, month = 8,        # Year and month
+        start = "M",                   # Start the week on Monday
+        text = c("Running", "Running", # Add text (only for monthly calendars)
+                 "Class"), 
+        text.pos = c(5, 16, 25),       # Days of the month where to put the texts 
+        text.size = 4.5,               # Font size of the text
+        text.col = 4)                  # Color of the texts
+```
+
+## ggplot2中的农历
+
+
+如果创建月度日历，则还可以将月相添加到其日期中。为此，请lunar = TRUE使用lunar.size参数设置并修改卫星的大小。您还可以使用参数更改卫星隐藏区域的颜色lunar.col。
+
+
+```{r}
+calendR(month = 2,  
+        lunar = TRUE,         # Add moons to the calendar
+        lunar.col = "gray60", # Color of the non-visible area of the moons
+        lunar.size = 7)       # Size of the moons
+```
+
+
+# 学术日历
+
+在start_date和end_date论据是创建学术日历特别有用。请参阅以下示例：
+
+
+```{r}
+calendR(start_date = "2020-09-01", # Custom start date
+        end_date = "2021-05-31",   # Custom end date
+        start = "M",               # Start the weeks on Monday
+        mbg.col = 4,               # Color of the background of the names of the months
+        months.col = "white",      # Color text of the names of the months
+        special.days = "weekend",  # Color the weekends
+        special.col = "lightblue", # Color of the special.days
+        lty = 0,                   # Line type
+        bg.col = "#f4f4f4",        # Background color
+        title = "Academic calendar 2020-2021", # Title
+        title.size = 30,                       # Title size
+        orientation = "p")         # Vertical orientation
+```
+
+
+# 日历图的进一步定制
+
+```{r}
+# Background image (link or source file)
+# If the image is from a local source it must be on the working directory,
+# in other case you must indicate the full path
+img <- "C:/Users/ZLL/Desktop/4.jpg"
+
+calendR(year = 2021,
+        start = "M", 
+        title.col = "white",
+        # Weeks start on Monday
+        mbg.col = 3,               # Background color of the month names
+        months.col = "white",      # Color of the text of the month names
+        weeknames.col = "white",
+        
+        special.days = "weekend",  # Color the weekends
+        special.col = "lightblue", # Color of the special.days
+        lty = 0,                   # Line type (no line)
+        weeknames = c("Mo", "Tu",  # Week names
+                      "We", "Th",
+                      "Fr", "Sa",
+                      "Su"),
+        title.size = 40,   # Title size
+        orientation = "p",
+        bg.img = img,
+        pdf = TRUE,
+        doc_name = "My_calendar7"
+        )    
+```
+
+
+# 将日历另存为PDF格式
+
+最后，您可以将参数设置pdf为TRUE以准备打印的PDF格式（默认为A4格式）保存日历。
+
+您也可以在doc_name参数中指定生成的PDF文件的名称，但如果未指定，则文件名的格式应为：Calendar_year.pdf年历或Calendar_month_year.pdf月历。例如，您可以使用以下代码在R中保存一个四列年度日历图：
+
+
+```{r}
+ calendR(year = 2021,
+         orientation = "landscape", # Set orientation = "portrait" for a three column calendar
+         pdf = TRUE,
+         doc_name = "My_calendar1")  # Name of the PDF (don't write the extension)
+```
+
+此外，您可以在几种纸张尺寸之间进行选择以保存日历，从"A6"到，"A0"但是请注意，您可能需要微调一些字体尺寸以获得所需的输出。
+
+```{r}
+# calendR(year = 2021,
+#         orientation = "landscape", 
+#         pdf = TRUE,
+#         papersize = "A6") # Choose the paper size
+```
+
+[Calendar plot in R using ggplot2](https://r-coder.com/calendar-plot-r/)
+
+
