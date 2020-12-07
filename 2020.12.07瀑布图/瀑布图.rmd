@@ -1,0 +1,206 @@
+---
+title: "瀑布图"
+author:
+  - 庄闪闪
+documentclass: ctexart
+keywords:
+  - 中文
+  - R Markdown
+output:
+  rticles::ctex:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+# 简介
+
+**瀑布图（waterfall plot）**用于展示拥有相同的X轴变量数据（如相同的时间序列）、不同的Y 轴离散型变量（如不同的类别变量）和Z轴数值变量，可以清晰地展示不同变量之间的数据变化关系。
+
+# 三维瀑布图
+
+三维瀑布图可以看成是多数据系列三维面积图。R中`plot3D`包的`polygon3D()`函数和`segments3D()`函数可以绘制三维面积图，`lines3D()`函数可以绘制三维曲线图，所以，综合这几个函数可以绘制三维瀑布图，该代码，数据来源[R语言书可视化之美](https://github.com/EasyChart/Beautiful-Visualization-with-R)。
+
+> 这是一本非常棒的R可视化书籍，小编预计在年底进行一次抽奖送这本书的活动，进行期待。
+
+## 数据介绍
+
+原始数据如下所示：一共39行，9列数据。列表示不同组别，行表示不同x坐标下的数值大小，其中第一列表示x坐标位置。
+```{r message=FALSE, warning=FALSE}
+library(plot3D)
+library(RColorBrewer)
+mydata0 <- read.csv("Facting_Data.csv",check.names =FALSE)
+head(mydata0)
+```
+
+之后对数据进行一个变换，变成我们绘图所需要的数据格式（这里最费时间了）。因为从行来看，数据是离散的绘制出来效果不是很好，于是使用插值样条函数(`spline`)对原始数据进行插值，变成了300行数据（`n=300`）。这里做了一个for循环，把所有数据都进行了插值，列名存在了`variable`中。`mydata`的前6行结果如下所示：
+
+```{r message=FALSE, warning=FALSE}
+N <- ncol(mydata0)-1
+mydata <- data.frame(x=numeric(),y=numeric(),variable=character())
+
+for(i in 1:N){
+  newdata <- data.frame(spline(mydata0[,1],mydata0[,i+1],n=300,method= "natural")) #进行插值
+  newdata$variable<-colnames(mydata0)[i+1]
+  mydata <- rbind(mydata,newdata)
+}
+
+mydata$variable <- as.numeric(mydata$variable)
+head(mydata)
+
+group <- unique(mydata$variable) #每组的名称
+M <- length(group) #组数
+```
+
+进行颜色的处理，以及图片版式的设置。
+```{r message=FALSE, warning=FALSE}
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+colormap <- rev(gg_color_hue(M))#brewer.pal(M,'RdYlGn')
+
+pmar <- par(mar = c(5.1, 4.1, 4.1, 6.1))
+```
+
+
+## 基础版本
+
+这里先构建一个空的立方体，注意x，y，z轴的坐标范围，所以你得看看原始数据，再定范围，不能一股脑地拿来用。该函数的内部参数，在[R可视乎|等高线](等高线)有提过一些。或者将光标放在该函数，按F1寻求帮助文档，在这里就不做过多解释。 
+```{r message=FALSE, warning=FALSE}
+perspbox(z=as.vector(0),#add=TRUE,
+          xlim=c(20,70),ylim=c(360,750),zlim=c(0,15),
+          ticktype = "detailed",bty = "f",box = TRUE,
+          colkey = FALSE,theta = -110, phi = 20, d=3)
+```
+
+使用`polygon3D`函数和`lines3D`函数将每一类的数据填充到立方体中。这里代码主要还是用base包写的，你可以试试tidyverse流写。
+```{r message=FALSE, warning=FALSE}
+for (i in 1:M){
+  df0<-mydata[mydata$variable==group[i],]
+  Ndf<-nrow(df0)
+  df<-rbind(df0,c(df0$x[1],df0$y[Ndf],df0$variable[Ndf]))
+  with(df,polygon3D(x=variable,y=x, z=y, alpha=0.6,
+                     col=colormap[i],lwd = 3,add=TRUE,colkey = FALSE))
+  with(df0,lines3D(x=variable,y=x, z=y, 
+                  lwd = 0.5,col="black",add=TRUE))
+}
+```
+在此，就完成这个三位瀑布图了，美观度极佳，可解释性也不错。
+
+## 添加第四个变量
+
+如果想加入第四变量也是没问题的，具体不再重复。完整代码可见[R语言书可视化之美](https://github.com/EasyChart/Beautiful-Visualization-with-R)或者我的github中。
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+mydata0<-read.csv("Facting_Data.csv",check.names =FALSE)
+
+N<-ncol(mydata0)-1
+mydata<-data.frame(x=numeric(),y=numeric(),variable=character())
+
+for (i in 1:N){
+  newdata<-data.frame(spline(mydata0[,1],mydata0[,i+1],n=300,method= "natural"))
+  newdata$variable<-colnames(mydata0)[i+1]
+  mydata<-rbind(mydata,newdata)
+}
+
+mydata$variable<-as.numeric(mydata$variable)
+group<-unique(mydata$variable)
+M<-length(group)
+
+#------------
+colormap <- colorRampPalette(rev(brewer.pal(11,'Spectral')),alpha = TRUE)(32)
+#colormap <- colorRampPalette(rev(brewer.pal(7,'RdYlGn')),alpha = TRUE)(32)
+pmar <- par(mar = c(5.1, 4.1, 4.1, 6.1))
+
+perspbox(z=as.vector(0),#add=TRUE,
+         xlim=c(20,70),ylim=c(360,750),zlim=c(0,15),
+         ticktype = "detailed",bty = "f",box = TRUE,
+         colkey = FALSE,theta = -110, phi = 20, d=3)
+
+for (i in 1:M){
+  df0<-mydata[mydata$variable==group[i],]
+  
+  df<-cbind(df0,z0=rep(0,nrow(df0)))
+  df<-df[df$y>0.05,]
+  with(df,segments3D(x0=variable, y0=x,z0=z0,
+                     x1=variable,y1=x, z1=y, colvar =y,
+                     alpha=0.5,col=ramp.col(colormap,alpha = 0.9),lwd = 3,add=TRUE,colkey = FALSE))
+  with(df0,lines3D(x=variable,y=x, z=y, 
+                  lwd = 1.5,col="black",add=TRUE))
+}
+
+colkey (col=colormap,clim=range(mydata$y),clab = "Z Value", add=TRUE, length=0.5,side = 4)
+```
+
+
+# 行分面的带填充的曲线图
+
+使用分面图的可视化方法也可以展示瀑布图的数据信息，关于分面图可视化方法我已经在[R可视乎|分面一页多图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484186&idx=1&sn=c913a65f88132b3611e580b0318404d9&chksm=ea24fcfedd5375e87adfc3028850ee4034a0a0d34dd3855cf155b28eea9c71bfedb381d2c9e9&token=1309493585&lang=zh_CN#rd)介绍过。
+
+下面进行行分面的带填充的曲线图绘制，所有数据共用X轴坐标，每个数据类别是用的Y轴坐标。
+
+>相对三维瀑布图，分面瀑布图的**优点**是：
+可以更好地展示数据信息，避免不同类别之间数据重叠引起的遮挡问题，但是不能很直接地比较不同类别之间的数据差异。
+
+## 基础版本
+
+这里不做过多解释，用`geom_area()`绘制面积，用`facet_grid()`进行分面，最后就是对主题进行设置。主题的设置有很多有趣的技巧，以后整理一篇完整的。
+```{r message=FALSE, warning=FALSE}
+library(reshape2)
+library(ggplot2)
+mydata0<-read.csv("Facting_Data.csv",stringsAsFactors=FALSE)
+
+colnames(mydata0)<-c("X_Axis",seq(60,25,-5))
+mydata<-melt(mydata0,id.vars = "X_Axis")
+
+ggplot(mydata,aes(X_Axis,value,fill=variable))+
+  geom_area(color="black",size=0.25)+
+  facet_grid(variable~.)+
+  theme(
+    text=element_text(size=15,face="plain",color="black"),
+    axis.title=element_text(size=10,face="plain",color="black"),
+    axis.text = element_text(size=10,face="plain",color="black"),
+    legend.position="none"
+  )
+```
+
+
+## 加入第四个变量
+
+同理，在上图的基础上可以将每个数据的Z变量进行颜色映射，这样有利于比较不同类别之间的数据差异，该图如下所示：
+```{r message=FALSE, warning=FALSE}
+library(RColorBrewer)
+colormap <- colorRampPalette(rev(brewer.pal(11,'Spectral')))(32)
+mydata0<-read.csv("Facting_Data.csv",stringsAsFactors=FALSE)
+
+N<-ncol(mydata0)-1
+
+colnames(mydata0)<-c("X_Axis",seq(60,25,-5))
+
+mydata<-data.frame(x=numeric(),y=numeric(),variable=character())
+
+for (i in 1:N){
+  newdata<-data.frame(spline(mydata0[,1],mydata0[,i+1],n=300,method= "natural"))
+  newdata$variable<-colnames(mydata0)[i+1]
+  mydata<-rbind(mydata,newdata)
+}
+
+mydata$variable<-factor(mydata$variable,levels=seq(60,25,-5))
+
+ggplot(mydata,aes(x,y,group=variable))+
+  geom_bar(aes(fill=y),color=NA,size=0.25,stat="identity")+
+  geom_line(color="black",size=0.5)+
+  scale_fill_gradientn(colours=colormap)+
+  facet_grid(variable~.)+
+  theme(
+    text=element_text(size=15,face="plain",color="black"),
+    axis.title=element_text(size=10,face="plain",color="black"),
+    axis.text = element_text(size=10,face="plain",color="black"),
+    legend.position="right"
+  )
+```
+
+
