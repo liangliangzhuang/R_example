@@ -43,6 +43,12 @@
 
 - R可视乎|等高线图[2020.11.28等高线](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&tempkey=MTA4OV91RDN5NjJXY1RuNlpkZWhDQ1p1WmhsbjAwX1podTU2TWdnRVNuOEdvOU1uckF6YkhWTDV4VXg5ekpMcmJpSjRHYk5icy1RZ0NRd3JWTUVIQ2c4RWhBd3g1LXlRUWh3S2hHRkJfTUdQNmpZNmJtUnBEUzNwTFktV202UnZkbnlnWVY5LXFiZktLbi1ab1RBTXdSSXRLV1BhVW9yVGRXSGR2TGFtUlVnfn4%3D&chksm=6a24f2c95d537bdf8623dae8553c8a4968b77ac57727d2337ebc6ea6891c1cbc8f0566c5b407&__mpa_temp_link_flag=1&token=761595288#rd)
 
+- R可视乎|瀑布图[2020.12.07瀑布图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487383&idx=1&sn=43e2eaf6b7c6b24510ccadb79e766f07&chksm=ea24f073dd53796546fd4145ded4cddfe8779464ad9d0d674900a65484966cd5c3f6367dcecf&token=86432493&lang=zh_CN#rd)
+
+- R可视乎|私人定制专属日历[2020.12.05日历](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487814&idx=1&sn=aa58149b66ce8b6d1c6210ded418c71a&chksm=ea24eea2dd5367b4a24a670b9e78d377f1506399be8dd0d0a35230407e3dc131f6b07ab3d9ca&token=86432493&lang=zh_CN#rd)
+
+- R可视乎|峰峦图[2020.12.25峰峦图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488248&idx=1&sn=6b71d7adba5ea796fdfe8f49fe232d94&chksm=ea24ed1cdd53640a1e30271584458097fce82a732f9d63ce2084dc63fbae6fb028fd7f813bb7&token=86432493&lang=zh_CN#rd)
+
 -------
 # R案例分析
 
@@ -63,6 +69,11 @@
 - gghalves包-你五毛我五毛[2020.11.14gghalves](https://mp.weixin.qq.com/s/WaMCCmT2eAP9DmCjPOtcMg)
 
 - flexdashboard包：用于R的简单交互式仪表盘[2020.11.16flexdashboard](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486237&idx=1&sn=571544510c7e3e48a280dd4d677656e5&chksm=ea24f4f9dd537defa493c419973f75943159316765ac61093a195b83fde314dd7fffe61349cd&token=1801328502&lang=zh_CN#rd)
+
+- esquisse包:不写代码生成ggplot图[2020.12.21esquisse包](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488200&idx=1&sn=3a058480b104165118975b2d908dff72&chksm=ea24ed2cdd53643a9deb58069cd8d0e9933fc165994a2bb7a6f7d4651c7796b839fc781ec86d&token=86432493&lang=zh_CN#rd)
+
+- ggridges包:绘制峰峦图[2020.12.25峰峦图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488248&idx=1&sn=6b71d7adba5ea796fdfe8f49fe232d94&chksm=ea24ed1cdd53640a1e30271584458097fce82a732f9d63ce2084dc63fbae6fb028fd7f813bb7&token=86432493&lang=zh_CN#rd)
+
 
 ------------
 
