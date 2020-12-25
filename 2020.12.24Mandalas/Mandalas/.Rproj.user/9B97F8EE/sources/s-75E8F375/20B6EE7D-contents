@@ -1,0 +1,30 @@
+library(ggplot2)
+
+# set the `rel_min_height` argument to remove tails
+ggplot(iris, aes(x = Sepal.Length, y = Species)) +
+  geom_density_ridges(rel_min_height = 0.005) +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(expand = c(0.01, 0)) +
+  theme_ridges()
+
+# set the `scale` to determine how much overlap there is among the plots
+ggplot(diamonds, aes(x = price, y = cut)) +
+  geom_density_ridges(scale = 4) +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(expand = c(0.01, 0)) +
+  theme_ridges()
+
+# the same figure with colors, and using the ggplot2 density stat
+ggplot(diamonds, aes(x = price, y = cut, fill = cut, height = ..density..)) +
+  geom_density_ridges(scale = 4, stat = "density") +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(expand = c(0.01, 0)) +
+  scale_fill_brewer(palette = 4) +
+  theme_ridges() + theme(legend.position = "none")
+
+# use geom_density_ridges2() instead of geom_density_ridges() for solid polygons
+ggplot(iris, aes(x = Sepal.Length, y = Species)) +
+  geom_density_ridges2() +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(expand = c(0.01, 0)) +
+  theme_ridges()

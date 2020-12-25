@@ -3,7 +3,7 @@
     "path": "F:/我的学习/R/R_example/2020.12.24Mandalas/Mandalas/Mandalas.rmd",
     "project_path": "Mandalas.rmd",
     "type": "r_markdown",
-    "hash": "3115533078",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1608789639023.0,
@@ -11,8 +11,9 @@
     "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "12,16",
-        "scrollLine": "0"
+        "cursorPosition": "14,3",
+        "scrollLine": "0",
+        "chunk_output_type": "console"
     },
     "folds": "",
     "lastKnownWriteTime": 1608790458,
