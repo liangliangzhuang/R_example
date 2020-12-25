@@ -1,0 +1,104 @@
+---
+title: "Mandalas"
+author: "庄闪闪"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## 参考文献
+
+[Mandalas](https://github.com/aschinchon/mandalas)
+
+[R-blogger-Mandalas](https://www.r-bloggers.com/2018/02/mandalas/)
+
+[Mandalas](https://fronkonstin.com/2018/02/14/mandalas/)
+
+[Inspired by your work I created this](https://hrafnkelle.github.io/p5mandalas/)
+
+
+## 简介
+
+- 以（0,0）为中心的单位圆中获得n个等距点
+
+- 对所有这些点重复该过程，再次获得每个点周围的n个点； 半径按比例缩放
+
+- 舍弃了以前的（父）n分
+
+
+我反复地重复这些步骤。如果我从n个点开始，迭代k次，最后我得到nk个点。然后，我计算它们的Voronoi镶嵌，并用ggplot绘制。
+
+```{r message=FALSE, warning=FALSE}
+# Load in libraries
+library(ggplot2)
+library(dplyr)
+library(deldir)
+
+# Parameters to change as you like
+iter=5 # Number of iterations (depth)
+points=8 # Number of points
+radius=4.8 # Factor of expansion/compression
+
+# Angles of points from center
+angles=seq(0, 2*pi*(1-1/points), length.out = points)+pi/2
+
+# Initial center
+df=data.frame(x=0, y=0)
+
+# Iterate over centers again and again
+for (k in 1:iter)
+{
+  temp=data.frame()
+  for (i in 1:nrow(df))
+  {
+    data.frame(x=df[i,"x"]+radius^(k-1)*cos(angles),
+               y=df[i,"y"]+radius^(k-1)*sin(angles)) %>% rbind(temp) -> temp
+  }
+  df=temp
+}
+
+# Obtain Voronoi regions
+df %>%
+  select(x,y) %>%
+  deldir(sort=TRUE) %>%
+  .$dirsgs -> data
+
+# Plot regions with geom_segmen
+data %>%
+  ggplot() +
+  geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2), color="black") +
+  scale_x_continuous(expand=c(0,0))+
+  scale_y_continuous(expand=c(0,0))+
+  coord_fixed() +
+  theme(legend.position  = "none",
+        panel.background = element_rect(fill="white"),
+        panel.border     = element_rect(colour = "black", fill=NA),
+        axis.ticks       = element_blank(),
+        panel.grid       = element_blank(),
+        axis.title       = element_blank(),
+        axis.text        = element_blank())->plot
+
+plot
+
+# Do you like the result? Save it (change the name if you want)
+ggsave("mandala4.png", height=5, width=5, units='in', dpi=600)
+
+```
+
+![](1.jpg)
+
+
+
+
+
+
+
+
