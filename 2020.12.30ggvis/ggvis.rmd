@@ -1,0 +1,173 @@
+---
+title: "ggvis包"
+author: "庄闪闪"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+## 简介
+[ggvis](http://ggvis.rstudio.com)是R的一个数据可视化包，它可以：
+
+- 使用与ggplot2类似的语法描述数据图形；
+
+- 创建丰富的交互式图形，在本地Rstudio或浏览器中使用这些图形；
+
+- 利用shiny的基础结构发布交互式图形。
+
+**ggvis 与 ggplot2主要区别**：
+
+- 基本命名转换：
+
+ggplot→ggvis
+
+geom→layer function
+
+stat→compute function
+
+aes→props
+
++→%>%
+
+- ggvis目前不支持分面；
+
+- 使用ggvis而不添加任何层类似于qplot
+
+> 更详细的区别可见：[ggvis vs ggplot2](http://ggvis.rstudio.com/ggplot2.html)
+
+```{r message=FALSE, warning=FALSE}
+library(ggvis)
+library(dplyr)
+```
+
+## 静态图
+
+### 散点图
+
+使用`layer_points()`绘制，其中内部参数都用默认值。注意这里`ggvis(~wt, ~mpg) `比ggplot多了一个波浪线。
+```{r}
+mtcars %>% 
+  ggvis(~wt, ~mpg) %>% 
+  layer_points()
+```
+如果要加拟合线，和ggplot语法很类似，再加一层`layer_smooths()`。
+```{r}
+mtcars %>% 
+  ggvis(~wt, ~mpg) %>%
+  layer_points() %>%
+  layer_smooths()
+```
+内部参数也很类似（`se = TRUE`加入拟合区间），拟合方式使用"lm"方法。
+```{r}
+mtcars %>% 
+  ggvis(~wt, ~mpg) %>%
+  layer_points() %>%
+  layer_model_predictions(model = "lm", se = TRUE)
+```
+
+### 分组的散点图
+
+如果想要使用分组说明散点图，可以加入`fill = ~factor(cyl)`或者`group_by(cyl)`进行分布。
+```{r}
+mtcars %>% 
+  ggvis(~wt, ~mpg) %>% 
+  layer_points(fill = ~factor(cyl))
+```
+如果想要预测每组数据拟合情况，可以使用`ayer_model_predictions()`。
+```{r}
+mtcars %>% 
+  ggvis(~wt, ~mpg, fill = ~factor(cyl)) %>% 
+  layer_points() %>% 
+  group_by(cyl) %>% 
+  layer_model_predictions(model = "lm")
+```
+
+### 柱状图
+
+柱状图是使用`layer_bars()`函数，内部参数包括width（设置柱子宽度）等。
+
+```{r}
+head(pressure)
+
+pressure %>% 
+  ggvis(~temperature, ~pressure) %>%
+  layer_bars(fill := "#ff8080")
+```
+
+```{r}
+pressure %>% 
+  ggvis(~temperature, ~pressure) %>%
+  layer_bars(width = 15,fill := "#ff8080")
+```
+
+### 曲线图
+
+使用`layer_lines()`绘制曲线图，当然你可以和散点图合并，效果更好。
+```{r}
+pressure %>% ggvis(~temperature, ~pressure) %>% layer_lines()
+```
+
+```{r}
+pressure %>% ggvis(~temperature, ~pressure) %>%
+  layer_points(size := 50) %>% 
+  layer_lines()
+```
+
+
+### 直方图
+使用`layer_histograms()`绘制直方图，内部参数包括width（柱子宽度），boundary（两个箱子之间的边界），center（柱子中央为中心）等。
+```{r}
+head(faithful)
+
+faithful %>% ggvis(~eruptions, fill := "#ff8080") %>%
+  layer_histograms(width=0.25, boundary=0) %>% 
+  add_axis("x", title = "month") %>%
+  add_axis("y", title = "count")
+
+```
+
+```{r}
+faithful %>% ggvis(~eruptions, fill := "#90bff9") %>%
+  layer_histograms(width=0.25, center=0) %>% 
+  add_axis("x", title = "month") %>%
+  add_axis("y", title = "count")
+```
+
+
+### 箱型图
+
+使用`layer_boxplots()`绘制箱型图，具体内部参数再次不做具体陈述。
+
+```{r}
+mtcars %>% ggvis(~factor(cyl), ~mpg) %>% layer_boxplots(fill := "#90bff9") 
+```
+
+
+## 小编有话说
+
+本篇推送参考[ggvis cookbook](http://ggvis.rstudio.com/cookbook.html)，小编也只是一个搬运工。这篇主要是对该包中的常见图形进行静态展示，但是其实这个包更强大的功能在于交互式。鉴于本文内容较多，将在下次对这个包的交互使用进行详细解释。
+
+## 交互性
+
+[Interactivity](https://ggvis.rstudio.com/interactivity.html)
+
+## 基本的交互式控件
+```{r}
+mtcars %>%
+  ggvis(~wt, ~mpg) %>%
+  layer_smooths(span = input_slider(0.5, 1, value = 1)) %>%
+  layer_points(size := input_slider(100, 1000, value = 100))
+```
+
+
+
