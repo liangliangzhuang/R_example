@@ -5,7 +5,7 @@
 公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。
 
 作者：庄闪闪
-微信公众号：[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
+微信公众号：[庄闪闪的R语言手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
 合作请加微信号：a641292753
 
 -------
