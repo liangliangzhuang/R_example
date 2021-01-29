@@ -5,7 +5,7 @@
 公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。
 
 作者：庄闪闪
-微信公众号：[庄闪闪的成长手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
+微信公众号：[庄闪闪的R语言手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
 合作请加微信号：a641292753
 
 -------
@@ -74,6 +74,17 @@
 
 - ggridges包:绘制峰峦图[2020.12.25峰峦图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488248&idx=1&sn=6b71d7adba5ea796fdfe8f49fe232d94&chksm=ea24ed1cdd53640a1e30271584458097fce82a732f9d63ce2084dc63fbae6fb028fd7f813bb7&token=86432493&lang=zh_CN#rd)
 
+- [ggvis包—数据可视化交互](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488405&idx=1&sn=271fc88b523e738a6a1d92504dbce330&chksm=ea24ec71dd5365671bb66cbb50afdb0b00762b7581b9d3e5060a4b59021485364093f1c8b963&scene=21#wechat_redirect)
+
+- [calendR包—私人定制专属日历](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487814&idx=1&sn=aa58149b66ce8b6d1c6210ded418c71a&chksm=ea24eea2dd5367b4a24a670b9e78d377f1506399be8dd0d0a35230407e3dc131f6b07ab3d9ca&scene=21#wechat_redirect)
+
+- [corrplot包：相关性矩阵可视化](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487625&idx=1&sn=3102c4afb0cf97904d810579af386eb6&chksm=ea24ef6ddd53667b887d11e7013589f796c8ff4f9e1e9b6e8df817ea7b223baadbc19dfbaaa5&scene=21#wechat_redirect)
+
+- [cowplot包：用R添加水印](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486838&idx=2&sn=21ee1c8b683e7d27373f3e1f40901428&chksm=ea24f292dd537b843db330a88161ce6f89227418f64515164615c3f63721df6464b6d91a2b1a&scene=21#wechat_redirect)
+
+- [flexdashboard包：用于R的简单交互式仪表盘](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486237&idx=1&sn=571544510c7e3e48a280dd4d677656e5&chksm=ea24f4f9dd537defa493c419973f75943159316765ac61093a195b83fde314dd7fffe61349cd&scene=21#wechat_redirect)
+
+- [igraph包——绘制网络图](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483780&idx=1&sn=46ce562ed91ec2d08d7669477160c249&chksm=ea24fe60dd53777615de14ec0ad087c1bbc56d46d73eb51e13fdeeaa60633063b4bd415a7d01&scene=21#wechat_redirect)
 
 ------------
 
@@ -88,6 +99,28 @@
 - [R数据科学]tidyverse数据清洗案例详解[2020.09.27tidyverse数据清洗](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484881&idx=1&sn=2f5330b23e376ceb2ef746184935174f&chksm=ea24fa35dd53732319b16bed64e42a8dfa2da2a578cc2f7d4ef043f000bff81d5113c4e9dca1&token=682523778&lang=zh_CN#rd)
 
 - 数据处理|数据按从小到大分成n类[2020.11.22数据处理ntile()](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=2&sn=839daca8d94687bb2d2c07b4d61ee505&chksm=ea24f47add537d6c1601e07d3692c28a9d1ff89215478c9f1e0a0dd8c020f0bbd6f7d902f7d9&token=761595288&lang=zh_CN#rd)
+
+----
+
+## 学习笔记
+
+1. [R数据科学|第八章内容介绍](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247489655&idx=1&sn=0fb004c7434066ef8777749670a47879&chksm=ea24e793dd536e856e19476a2c2807e271d94503de6f81a455761d8543087cb6d65d781ae6b8&token=261038642&lang=zh_CN#rd)
+2. [R数据科学|第七章内容介绍](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488790&idx=1&sn=7d9bea14b8d5f65aa0d6f7f2243aba0a&chksm=ea24eaf2dd5363e4aabf912c0bfea863d0929b37c4eb26ebf0c64c4c13b851445128e40c8ed1&token=261038642&lang=zh_CN#rd)
+3. [R数据科学|5.5.3内容介绍](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488658&idx=2&sn=0e52bfe7d2845ee5080d0f34ef39321a&chksm=ea24eb76dd536260db4060ba3cc109d571c1e5440f23a3d2ca37eec43b74d838a40a7d64a4da&token=261038642&lang=zh_CN#rd)
+4. [R数据科学|5.5.2内容介绍及课后习题解答](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488450&idx=1&sn=1d67f85351b5c6a4fbac9b9b391c8c37&chksm=ea24ec26dd53653072f30e3352597f000fd274913b67fb90809f1bf729fde2e9420ad9d3d624&token=261038642&lang=zh_CN#rd)
+5. [R数据科学|5.5.1 内容介绍](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488291&idx=1&sn=26ab9e40c82e19b580cc49c8b94830a5&chksm=ea24ecc7dd5365d1288ed40377dceb2f46838ddbdd375779c299346f403adce30cf3cb979a61&scene=21#wechat_redirect)
+6. [R数据科学|5.5.1 习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488291&idx=2&sn=f3b6c7ec6e0380e4aa7df6a662574c14&chksm=ea24ecc7dd5365d12a7799865c040991124893ac5a9daa2cacb0ab88e5f00d9e1f5ac8ea21d6&scene=21#wechat_redirect)
+7. [R数据科学|5.4内容介绍及习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488201&idx=1&sn=d10dfd154c074df858ec0a23df5ea095&chksm=ea24ed2ddd53643bd2e815a0285d03edc2ee1faf2ba92e6a90e09fa819d9c4458a060130266d&scene=21#wechat_redirect)
+8. [R数据科学|5.3内容介绍](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488092&idx=1&sn=1e8a03e95af9c15b375214954f9143e0&chksm=ea24edb8dd5364ae3df6554e02d76c8129204687ff187640a0e3b9cb8f03bc67513425b017ef&scene=21#wechat_redirect)
+9. [R数据科学|5.3课后习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488092&idx=2&sn=f247a53556885912a6bdf01a1dac82ee&chksm=ea24edb8dd5364ae8739e3de0856be14250ffc4a71b09f27ae526d01dd6e3f1dd4d49bf07c0c&scene=21#wechat_redirect)
+10. [R数据科学|3.7内容介绍及习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487680&idx=1&sn=1713a96af27fe980917684a79ae6f9b3&chksm=ea24ef24dd5366322365ebad1056d19ce116b8d3fb9089be27e54865bb5d3b4063c9eda60245&scene=21#wechat_redirect)
+11. [R数据科学|3.6习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486565&idx=2&sn=9528c701d54da29740de2d60516e8ad2&chksm=ea24f381dd537a97c61beb59c35ede88198ba40a915505b266ad3324769b730615f65d8a851d&scene=21#wechat_redirect)
+12. [R数据科学|3.6内容介绍](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487324&idx=1&sn=4a7a1261a79894a960d674cddba8ca68&chksm=ea24f0b8dd5379aead668460edffcb128400df78cbfd930a9e37ea58c48da468227221353b7b&scene=21#wechat_redirect)
+13. [R数据科学|3.5内容介绍及习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487001&idx=1&sn=1001c3ab89e0e4e3ee841c9c061bbdfc&chksm=ea24f1fddd5378ebf5f6c6d1e6c63c1e1781ae34a8585d5b76b031a975470f836aa15405bc78&scene=21#wechat_redirect)
+14. [R数据科学|3.4内容介绍及习题解答](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487680&idx=2&sn=4ed84cbe90bf14cf6b913b7957892a91&chksm=ea24ef24dd5366324ec0e1689955384572b765463f4cfbc6c59d7ed5c7b6c1af180414031a4b&scene=21#wechat_redirect)
+15. [R数据科学|3.3课后习题](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486565&idx=2&sn=9528c701d54da29740de2d60516e8ad2&chksm=ea24f381dd537a97c61beb59c35ede88198ba40a915505b266ad3324769b730615f65d8a851d&scene=21#wechat_redirect)
+16. [R数据科学|3.2.4课后习题](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486530&idx=1&sn=cb7ca8c7a29afc24d901a8ffe7ed64ca&chksm=ea24f3a6dd537ab035a0e2e50b0321f7a3366f06f798af8a1e6ae724670f9916f72b82809bae&scene=21#wechat_redirect)
+
 
 ----------
 - 欢迎关注我的公众号[庄闪闪的成长手册]，创作不易，感谢打赏
