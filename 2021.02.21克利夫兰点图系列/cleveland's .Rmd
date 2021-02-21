@@ -1,0 +1,119 @@
+---
+title: "R可视乎｜克利夫兰点图系列"
+author:
+  - 庄亮亮
+documentclass: ctexart
+keywords:
+  - 中文
+  - R Markdown
+output:
+  rticles::ctex:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+# 克利夫兰点图系列
+
+
+## 数据结构
+
+为了方便起见，我这里直接模拟产生数据进行实验。大家根据自己数据进行变化即可。test_data包含两列，产品名称（因子类型），产品失效时间。
+
+> 注：随机种子的设定，方便大家可以运行出和我一样的结果。
+
+```{r}
+set.seed(1) #设置随机种子
+test_data = data.frame("Id" = LETTERS[1:20], "Time" = rnorm(20,10,10)+20)
+test_data$Id = as.factor(test_data$Id) #将Id转换为因子型数据
+```
+```{r}
+head(test_data)
+```
+
+
+## 棒棒糖图
+
+**棒棒糖图（lollipop chart）**：棒棒糖图传达了与柱形图或者条形图相同的信息，只是将矩形转变成线条，这样可减少展示空间，重点放在数据点上，从而看起来更加简洁、美观。相对柱形图与条形图，棒棒糖图更加适合数据量比较多的情况。图3-4-1(a)为横向棒棒糖图，对应条形图；而如果是纵向棒棒糖图则对应柱形图。
+
+
+使用 ggplot2 包中的散点绘制函数`geom_point()`及连接线函数 `geom_segment()`来绘制棒棒图。其中`geom_segment()`函数根据起点坐标`（x,y）`和终点坐标`（xend,yend）`绘制两者之间的连接线，棒棒糖图的连接线为平行于X轴水平绘制，其长度（length）对应 X 轴变量的数值。
+
+
+```{r}
+library(ggplot2)
+ggplot(test_data,aes(y = Id,x = Time))+
+  geom_segment(aes(x=0,xend=Time,y=Id,yend=reorder(Id,Time)),col="gray60") + #添加连接线
+  geom_point(shape=21,size=4,colour="gray60",fill="skyblue")
+```
+
+如果想按照产品失效时间进行绘制，则可以使用`y = reorder(Id,Time)`对`y = Id`进行替换。
+
+```{r}
+ggplot(test_data,aes(y = reorder(Id,Time),x = Time))+
+  geom_segment(aes(x=0,xend=Time,y=reorder(Id,Time),yend=reorder(Id,Time)),col="gray60") + #添加连接线
+  geom_point(shape=21,size=4,colour="gray60",fill="skyblue") + ylab("Product")
+```
+
+
+当然也可以实际使用中，尤其是在生存分析，可靠性分析中。我们可以数据包含产品测试开始时间和终点时间。这时只需将segement中的x参数进行变化即可。
+
+```{r}
+test_data$start_Time = rnorm(20,5,3) #模拟产生开始时间数据
+ggplot(test_data,aes(y = reorder(Id,Time),x = Time))+
+  geom_segment(aes(x=start_Time,xend=Time,y=reorder(Id,Time),yend=reorder(Id,Time)),col="gray60") + #添加连接线
+  geom_point(shape=21,size=4,colour="gray60",fill="skyblue") + ylab("Product")
+```
+
+
+## 克利夫兰点图
+
+**克利夫兰点图（Cleveland's dot plot）**：也就是我们常用的滑珠散点图，非常类似棒棒糖图，只是没有连接的线条，重点强调数据的排序展示及互相之间的差距。克利夫兰点图一般都横向展示，所以 Y 轴变量一般为类别型变量。
+
+只需使用`geom_point()`即可绘制克利夫兰点图。
+```{r}
+ggplot(test_data,aes(y = reorder(Id,Time),x = Time))+
+  geom_point(shape=21,size=4,colour="gray60",fill="skyblue") + ylab("Product")
+```
+
+
+## 哑铃图
+
+**哑铃图（dumbbell plot）**：可以看成多数据系列的克利夫兰点图，只是使用直线连接了两个数据系列的数据点。哑铃图主要用于：
+
+①展示在同一时间段两个数据点的相对位置（增加或者减少）；
+
+②比较两个类别之间的数据值差别。
+
+这里，我们的模拟数据就不大适合了，为了绘制该图我将数据进行变化。实际背景如下：两个工厂对不同产品类型进行相同实验测试，得到数据如下：
+
+```{r}
+set.seed(2)
+test_data1 = data.frame("Id" = LETTERS[1:20], "Time" = rnorm(20,10,10)+20)
+test_data1$Id = as.factor(test_data1$Id) 
+test_data1$start_Time = rnorm(20,5,3) #模拟产生开始时间数据
+test_data_dum = rbind(test_data,test_data1)
+
+test_data_dum$Group = c(rep(1,20),rep(2,20))
+test_data_dum$Group = as.factor(test_data_dum$Group)
+```
+
+此时前6行数据如下：
+```{r}
+head(test_data_dum)
+```
+
+```{r}
+ggplot(test_data_dum,aes(y = reorder(Id,Time),x = Time,fill=Group)) +
+  geom_line(aes(group = reorder(Id,Time))) +
+  geom_point(shape=21,size=4,colour="gray60") + ylab("Product") +
+  scale_fill_manual(values=c( "#FC4E07","#36BED9"))+
+  theme(
+    legend.background = element_blank(),
+    legend.position = c(0.85,0.12)
+  )
+```
+
+
