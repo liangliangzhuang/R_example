@@ -10,6 +10,14 @@
 
 -------
 
+# R文档沟通
+
+- [R Markdown 指南](https://cosname.github.io/rmarkdown-guide/)
+
+- [R Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)
+
+- [Rmarkdown 制作重复性报告](https://github.com/liangliangzhuang/R_example/tree/master/2023.04.12%20Rmarkdown%E9%87%8D%E5%A4%8D%E6%80%A7%E6%8A%A5%E5%91%8A)
+
 # R可视乎系列
 
 - igraph包——绘制网络图
