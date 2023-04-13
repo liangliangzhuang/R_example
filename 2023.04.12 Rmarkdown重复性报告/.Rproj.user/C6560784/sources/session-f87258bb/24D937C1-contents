@@ -1,0 +1,160 @@
+suppressPackageStartupMessages(library(binom))
+data(ghcnd_stations, package = "StatCompLab")
+data(ghcnd_values, package = "StatCompLab")
+suppressPackageStartupMessages(library(styler))
+data1 <- ghcnd_stations
+data2 <- ghcnd_values
+rm(ghcnd_stations,ghcnd_values)
+data2 <- data2 %>% mutate(season=ifelse(Month %in% 4:9,"Summer","Winter"))
+data2 <- data2 %>% mutate(Summer=ifelse(Month %in% 4:9,T,F))
+data2 <- data2 %>% left_join(data1,by='ID')
+year_2018 <- data2 %>% filter(Year==2018)
+
+
+tmin <- year_2018 %>% filter(Element=='TMIN') %>% group_by(season) %>% 
+  summarise(mean=mean(Value)) %>% ggplot(aes(x=season,y=mean))+
+  geom_col()+ggtitle('The min temperature Summer vs Winter')+
+  ylab("The average min temperature")
+
+tmax <- year_2018 %>% filter(Element=='TMAX') %>% group_by(season) %>% 
+  summarise(mean=mean(Value)) %>% ggplot(aes(x=season,y=mean))+
+  geom_col()+ggtitle('The max temperature Summer vs Winter')+
+  ylab("The average max temperature")
+
+prcp_plot <- year_2018 %>% filter(Element=='PRCP') %>% group_by(season) %>% 
+  summarise(mean=mean(Value)) %>% ggplot(aes(x=season,y=mean))+
+  geom_col()+ggtitle('The precipitation Summer vs Winter')+
+  ylab("The average precipitation")
+g <- year_2018 %>%
+  filter(Element %in% c("TMIN", "TMAX")) %>%
+  ggplot(aes(DecYear, Value, colour = Element)) +
+  geom_line() +
+  facet_wrap(~ ID,nrow=8)+
+  scale_y_continuous(breaks = seq(-20,30,10))
+t_average <- year_2018 %>%  filter(Element=='TMAX'|Element=='TMIN') %>% select(-DecYear,-season) %>% 
+  pivot_wider(names_from = Element,values_from = Value) %>% mutate(taver=(TMAX+TMIN)/2,
+    season=ifelse(Month%in% 4:9,'Summer','Winter'))
+t_average_sup <- t_average %>% ggplot(aes(x=taver))+geom_histogram(bins = 30)+
+  facet_wrap(~season,nrow=2)+ggtitle('The average temperature of Summer vs Winter')+
+  xlab("The average temperature value")
+
+
+prcp <- data2 %>% filter(Element=='PRCP')
+options(dplyr.summarise.info=F)
+observed_diff <- prcp %>% group_by(Name,Summer) %>% 
+  summarise(mean=mean(Value),.groups = "drop")
+observed_diff <- observed_diff %>% pivot_wider(names_from = Summer,
+  values_from = mean)
+names(observed_diff) <- c("StationName","Winter","Summer")
+observed_diff <- observed_diff  %>%  mutate(diff=abs(Winter-Summer))
+
+permutation_diff <- data.frame(StationName=observed_diff$StationName,
+  p_value=0,sd=0,ci95_lower=0,ci95_upper=0)
+mean_diff <- function(x, y) {
+  mean(x) - mean(y)
+}
+p_value_CI <- function(perm_stats,observed_diff,StationName,n_perms){
+  ci <- binom.confint(sum(perm_stats >= observed_diff[observed_diff$StationName==StationName,]$diff), 
+    n_perms, method = "wilson")
+  ci
+}
+mc_permutation <- function(){
+  
+  for(j in 1:nrow(permutation_diff)){
+    StationName <- permutation_diff$StationName[j]
+    prcp_winter <- prcp %>% filter(Summer==F,Name==StationName) %>% pull(Value)
+    prcp_summer <- prcp %>% filter(Summer==T,Name==StationName) %>% pull(Value)
+    n_perms <- 1000
+    perm_stats <- numeric(n_perms)
+    for (i in 1:n_perms) {
+      perm <- sample(c(prcp_winter, prcp_summer))
+      perm_stats[i] <- mean_diff(perm[1:length(prcp_winter)], 
+        perm[(length(prcp_winter)+1):(length(prcp_winter)+length(prcp_summer))])
+    }
+    p_value <- sum(perm_stats>=observed_diff[observed_diff$StationName==StationName,]$diff)/n_perms
+    ci <- p_value_CI(perm_stats,observed_diff,StationName,n_perms)
+    permutation_diff[j,]$p_value <<- p_value
+    permutation_diff[j,]$sd <<- sd(perm_stats)
+    permutation_diff[j,]$ci95_lower <<- ci$lower
+    permutation_diff[j,]$ci95_upper <<- ci$upper
+  }
+  
+  knitr::kable(permutation_diff)
+  
+  
+}
+
+prcp_month <- data2 %>% group_by(Month) %>% summarise(mean=sqrt(mean(Value)))
+data2 <- data2 %>% mutate(Value_sqrt_avg=0)
+for(i in 1:nrow(prcp_month)){
+  data2[data2$Month==prcp_month$Month[i],]$Value_sqrt_avg <- prcp_month$mean[i]
+}
+cs <- function(k,x){
+  if(k==1){
+    return(cos(2*pi*x)+sin(2*pi*x))
+  }else{
+    temp <- cos(2*pi*x)+sin(2*pi*x)
+    for(i in 2:k){
+      temp <- temp+cos(2*pi*x*i)+sin(2*pi*x*i)
+    }
+    return(temp)
+  }
+}
+data2 <- data2 %>% mutate(cov_m1=cs(1,DecYear),
+  cov_m2=cs(2,DecYear),
+  cov_m3=cs(3,DecYear),
+  cov_m4=cs(4,DecYear)
+)
+spatial_model <- function(k,data){
+  if(k==0){
+    m <- lm(Value_sqrt_avg~Longitude+Latitude+Elevation+DecYear,data=data)
+  }else{
+    temp <- cs(k,data$DecYear)
+    data$cov <- temp
+    m <- lm(Value_sqrt_avg~Longitude+Latitude+Elevation+DecYear+cov,data=data)
+  }
+  return(m)
+}
+
+station_model <- function(){
+  names <- data1$Name
+  df <- data.frame(name=names,se=0,ds=0)
+  for (i in 1:length(names)) {
+    name <- names[i]
+    temp <- cs(1,data2$DecYear)
+    data2$cov <- temp
+    train <- data2 %>% filter(Name!=name)
+    test <- data2 %>% filter(Name==name)
+    m <- spatial_model(1,train)
+    pred <- predict(m,newdata=test)
+    score <- cbind(pred, test) %>% mutate(
+      se = proper_score("se", Value_sqrt_avg, mean = mean(pred)),
+      ds = proper_score("ds", Value_sqrt_avg, mean = mean(pred), sd = sd(pred))
+    )
+    df$name[i] <- name
+    df$se[i] <- mean(score$se)
+    df$ds[i] <- mean(score$ds)
+  }
+  knitr::kable(df)
+}
+month_model <- function(){
+  months <- 1:12
+  df2 <- data.frame(months=months,se=0,ds=0)
+  for (i in 1:length(months)) {
+    month <- months[i]
+    temp <- cs(1,data2$DecYear)
+    data2$cov <- temp
+    train <- data2 %>% filter(Month!=month)
+    test <- data2 %>% filter(Month==month)
+    m <- spatial_model(1,train)
+    pred <- predict(m,newdata=test)
+    score2 <- cbind(pred, test) %>% mutate(
+      se = proper_score("se", Value_sqrt_avg, mean = mean(pred)),
+      ds = proper_score("ds", Value_sqrt_avg, mean = mean(pred), sd = sd(pred))
+    )
+    df2$months[i] <- month
+    df2$se[i] <- mean(score2$se)
+    df2$ds[i] <- mean(score2$ds)
+  }
+  knitr::kable(df2)
+}
