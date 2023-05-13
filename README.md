@@ -20,6 +20,16 @@
 
 # R可视乎系列
 
+- 高级棒棒图
+
+![image-20230513214535597](https://gitee.com/zhuang_liang_liang0825/other/raw/master/image-20230513214535597.png)
+
+- 高亮柱状图
+ 
+ 
+ 
+- 
+ 
 - igraph包——绘制网络图
  [2020.07.13Network_igraph](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000088&idx=1&sn=3b7b79c2587e930a79cf11a84bcdb3e4&chksm=6a24febc5d5377aa3615fb6a0e3ec4e383162d694ad50d6a414482f8244de447ca5b2922c352&mpshare=1&scene=1&srcid=0714Vu2WALNMi27VcRfIFXH9&sharer_sharetime=1594708423633&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=3c22c88777da856c2f08a877b1939ceea75ba76d52067d706d44418948b4568c7e4e0ed9e4f0d00539c1e2cbbf51700d4f0b4f2642d757270ed6eeca83bbffa59947c9f38399e0e6cd58299f9d1d61e6&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Ax5Q4wOen8wg5nPK10PFOqA%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
 
@@ -134,5 +144,4 @@
 - 欢迎关注我的公众号[庄闪闪的R语言手册]，创作不易，感谢打赏
 
 > ![微信扫码即可](vcode.jpg)
-
 

@@ -1,0 +1,50 @@
+# install.packages("ggplot2")
+library(ggplot2)
+options(scipen=999)  # turn-off scientific notation like 1e+48
+# theme_set(theme_bw())  # pre-set the bw theme.
+data("midwest", package = "ggplot2")
+midwest <- read.csv("http://goo.gl/G1K41K")  # bkup data source
+write.csv(midwest,"midwest.csv")
+
+
+# The palette with grey:
+cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
+          "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+# The palette with black:
+cbp2 <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
+          "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+library(plotrix)
+sliceValues <- rep(10, 8) # each slice value=10 for proportionate slices
+(
+  p <- pie3D(sliceValues, 
+             explode=0, 
+             theta = 1.2, 
+             col = cbp1, 
+             labels = cbp1, 
+             labelcex = 0.9,
+             shade = 0.6,
+             main = "Colorblind\nfriendly palette")
+)
+
+ggplot <- function(...) ggplot2::ggplot(...) + 
+  scale_color_manual(values = cbp1) +
+  scale_fill_manual(values = cbp1) + # note: needs to be overridden when using continuous color scales
+  theme_bw()
+
+
+
+# Scatterplot
+gg <- ggplot(midwest, aes(x=area, y=poptotal)) + 
+  geom_point(aes(col=state, size=popdensity)) + 
+  geom_smooth(method="loess", se=F) + 
+  xlim(c(0, 0.1)) + 
+  ylim(c(0, 500000)) + 
+  labs(subtitle="Area Vs Population", 
+       y="Population", 
+       x="Area", 
+       title="Scatterplot", 
+       caption = "Source: midwest")
+
+

@@ -1,0 +1,1067 @@
+---
+title: "ggplot绘图手册"
+author: "赵子茜"
+date: "`r Sys.Date()`"
+output: 
+  prettydoc::html_pretty:
+    toc: true
+    toc_depth: 4
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = F,message = F)
+```
+
+## 全局主题设置
+```{r}
+library(ggplot2)
+library(plotrix)
+options(scipen=999)  # turn-off scientific notation like 1e+48
+# theme_set(theme_bw())  # pre-set the bw theme.
+data("midwest", package = "ggplot2")
+midwest <- read.csv("http://goo.gl/G1K41K")  # bkup data source
+# write.csv(midwest,"midwest.csv")
+
+```
+
+
+
+
+
+```{r}
+# The palette with grey:
+cbp1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
+          "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+# The palette with black:
+cbp2 <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
+          "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
+ggplot <- function(...) ggplot2::ggplot(...) + 
+  scale_color_manual(values = cbp1) +
+  scale_fill_manual(values = cbp1) + # note: needs to be overridden when using continuous color scales
+  theme_bw()
+
+```
+
+
+
+
+
+## 1. 散点图
+### 1.1 两个变量
+展示两个变量之间的相关关系，最常使用的是**散点图**。在 ggplot 中，使用`geom_point()`绘制。此外，默认情况下，`geom_smooth`会绘制一条平滑线（基于 losses ），可以通过设置`method='lm'`来调整以绘制最佳拟合的线。
+
+
+```{r}
+# Scatterplot
+gg <- ggplot(midwest, aes(x=area, y=poptotal)) + 
+  geom_point(aes(col=state, size=popdensity)) + 
+  geom_smooth(method="loess", se=F) + 
+  xlim(c(0, 0.1)) + 
+  ylim(c(0, 500000)) + 
+  labs(subtitle="Area Vs Population", 
+       y="Population", 
+       x="Area", 
+       title="Scatterplot", 
+       caption = "Source: midwest")
+
+plot(gg)
+
+```
+
+
+### 1.2 环绕式散点图
+使用 ggalt 包中的`geom_encircle()`函数可实现在散点图中圈选特定区域：
+```{r message=FALSE, warning=FALSE}
+# install.packages("ggalt")
+library(ggalt)
+options(scipen = 999)
+library(ggplot2)
+library(ggalt)
+
+## 设定筛选条件
+midwest_select <- midwest[midwest$poptotal > 350000 & 
+                            midwest$poptotal <= 500000 & 
+                            midwest$area > 0.01 & 
+                            midwest$area < 0.1, ]
+
+# Plot
+ggplot(midwest, aes(x=area, y=poptotal)) + 
+  geom_point(aes(col=state, size=popdensity)) +   # draw points
+  geom_smooth(method="loess", se=F) + 
+  xlim(c(0, 0.1)) + 
+  ylim(c(0, 500000)) +   # draw smoothing line
+  geom_encircle(aes(x=area, y=poptotal), 
+                data=midwest_select, 
+                color="red", 
+                size=2, 
+                expand=0.08) +   # encircle
+  labs(subtitle="Area Vs Population", 
+       y="Population", 
+       x="Area", 
+       title="Scatterplot + Encircle", 
+       caption="Source: midwest")
+```
+
+
+
+
+### 1.3 抖动图
+
+抖动图可以解决数据点重叠的问题。通过`geom_jitter`函数中的`width`参数设置抖动范围，重叠点在其原始位置周围随机抖动。
+```{r}
+g <- ggplot(mpg, aes(cty, hwy))
+g + geom_jitter(width = .5, size=1) +
+  labs(subtitle="mpg: city vs highway mileage", 
+       y="hwy", 
+       x="cty", 
+       title="Jittered Points")
+
+```
+
+### 1.4 数值图
+
+克服数据点重叠问题的第二个选择是使用计数图。重叠点越多，圆就越大。
+
+```{r}
+g + geom_count(col="tomato3", show.legend=F) +
+  labs(subtitle="mpg: city vs highway mileage", 
+       y="hwy", 
+       x="cty", 
+       title="Counts Plot")
+```
+
+### 1.5 气泡图
+气泡图适合 4 维数据，其中两个是数值型（分别是 X 和 Y），另一个是分类变量（用`color`表示）和另一个数值变量（用`size`表示）。
+```{r}
+data(mpg, package="ggplot2")
+
+
+mpg_select <- mpg[mpg$manufacturer %in% c("audi", "ford", "honda", "hyundai"), ]
+
+# Scatterplot
+theme_set(theme_bw())  # pre-set the bw theme.
+g <- ggplot(mpg_select, aes(displ, cty)) + 
+  labs(subtitle="mpg: Displacement vs City Mileage",
+       title="Bubble chart")
+
+g + geom_jitter(aes(col=manufacturer, size=hwy)) + 
+  geom_smooth(aes(col=manufacturer), method="lm", se=F)
+```
+
+
+<!-- ### 1.6 动态气泡图 -->
+
+<!-- ```{r} -->
+<!-- # install.packages("gganimate") -->
+<!-- # install.packages("gapminder") -->
+<!-- library(gganimate) -->
+<!-- library(gapminder) -->
+
+<!-- g <- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, frame = year)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth(aes(group = year),  -->
+<!--               method = "lm",  -->
+<!--               show.legend = FALSE) + -->
+<!--   facet_wrap(~continent, scales = "free") + -->
+<!--   scale_x_log10()  # convert to log scale -->
+
+<!-- gganimate(g, interval=0.2) -->
+<!-- ``` -->
+
+
+### 1.6 边际直方图/箱线图
+
+如果您想在同一个图中显示变量的关系和分布，可以使用边际直方图。更改`ggMarginal()`函数中的`type`参数可以将边际直方图换成箱线图或者密度图。
+
+```{r}
+library(ggExtra)
+data(mpg, package="ggplot2")
+
+
+# Scatterplot
+theme_set(theme_bw())  # pre-set the bw theme.
+mpg_select <- mpg[mpg$hwy >= 35 & mpg$cty > 27, ]
+g <- ggplot(mpg, aes(cty, hwy)) + 
+  geom_count() + 
+  geom_smooth(method="lm", se=F)
+
+ggMarginal(g, type = "histogram", fill="transparent")
+
+```
+```{r}
+ggMarginal(g, type = "boxplot", fill="transparent")
+
+```
+
+```{r}
+ggMarginal(g, type = "density", fill="transparent")
+```
+
+### 1.7 相关系数图
+
+相关系数图可以查看同一组数据中多个连续变量的相关性。
+```{r}
+library(ggcorrplot)
+
+# Correlation matrix
+data(mtcars)
+corr <- round(cor(mtcars), 1)
+
+# Plot
+ggcorrplot(corr, hc.order = TRUE, 
+           type = "lower", 
+           lab = TRUE, 
+           lab_size = 3, 
+           method="circle", 
+           colors = c("tomato2", "white", "springgreen3"), 
+           title="Correlogram of mtcars", 
+           ggtheme=theme_bw)
+```
+
+## 2 偏差
+### 2.1 发散条形图
+发散条形图是一种可以同时处理负值和正值的条形图。这可以通过`geom_bar()`来实现。但是`geom_bar()`的用法可能会让人很困惑。这是因为，它既可以用来制作柱状图，也可以用来制作直方图。默认情况下，`geom_bar()`中`stat`参数的默认值为`count`。这意味着，当您只提供一个连续的 x 变量（而不提供 y 变量）时，它会尝试从数据中生成一个直方图。如果要制作条形图，需要做两件事：
+
+- 设置`stat=identity`;
+- 在`aes()`中同时输入 x 和 y，其中 x 是字符或因子型变量，y 是数值型。
+
+为了确保得到的是发散条形图，数据需要满足：分类变量的两个类别在连续变量的某个阈值处改变其值。在下面的例子中，`mtcars`数据集的 mpg 通过计算 z 分数被规范化。那些 mpg 在 0 以上的车辆被标记为绿色，低于 0 的车辆被标记为红色。
+```{r}
+data("mtcars")  # load data
+mtcars$`car name` <- rownames(mtcars)  # create new column for car names
+mtcars$mpg_z <- round((mtcars$mpg - mean(mtcars$mpg))/sd(mtcars$mpg), 2)  # compute normalized mpg
+mtcars$mpg_type <- ifelse(mtcars$mpg_z < 0, "below", "above")  # above / below avg flag
+mtcars <- mtcars[order(mtcars$mpg_z), ]  # sort
+mtcars$`car name` <- factor(mtcars$`car name`, levels = mtcars$`car name`)  # convert to factor to retain sorted order in plot.
+
+# Diverging Barcharts
+ggplot(mtcars, aes(x=`car name`, y=mpg_z, label=mpg_z)) + 
+  geom_bar(stat='identity', aes(fill=mpg_type), width=.5)  +
+  scale_fill_manual(name="Mileage", 
+                    labels = c("Above Average", "Below Average"), 
+                    values = c("above"="#00ba38", "below"="#f8766d")) + 
+  labs(subtitle="Normalised mileage from 'mtcars'", 
+       title= "Diverging Bars") + 
+  coord_flip()
+```
+
+
+### 2.2 带标记的发散型棒棒糖图
+这个图形是发散条形图的一个变体。
+```{r}
+ggplot(mtcars, aes(x=`car name`, y=mpg_z, label=mpg_z)) + 
+  geom_point(stat='identity', fill="black", size=6)  +
+  geom_segment(aes(y = 0, 
+                   x = `car name`, 
+                   yend = mpg_z, 
+                   xend = `car name`), 
+               color = "black") +
+  geom_text(color="white", size=2) +
+  labs(title="Diverging Lollipop Chart", 
+       subtitle="Normalized mileage from 'mtcars': Lollipop") + 
+  ylim(-2.5, 2.5) +
+  coord_flip()
+```
+
+
+### 2.3 发散性点图
+
+```{r}
+ggplot(mtcars, aes(x=`car name`, y=mpg_z, label=mpg_z)) + 
+  geom_point(stat='identity', aes(col=mpg_type), size=6)  +
+  scale_color_manual(name="Mileage", 
+                     labels = c("Above Average", "Below Average"), 
+                     values = c("above"="#00ba38", "below"="#f8766d")) + 
+  geom_text(color="white", size=2) +
+  labs(title="Diverging Dot Plot", 
+       subtitle="Normalized mileage from 'mtcars': Dotplot") + 
+  ylim(-2.5, 2.5) +
+  coord_flip()
+```
+
+
+### 2.4 面积图
+面积图通常用于可视化特定指标（如股票回报率）与基线的对比情况。
+```{r}
+library(quantmod)
+data("economics", package = "ggplot2")
+
+# 计算利润
+economics$returns_perc <- c(0, diff(economics$psavert)/economics$psavert[-length(economics$psavert)])
+
+# 为轴刻度创建断点和标签
+brks <- economics$date[seq(1, length(economics$date), 12)]
+lbls <- lubridate::year(economics$date[seq(1, length(economics$date), 12)])
+
+# Plot
+ggplot(economics[1:100, ], aes(date, returns_perc)) + 
+  geom_area() + 
+  scale_x_date(breaks=brks, labels=lbls) + 
+  theme(axis.text.x = element_text(angle=90)) + 
+  labs(title="Area Chart", 
+       subtitle = "Perc Returns for Personal Savings", 
+       y="% Returns for Personal savings", 
+       caption="Source: economics")
+
+```
+
+## 3 排序
+### 3.1 有序条形图
+有序条形图是按 Y 轴变量排序的条形图，X 轴变量必须转换为因子型。
+```{r}
+# 准备数据：按厂商分组计算平均城市里程。
+cty_mpg <- aggregate(mpg$cty, by=list(mpg$manufacturer), FUN=mean)  # aggregate
+colnames(cty_mpg) <- c("make", "mileage")  # change column names
+cty_mpg <- cty_mpg[order(cty_mpg$mileage), ]  # sort
+cty_mpg$make <- factor(cty_mpg$make, levels = cty_mpg$make)  # to retain the order in plot.
+head(cty_mpg, 4)
+
+```
+
+```{r}
+ggplot(cty_mpg, aes(x=make, y=mileage)) + 
+  geom_bar(stat="identity", width=.5, fill="tomato3") + 
+  labs(title="Ordered Bar Chart", 
+       subtitle="Make Vs Avg. Mileage", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+
+### 3.2 棒棒糖图
+棒棒糖图传达的信息与柱状图相同。通过将粗条转变为细线，减少了杂乱，使图形看起来更美观。
+```{r}
+ggplot(cty_mpg, aes(x=make, y=mileage)) + 
+  geom_point(size=3) + 
+  geom_segment(aes(x=make, 
+                   xend=make, 
+                   y=0, 
+                   yend=mileage)) + 
+  labs(title="Lollipop Chart", 
+       subtitle="Make Vs Avg. Mileage", 
+       caption="source: mpg") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+
+### 3.3 点图
+点图非常类似于棒棒糖图，但没有线条，并且各标签都在水平位置上。它更强调项目的顺序与实际值有关。
+```{r}
+ggplot(cty_mpg, aes(x=make, y=mileage)) + 
+  geom_point(col="tomato2", size=3) +   # Draw points
+  geom_segment(aes(x=make, 
+                   xend=make, 
+                   y=min(mileage), 
+                   yend=max(mileage)), 
+               linetype="dashed", 
+               size=0.1) +   # Draw dashed lines
+  labs(title="Dot Plot", 
+       subtitle="Make Vs Avg. Mileage", 
+       caption="source: mpg") +  
+  coord_flip()
+```
+
+### 3.4 坡度图
+坡度图是比较两点之间差异的绝佳方法。目前，还没有内置函数来构建这个图形。下面的代码可以作为一个示例框架，告诉您如何绘制这个图形。
+```{r}
+library(scales)
+
+# 数据准备
+df <- read.csv("https://raw.githubusercontent.com/selva86/datasets/master/gdppercap.csv")
+colnames(df) <- c("continent", "1952", "1957")
+left_label <- paste(df$continent, round(df$'1952'),sep=", ")
+right_label <- paste(df$continent, round(df$'1957'),sep=", ")
+df$class <- ifelse((df$'1957' - df$'1952') < 0, "red", "green")
+```
+
+```{r}
+library(ggplot2)
+p <- ggplot(df) + geom_segment(aes(x=1, xend=2, y=`1952`, yend=`1957`, col=class), size=.75, show.legend=F) + 
+                  geom_vline(xintercept=1, linetype="dashed", size=.1) + 
+                  geom_vline(xintercept=2, linetype="dashed", size=.1) +
+                  scale_color_manual(labels = c("Up", "Down"), 
+                                     values = c("green"="#00ba38", "red"="#f8766d")) +  # color of lines
+                  labs(x="", y="Mean GdpPerCap") +  # Axis labels
+                  xlim(.5, 2.5) + ylim(0,(1.1*(max(df$`1952`, df$`1957`))))  # X and Y axis limits
+
+# Add texts
+p <- p + geom_text(label=left_label, y=df$`1952`, x=rep(1, NROW(df)), hjust=1.1, size=3.5)
+p <- p + geom_text(label=right_label, y=df$`1957`, x=rep(2, NROW(df)), hjust=-0.1, size=3.5)
+p <- p + geom_text(label="Time 1", x=1, y=1.1*(max(df$`1952`, df$`1957`)), hjust=1.2, size=5)  # title
+p <- p + geom_text(label="Time 2", x=2, y=1.1*(max(df$`1952`, df$`1957`)), hjust=-0.1, size=5)  # title
+
+
+#设置主题
+p + theme(panel.background = element_blank(),
+           panel.grid = element_blank(),
+           axis.ticks = element_blank(),
+           axis.text.x = element_blank(),
+           panel.border = element_blank(),
+           plot.margin = unit(c(1,2,1,2), "cm"))
+
+
+```
+
+### 3.5 哑铃图
+哑铃图可以：1)比较两个时间点之间的相对位置（比如增长和下降）；2) 比较两类之间的距离。为了得到哑铃的正确顺序，Y 变量应该是一个因子，因子变量的水平应该与它在图中出现的顺序相同。
+```{r}
+health <- read.csv("https://raw.githubusercontent.com/selva86/datasets/master/health.csv")
+health$Area <- factor(health$Area, levels=as.character(health$Area))  # for right ordering of the dumbells
+
+# health$Area <- factor(health$Area)
+gg <- ggplot(health, aes(x=pct_2013, xend=pct_2014, y=Area, group=Area)) + 
+        geom_dumbbell(color="#a3c4dc", 
+                      size=0.75, 
+                      point.colour.l="#0e668b") + 
+        scale_x_continuous(label=percent) + 
+        labs(x=NULL, 
+             y=NULL, 
+             title="Dumbbell Chart", 
+             subtitle="Pct Change: 2013 vs 2014", 
+             caption="Source: https://github.com/hrbrmstr/ggalt") +
+        theme(plot.title = element_text(hjust=0.5, face="bold"),
+              plot.background=element_rect(fill="#f7f7f7"),
+              panel.background=element_rect(fill="#f7f7f7"),
+              panel.grid.minor=element_blank(),
+              panel.grid.major.y=element_blank(),
+              panel.grid.major.x=element_line(),
+              axis.ticks=element_blank(),
+              legend.position="top",
+              panel.border=element_blank())
+
+plot(gg)
+
+```
+
+## 4 分布
+### 4.1 直方图
+#### 4.4.1 连续变量的直方图
+连续变量的直方图可以使用`geom_bar()`或`geom_histogram()`来完成。当使用`geom_histogram()`时，可以使用`bins`参数来控制分箱的数量。也可以使用`binwidth`设置每个分箱覆盖的范围。`binwidth`的值与建立直方图的连续变量在同一个尺度上。
+```{r}
+# 连续（数值）变量的直方图
+g <- ggplot(mpg, aes(displ)) + scale_fill_brewer(palette = "Spectral")
+
+g + geom_histogram(aes(fill=class), 
+                   binwidth = .1, 
+                   col="black", 
+                   size=.1) +  # change binwidth
+  labs(title="Histogram with Auto Binning", 
+       subtitle="Engine Displacement across Vehicle Classes")
+
+ 
+```
+
+
+```{r}
+
+g + geom_histogram(aes(fill=class), 
+                   bins=5, 
+                   col="black", 
+                   size=.1) +   # change number of bins
+  labs(title="Histogram with Fixed Bins", 
+       subtitle="Engine Displacement across Vehicle Classes") 
+
+ 
+```
+
+#### 4.1.2分类变量的直方图
+分类变量的直方图实际上是根据每个类别的频率绘制的条形图。
+```{r}
+library(ggplot2)
+theme_set(theme_classic())
+
+# Histogram on a Categorical variable
+g <- ggplot(mpg, aes(manufacturer))
+g + geom_bar(aes(fill=class), width = 0.5) + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) + 
+  labs(title="Histogram on Categorical Variable", 
+       subtitle="Manufacturer across Vehicle Classes")
+
+ 
+```
+
+### 4.2 密度图
+
+```{r}
+g <- ggplot(mpg, aes(cty))
+g + geom_density(aes(fill=factor(cyl)), alpha=0.8) + 
+    labs(title="Density plot", 
+         subtitle="City Mileage Grouped by Number of cylinders",
+         caption="Source: mpg",
+         x="City Mileage",
+         fill="# Cylinders")
+ 
+```
+
+### 4.3 箱线图
+箱形图是研究数据分布的一个有用工具。它还可以显示多个组内的分布，以及中值、范围和异常值。箱子内的黑线表示中位数。箱顶是 75% 分位数，箱底是 25% 分位数。线的端点（又称晶须）距离为1.5*IQR，其中 IQR （四分位差）是 25% 到 75% 分位数之间距离。须外的点通常被认为是极值点。设置`varwidth=T`将调整盒子的宽度，使其与观察的数量成比例。
+```{r}
+g <- ggplot(mpg, aes(class, cty))
+g + geom_boxplot(varwidth=T, fill="plum") + 
+    labs(title="Box plot", 
+         subtitle="City Mileage grouped by Class of vehicle",
+         caption="Source: mpg",
+         x="Class of Vehicle",
+         y="City Mileage")
+ 
+```
+
+```{r}
+g <- ggplot(mpg, aes(class, cty))
+g + geom_boxplot(aes(fill=factor(cyl))) + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) + 
+  labs(title="Box plot", 
+       subtitle="City Mileage grouped by Class of vehicle",
+       caption="Source: mpg",
+       x="Class of Vehicle",
+       y="City Mileage")
+ 
+```
+
+### 4.4 点图+箱线图
+在箱线图的基础上，添加点图可以提供更清晰的信息。这些点交错排列，每个点代表一次观测。
+```{r}
+g <- ggplot(mpg, aes(manufacturer, cty))
+g + geom_boxplot() + 
+  geom_dotplot(binaxis='y', 
+               stackdir='center', 
+               dotsize = .5, 
+               fill="red") +
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) + 
+  labs(title="Box plot + Dot plot", 
+       subtitle="City Mileage vs Class: Each dot represents 1 row in source data",
+       caption="Source: mpg",
+       x="Class of Vehicle",
+       y="City Mileage")
+ 
+```
+
+### 4.5 塔夫特箱线图
+这是一个简化版的箱线图。
+```{r}
+
+library(ggthemes)
+library(ggplot2)
+theme_set(theme_tufte())  # from ggthemes
+
+# plot
+g <- ggplot(mpg, aes(manufacturer, cty))
+g + geom_tufteboxplot() + 
+      theme(axis.text.x = element_text(angle=65, vjust=0.6)) + 
+      labs(title="Tufte Styled Boxplot", 
+           subtitle="City Mileage grouped by Class of vehicle",
+           caption="Source: mpg",
+           x="Class of Vehicle",
+           y="City Mileage")
+
+
+```
+
+### 4.6 小提琴图
+小提琴图类似于箱线图，但显示了组内的密度。
+```{r}
+g <- ggplot(mpg, aes(class, cty))
+g + geom_violin() + 
+  labs(title="Violin plot", 
+       subtitle="City Mileage vs Class of vehicle",
+       caption="Source: mpg",
+       x="Class of Vehicle",
+       y="City Mileage")
+ 
+```
+
+### 4.7 金字塔图
+金字塔图提供了一种独特的方式来可视化每个类别包含的样本比例。下面的金字塔是一个很好的例子，说明了在一个营销活动中每个阶段的用户留存率。
+```{r}
+library(ggplot2)
+library(ggthemes)
+options(scipen = 999)  # turns of scientific notations like 1e+40
+
+# Read data
+email_campaign_funnel <- read.csv("https://raw.githubusercontent.com/selva86/datasets/master/email_campaign_funnel.csv")
+
+# X Axis Breaks and Labels 
+brks <- seq(-15000000, 15000000, 5000000)
+lbls = paste0(as.character(c(seq(15, 0, -5), seq(5, 15, 5))), "m")
+
+# Plot
+ggplot(email_campaign_funnel, aes(x = Stage, y = Users, fill = Gender)) +   # Fill column
+                              geom_bar(stat = "identity", width = .6) +   # draw the bars
+                              scale_y_continuous(breaks = brks,   # Breaks
+                                                 labels = lbls) + # Labels
+                              coord_flip() +  # Flip axes
+                              labs(title="Email Campaign Funnel") +
+                              theme_tufte() +  # Tufte theme from ggfortify
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank()) +   # Centre plot title
+                              scale_fill_brewer(palette = "Dark2")  # Color palette
+```
+
+## 5 组成
+### 5.1 华夫饼图
+华夫图可以显示总体的组成成分。
+```{r}
+var <- mpg$class  # the categorical data 
+
+## Prep data (nothing to change here)
+nrows <- 10
+df <- expand.grid(y = 1:nrows, x = 1:nrows)
+categ_table <- round(table(var) * ((nrows*nrows)/(length(var))))
+
+
+df$category <- factor(rep(names(categ_table), categ_table))  
+# NOTE: if sum(categ_table) is not 100 (i.e. nrows^2), it will need adjustment to make the sum to 100.
+
+## Plot
+ggplot(df, aes(x = x, y = y, fill = category)) + 
+        geom_tile(color = "black", size = 0.5) +
+        scale_x_continuous(expand = c(0, 0)) +
+        scale_y_continuous(expand = c(0, 0), trans = 'reverse') +
+        scale_fill_brewer(palette = "Set3") +
+        labs(title="Waffle Chart", subtitle="'Class' of vehicles",
+             caption="Source: mpg") + 
+        theme(panel.border = element_rect(size = 2),
+              plot.title = element_text(size = rel(1.2)),
+              axis.text = element_blank(),
+              axis.title = element_blank(),
+              axis.ticks = element_blank(),
+              legend.title = element_blank(),
+              legend.position = "right")
+
+```
+
+### 5.2 饼图
+
+```{r}
+library(ggplot2)
+theme_set(theme_classic())
+
+# Source: Frequency table
+df <- as.data.frame(table(mpg$class))
+colnames(df) <- c("class", "freq")
+pie <- ggplot(df, aes(x = "", y=freq, fill = factor(class))) + 
+  geom_bar(width = 1, stat = "identity") +
+  theme(axis.line = element_blank(), 
+        plot.title = element_text(hjust=0.5)) + 
+  labs(fill="class", 
+       x=NULL, 
+       y=NULL, 
+       title="Pie Chart of class", 
+       caption="Source: mpg")
+
+pie + coord_polar(theta = "y", start=0)
+
+# Source: Categorical variable.
+# mpg$class
+pie <- ggplot(mpg, aes(x = "", fill = factor(class))) + 
+  geom_bar(width = 1) +
+  theme(axis.line = element_blank(), 
+        plot.title = element_text(hjust=0.5)) + 
+  labs(fill="class", 
+       x=NULL, 
+       y=NULL, 
+       title="Pie Chart of class", 
+       caption="Source: mpg")
+  
+pie + coord_polar(theta = "y", start=0)
+```
+
+
+
+### 5.3 条形图
+```{r}
+ #prep frequency table
+freqtable <- table(mpg$manufacturer)
+df <- as.data.frame.table(freqtable)
+
+```
+
+```{r}
+library(ggplot2)
+theme_set(theme_classic())
+
+# Plot
+g <- ggplot(df, aes(Var1, Freq))
+g + geom_bar(stat="identity", width = 0.5, fill="tomato2") + 
+      labs(title="Bar Chart", 
+           subtitle="Manufacturer of vehicles", 
+           caption="Source: Frequency of Manufacturers from 'mpg' dataset") +
+      theme(axis.text.x = element_text(angle=65, vjust=0.6))
+```
+
+```{r}
+# From on a categorical column variable
+g <- ggplot(mpg, aes(manufacturer))
+g + geom_bar(aes(fill=class), width = 0.5) + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6)) +
+  labs(title="Categorywise Bar Chart", 
+       subtitle="Manufacturer of vehicles", 
+       caption="Source: Manufacturers from 'mpg' dataset")
+```
+
+
+
+## 6 变化趋势
+### 6.1 时间序列图：基于时间序列对象（ts）
+`ggfortify`包可以对时间序列直接绘图。
+```{r}
+## From Timeseries object (ts)
+library(ggplot2)
+library(ggfortify)
+theme_set(theme_classic())
+
+# Plot 
+autoplot(AirPassengers) + 
+  labs(title="AirPassengers") + 
+  theme(plot.title = element_text(hjust=0.5))
+```
+
+### 6.2 时间序列图：基于数据框
+```{r}
+library(ggplot2)
+theme_set(theme_classic())
+
+# 使用默认的时间跨度
+ggplot(economics, aes(x=date)) + 
+  geom_line(aes(y=returns_perc)) + 
+  labs(title="Time Series Chart", 
+       subtitle="Returns Percentage from 'Economics' Dataset", 
+       caption="Source: Economics", 
+       y="Returns %")
+
+```
+
+如果想设置特定的时间间隔，则需要使用`scale_x_date()`函数。
+```{r}
+library(ggplot2)
+library(lubridate)
+theme_set(theme_bw())
+
+economics_m <- economics[1:24, ]
+
+# 设定时间跨度为一个月
+lbls <- paste0(month.abb[month(economics_m$date)], " ", lubridate::year(economics_m$date))
+brks <- economics_m$date
+
+# plot
+ggplot(economics_m, aes(x=date)) + 
+  geom_line(aes(y=returns_perc)) + 
+  labs(title="Monthly Time Series", 
+       subtitle="Returns Percentage from Economics Dataset", 
+       caption="Source: Economics", 
+       y="Returns %") +  # title and caption
+  scale_x_date(labels = lbls, 
+               breaks = brks) +  # change to monthly ticks and labels
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5),  # rotate x axis text
+        panel.grid.minor = element_blank())  # turn off minor grid
+```
+
+设置时间跨度为 1 年：
+```{r}
+library(ggplot2)
+library(lubridate)
+theme_set(theme_bw())
+
+economics_y <- economics[1:90, ]
+
+# labels and breaks for X axis text
+brks <- economics_y$date[seq(1, length(economics_y$date), 12)]
+lbls <- lubridate::year(brks)
+
+# plot
+ggplot(economics_y, aes(x=date)) + 
+  geom_line(aes(y=returns_perc)) + 
+  labs(title="Yearly Time Series", 
+       subtitle="Returns Percentage from Economics Dataset", 
+       caption="Source: Economics", 
+       y="Returns %") +  # title and caption
+  scale_x_date(labels = lbls, 
+               breaks = brks) +  # change to monthly ticks and labels
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5),  # rotate x axis text
+        panel.grid.minor = element_blank())  # turn off minor grid
+```
+
+### 6.3 多个时间序列
+在本例中，基于长数据格式进行可视化。这意味着，所有列的列名和各自的值被存放在两个变量中（分别是`variable`和`value`）。
+
+```{r}
+data(economics_long, package = "ggplot2")
+head(economics_long)
+```
+
+在下面的代码中，在`geom_line()`函数中设置绘图对象为`value`，颜色匹配对象为`variable`。这样，只要调用一次geom_line，就会绘制多条彩色线，每条线代表`variable`列中的每个唯一`value`。`scale_x_date()`将更改 X 轴断点和标签，`scale_color_manual`将更改行颜色。
+```{r}
+library(ggplot2)
+library(lubridate)
+theme_set(theme_bw())
+
+df <- economics_long[economics_long$variable %in% c("psavert", "uempmed"), ]
+df <- df[lubridate::year(df$date) %in% c(1967:1981), ]
+
+# labels and breaks for X axis text
+brks <- df$date[seq(1, length(df$date), 12)]
+lbls <- lubridate::year(brks)
+
+# plot
+ggplot(df, aes(x=date)) + 
+  geom_line(aes(y=value, col=variable)) + 
+  labs(title="Time Series of Returns Percentage", 
+       subtitle="Drawn from Long Data format", 
+       caption="Source: Economics", 
+       y="Returns %", 
+       color=NULL) +  # title and caption
+  scale_x_date(labels = lbls, breaks = brks) +  # change to monthly ticks and labels
+  scale_color_manual(labels = c("psavert", "uempmed"), 
+                     values = c("psavert"="#00ba38", "uempmed"="#f8766d")) +  # line color
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, size = 8),  # rotate x axis text
+        panel.grid.minor = element_blank())  # turn off minor grid
+```
+
+如果从一个宽格式创建一个时间序列，则必须通过对每条线调用一次`geom_line()`制。因此，默认情况下不会绘制图例，需要手动添加。
+```{r}
+library(ggplot2)
+library(lubridate)
+theme_set(theme_bw())
+
+df <- economics[, c("date", "psavert", "uempmed")]
+df <- df[lubridate::year(df$date) %in% c(1967:1981), ]
+
+# labels and breaks for X axis text
+brks <- df$date[seq(1, length(df$date), 12)]
+lbls <- lubridate::year(brks)
+
+# plot
+ggplot(df, aes(x=date)) + 
+  geom_line(aes(y=psavert, col="psavert")) + 
+  geom_line(aes(y=uempmed, col="uempmed")) + 
+  labs(title="Time Series of Returns Percentage", 
+       subtitle="Drawn From Wide Data format", 
+       caption="Source: Economics", y="Returns %") +  # title and caption
+  scale_x_date(labels = lbls, breaks = brks) +  # change to monthly ticks and labels
+  scale_color_manual(name="", 
+                     values = c("psavert"="#00ba38", "uempmed"="#f8766d")) +  # line color
+  theme(panel.grid.minor = element_blank())  # turn off minor grid
+```
+
+
+
+### 6.4 堆叠面积图
+堆叠面积图与折线图类似，只是图下方的区域全部着色。应用场景有：
+
+- 想要描述数量或体积（而不是价格之类的变量）随时间的变化；
+- 有很多数据点。对于很少的数据点，可以考虑绘制柱状图。
+- 希望展示各个类别的贡献。
+
+```{r}
+library(ggplot2)
+library(lubridate)
+theme_set(theme_bw())
+
+df <- economics[, c("date", "psavert", "uempmed")]
+df <- df[lubridate::year(df$date) %in% c(1967:1981), ]
+
+# labels and breaks for X axis text
+brks <- df$date[seq(1, length(df$date), 12)]
+lbls <- lubridate::year(brks)
+
+# plot
+ggplot(df, aes(x=date)) + 
+  geom_area(aes(y=psavert+uempmed, fill="psavert")) + 
+  geom_area(aes(y=uempmed, fill="uempmed")) + 
+  labs(title="Area Chart of Returns Percentage", 
+       subtitle="From Wide Data format", 
+       caption="Source: Economics", 
+       y="Returns %") +  # title and caption
+  scale_x_date(labels = lbls, breaks = brks) +  # change to monthly ticks and labels
+  scale_fill_manual(name="", 
+                    values = c("psavert"="#00ba38", "uempmed"="#f8766d")) +  # line color
+  theme(panel.grid.minor = element_blank())  # turn off minor grid
+```
+
+
+### 6.5 日历热力图
+
+当您想要在实际的日历上看到像股票价格这类指标的变化，特别是高点和低点时，日历热力图是一个很好的工具。它强调随着时间的推移视觉上的变化，而不是实际数值的变化。这可以通过使用`geom_tile()`来实现。
+```{r}
+library(ggplot2)
+library(plyr)
+library(scales)
+library(zoo)
+
+df <- read.csv("https://raw.githubusercontent.com/selva86/datasets/master/yahoo.csv")
+df$date <- as.Date(df$date)  # format date
+df <- df[df$year >= 2012, ]  # filter reqd years
+
+# Create Month Week
+df$yearmonth <- as.yearmon(df$date)
+df$yearmonthf <- factor(df$yearmonth)
+df <- ddply(df,.(yearmonthf), transform, monthweek=1+week-min(week))  # compute week number of month
+df <- df[, c("year", "yearmonthf", "monthf", "week", "monthweek", "weekdayf", "VIX.Close")]
+head(df)
+```
+
+```{r}
+ggplot(df, aes(monthweek, weekdayf, fill = VIX.Close)) + 
+  geom_tile(colour = "white") + 
+  facet_grid(year~monthf) + 
+  scale_fill_gradient(low="red", high="green") +
+  labs(x="Week of Month",
+       y="",
+       title = "Time-Series Calendar Heatmap", 
+       subtitle="Yahoo Closing Price", 
+       fill="Close")
+```
+
+### 6.6 坡度图
+坡度图可以可视化数值和类别排名之间的变化。这更适用于时间点很少的时间序列。
+```{r}
+library(dplyr)
+theme_set(theme_classic())
+source_df <- read.csv("https://raw.githubusercontent.com/jkeirstead/r-slopegraph/master/cancer_survival_rates.csv")
+
+# Define functions. Source: https://github.com/jkeirstead/r-slopegraph
+tufte_sort <- function(df, x="year", y="value", group="group", method="tufte", min.space=0.05) {
+    ## First rename the columns for consistency
+    ids <- match(c(x, y, group), names(df))
+    df <- df[,ids]
+    names(df) <- c("x", "y", "group")
+
+    ## Expand grid to ensure every combination has a defined value
+    tmp <- expand.grid(x=unique(df$x), group=unique(df$group))
+    tmp <- merge(df, tmp, all.y=TRUE)
+    df <- mutate(tmp, y=ifelse(is.na(y), 0, y))
+  
+    ## Cast into a matrix shape and arrange by first column
+    require(reshape2)
+    tmp <- dcast(df, group ~ x, value.var="y")
+    ord <- order(tmp[,2])
+    tmp <- tmp[ord,]
+    
+    min.space <- min.space*diff(range(tmp[,-1]))
+    yshift <- numeric(nrow(tmp))
+    ## Start at "bottom" row
+    ## Repeat for rest of the rows until you hit the top
+    for (i in 2:nrow(tmp)) {
+        ## Shift subsequent row up by equal space so gap between
+        ## two entries is >= minimum
+        mat <- as.matrix(tmp[(i-1):i, -1])
+        d.min <- min(diff(mat))
+        yshift[i] <- ifelse(d.min < min.space, min.space - d.min, 0)
+    }
+
+    
+    tmp <- cbind(tmp, yshift=cumsum(yshift))
+
+    scale <- 1
+    tmp <- melt(tmp, id=c("group", "yshift"), variable.name="x", value.name="y")
+    ## Store these gaps in a separate variable so that they can be scaled ypos = a*yshift + y
+
+    tmp <- transform(tmp, ypos=y + scale*yshift)
+    return(tmp)
+   
+}
+
+plot_slopegraph <- function(df) {
+    ylabs <- subset(df, x==head(x,1))$group
+    yvals <- subset(df, x==head(x,1))$ypos
+    fontSize <- 3
+    gg <- ggplot(df,aes(x=x,y=ypos)) +
+        geom_line(aes(group=group),colour="grey80") +
+        geom_point(colour="white",size=8) +
+        geom_text(aes(label=y), size=fontSize, family="American Typewriter") +
+        scale_y_continuous(name="", breaks=yvals, labels=ylabs)
+    return(gg)
+}    
+
+## Prepare data    
+df <- tufte_sort(source_df, 
+                 x="year", 
+                 y="value", 
+                 group="group", 
+                 method="tufte", 
+                 min.space=0.05)
+
+df <- transform(df, 
+                x=factor(x, levels=c(5,10,15,20), 
+                            labels=c("5 years","10 years","15 years","20 years")), 
+                y=round(y))
+
+## Plot
+plot_slopegraph(df) + labs(title="Estimates of % survival rates") + 
+                      theme(axis.title=element_blank(),
+                            axis.ticks = element_blank(),
+                            plot.title = element_text(hjust=0.5,
+                                                      family = "American Typewriter",
+                                                      face="bold"),
+                            axis.text = element_text(family = "American Typewriter",
+                                                     face="bold"))
+```
+
+### 6.7 季节图
+如果您正在处理`ts`或`xts`类型的时间序列对象，您可以通过使用`forecast::ggseasonplot`绘制的季节图来查看季节波动。下面是一个使用`AirPassengers`和`nottem`数据集绘制的例子。
+```{r}
+library(ggplot2)
+library(forecast)
+theme_set(theme_classic())
+
+# Subset data
+nottem_small <- window(nottem, start=c(1920, 1), end=c(1925, 12))  # subset a smaller timewindow
+
+# Plot
+ggseasonplot(AirPassengers) + labs(title="Seasonal plot: International Airline Passengers")
+
+```
+
+```{r}
+ggseasonplot(nottem_small) + labs(title="Seasonal plot: Air temperatures at Nottingham Castle")
+```
+
+## 7 群体
+### 7.1 谱系图
+```{r}
+
+library(ggplot2)
+library(ggdendro)
+theme_set(theme_bw())
+
+hc <- hclust(dist(USArrests), "ave")  # hierarchical clustering
+
+# plot
+ggdendrogram(hc, rotate = TRUE, size = 2)
+```
+
+### 7.2 聚类图
+可以使用`geom_surround()`来显示不同的簇或组。如果数据集有多个特征，还可以计算主成分，并使用 PC1 和 PC2 作为 X 和 Y 轴绘制散点图。`geom_encircle()`可用于框选所需的组。
+```{r}
+# devtools::install_github("hrbrmstr/ggalt")
+library(ggplot2)
+library(ggalt)
+library(ggfortify)
+theme_set(theme_classic())
+
+# Compute data with principal components ------------------
+df <- iris[c(1, 2, 3, 4)]
+pca_mod <- prcomp(df)  # compute principal components
+
+# Data frame of principal components ----------------------
+df_pc <- data.frame(pca_mod$x, Species=iris$Species)  # dataframe of principal components
+df_pc_vir <- df_pc[df_pc$Species == "virginica", ]  # df for 'virginica'
+df_pc_set <- df_pc[df_pc$Species == "setosa", ]  # df for 'setosa'
+df_pc_ver <- df_pc[df_pc$Species == "versicolor", ]  # df for 'versicolor'
+ 
+# Plot ----------------------------------------------------
+ggplot(df_pc, aes(PC1, PC2, col=Species)) + 
+  geom_point(aes(shape=Species), size=2) +   # draw points
+  labs(title="Iris Clustering", 
+       subtitle="With principal components PC1 and PC2 as X and Y axis",
+       caption="Source: Iris") + 
+  coord_cartesian(xlim = 1.2 * c(min(df_pc$PC1), max(df_pc$PC1)), 
+                  ylim = 1.2 * c(min(df_pc$PC2), max(df_pc$PC2))) +   # change axis limits
+  geom_encircle(data = df_pc_vir, aes(x=PC1, y=PC2)) +   # draw circles
+  geom_encircle(data = df_pc_set, aes(x=PC1, y=PC2)) + 
+  geom_encircle(data = df_pc_ver, aes(x=PC1, y=PC2))
+```
+
