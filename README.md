@@ -4,19 +4,11 @@
 
 公众号对应的资料（代码+数据），如有错误，欢迎大家批评指正。
 
-作者：庄闪闪
+作者：庄闪闪/庄亮亮
 微信公众号：[庄闪闪的R语言手册](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI1NjUwMjQxMQ==&action=getalbum&album_id=1476187590709002243&scene=173&from_msgid=2247486060&from_itemidx=1&count=3#wechat_redirect) 
 合作请加微信号：a641292753
 
 -------
-
-# R文档沟通
-
-- [R Markdown 指南](https://cosname.github.io/rmarkdown-guide/)
-
-- [R Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)
-
-- [Rmarkdown 制作重复性报告](https://github.com/liangliangzhuang/R_example/tree/master/2023.04.12%20Rmarkdown%E9%87%8D%E5%A4%8D%E6%80%A7%E6%8A%A5%E5%91%8A)
 
 # R可视乎系列
 
@@ -24,57 +16,197 @@
 
 ![image-20230513214535597](https://gitee.com/zhuang_liang_liang0825/other/raw/master/image-20230513214535597.png)
 
-- 高亮柱状图
- 
- 
- 
-- 
- 
-- igraph包——绘制网络图
- [2020.07.13Network_igraph](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000088&idx=1&sn=3b7b79c2587e930a79cf11a84bcdb3e4&chksm=6a24febc5d5377aa3615fb6a0e3ec4e383162d694ad50d6a414482f8244de447ca5b2922c352&mpshare=1&scene=1&srcid=0714Vu2WALNMi27VcRfIFXH9&sharer_sharetime=1594708423633&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=3c22c88777da856c2f08a877b1939ceea75ba76d52067d706d44418948b4568c7e4e0ed9e4f0d00539c1e2cbbf51700d4f0b4f2642d757270ed6eeca83bbffa59947c9f38399e0e6cd58299f9d1d61e6&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Ax5Q4wOen8wg5nPK10PFOqA%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
+- [ggparty包：构建个性化树状图形](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247517054&idx=1&sn=664b88b42061fb2f2979b01833c363bf&chksm=ea277c9add50f58c172f08b246d4f88d507c0dacda981796599efeeb48d5298eb5cb72ab7af4&token=1444533026&lang=zh_CN#rd)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514093057588.png)
+
+- [如何一步步提高图形 B 格？以 ggplot 绘图为例](https://mp.weixin.qq.com/s/k5VgsK7e4d9RDrTkctJP6g)
+
+![](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHia7YyLngasVlZermjtmsfPzjx9WQYxDI66qJwHWgmLhjSJXsRFjkQ2NtV7r0aptgoDXROHpWxjtPQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+- [基于 R 语言的科研论文绘图技巧汇总](https://mp.weixin.qq.com/s/j9ribyJ809pErDGQXL_Usw)
+
+![figure_example](https://gitee.com/zhuang_liang_liang0825/other/raw/master/figure_example.png)
+
+> 代码参考：[scifig_plot_examples_R: Scientific publication figure plotting examples with R](https://github.com/marco-meer/scifig_plot_examples_R)
+
+
+
+- [使用 ggTimeSeries 包构建日历图](https://mp.weixin.qq.com/s/rAlPbNh2bYuNkqyT9dxosQ)
+
+![图形1](https://gitee.com/zhuang_liang_liang0825/other/raw/master/%E5%9B%BE%E5%BD%A21.jpeg)
+
+- [基于 ggdensity 包的等高线绘制](https://mp.weixin.qq.com/s/IRSvobzOfqmYtfBXDpbdJw)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514093725312.png)
+
+- [基于 ggridges 绘制剩余使用寿命密度图](https://mp.weixin.qq.com/s/ECquLeoHaJ2byWgrRpqftw)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514093728804.png)
+
+- [使用 ggcharts 包高亮部分内容](https://mp.weixin.qq.com/s/Rml11BcLE5_fLKckfob9Wg)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514093824511.png)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHiaAMA5BM5B1dCjH88KibYBH7tTk3dN6ewn5ic6KUscuoiaOiaew9QXIaNKrMBibMvjdwI7D04zJWp3ojOw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+
+- [2023年日历大派送](https://mp.weixin.qq.com/s/BdE2Zb97iDyp2NpsoELouQ)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_jpg/MIcgkkEyTHjzC2dohG9iat2lqXHaiazuyq4qengsvgfbOf4Q1TNNdcfvktq9atfDQqZz3KHRuHbnx1ZhGhHTJiboA/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514094407585.png)
+
+- [使用 ggplot2 绘制比较各省份及其区县的详细数据](https://mp.weixin.qq.com/s/KzuT4nnGbRqccBccVXlouQ)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHhK691LrOuZj2npUJHzkBOjV9pydVYWJibcoDF7645OF9V2IfBlo3DMuoP6hB4RcQlLH9fLfkxeRfA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+- [使用 ggplot2 绘制单个和多个省份地图](https://mp.weixin.qq.com/s/9Y7z0XVHv-sMRSiwY6PnBw)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514094600488.png)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514094602623.png)
+
+- [R 语言绘制十段线地图，给特定省份填色](https://mp.weixin.qq.com/s/ZjUuFtRT1j3ksaGD-hHnLg)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHia4VzUkBiapBGZeHXTPwFoT0UvpslvgvFd4g9cOS6E10fQcgdsib29Nvbibh7D2BrfmvMwZCPYmHKMSA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+- [R绘图案例｜基于分面的面积图绘制](https://mp.weixin.qq.com/s/alyuUumkwqC08RJilXmfeA)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHhESb43y8FYRzNt3OKE5Xx9YL3D9jVqg8q5tTpzD9E0mke960gVhhEicR2ahibEQic2gVnHwLg2tYftw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+- [分面中添加不同的直线](https://mp.weixin.qq.com/s/JdfKl9vEqkE0rcEfz6lBBg)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHiapxlz7rP2HjktJuUDI0TrNq4LicIyMeiaNd6eoUvkZoVuG9ibJnz5s6dOKEWUOk0whIJPwBnJVdRQ9A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+
+- [R绘图案例｜基于分面的折线图绘制](https://mp.weixin.qq.com/s/apu5-4ykHe0QTUbdJKy-MQ)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHiapxlz7rP2HjktJuUDI0TrNgUKoR20zCiaR4uZZTWYGz3Y4nFDwkftOviaOeUCYQpglZ2yulicDQylMA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+- [如何在分面中添加数学表达式标签?](https://mp.weixin.qq.com/s/Dbx9J_flkTtyi7LtRAdRPQ)
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHjqJcMCydwSU0FShicQoPMwnjQEcv8SIaveF0CUdhHmgWibpasftvia9Z8hGcqiaHL7sDoIo0cDYV0sdQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+
+- [ggplot 分面的细节调整汇总](https://mp.weixin.qq.com/s/fzcGJugs0VxJpM6nb25hLA)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100200680.png)
+
+- [老板让你复现一个图片，你会使用什么软件？](https://mp.weixin.qq.com/s/V8H-U719PjCgsn1lVY_PFg)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100153931.png)
+
+- [R 案例｜绘制不同分布的 QQ 图](https://mp.weixin.qq.com/s/ncorK41sntA4iBJWBCdVkA)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100148744.png)
+
+- [绘制混合密度函数图以及添加分位数线](https://mp.weixin.qq.com/s/bQ_aefTxk32x30Avfzv5kw)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100144955.png)
+
+- [如何使用 ggplot2 绘制双轴分离图？](https://mp.weixin.qq.com/s/QiMHA10X8nGtK5iOH4armQ)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100140481.png)
+
+
+
+- igraph包——绘制网络图 [2020.07.13Network_igraph](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000088&idx=1&sn=3b7b79c2587e930a79cf11a84bcdb3e4&chksm=6a24febc5d5377aa3615fb6a0e3ec4e383162d694ad50d6a414482f8244de447ca5b2922c352&mpshare=1&scene=1&srcid=0714Vu2WALNMi27VcRfIFXH9&sharer_sharetime=1594708423633&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=3c22c88777da856c2f08a877b1939ceea75ba76d52067d706d44418948b4568c7e4e0ed9e4f0d00539c1e2cbbf51700d4f0b4f2642d757270ed6eeca83bbffa59947c9f38399e0e6cd58299f9d1d61e6&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Ax5Q4wOen8wg5nPK10PFOqA%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100135963.jpeg)
 
 
 - 国内疫情图绘制（静态）  [2020.07.14China_map](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483799&idx=1&sn=da1acf1004a6d2f25cc296bcaf972063&chksm=ea24fe73dd537765132f64e79f7ba86ec225ecf6e81c43ba4d7aec9a75df42062728e110ad0e&mpshare=1&scene=1&srcid=07142HT0hZAFaVLTlpac4zAV&sharer_sharetime=1594708107631&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=65fe14863667915bc7e0151836657ceb6c523eaf07ca95785ed82332713ffd495369b1fd5b97cefc7cf7a8e1c66a5f880921fba19ce1d0e4832cb61609b1bcc76d99204dbc6dd77b97c47ad62d3e0e56&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=Aw4fL5T557lBWbSWfFSE37M%3D&pass_ticket=phh%2BTyTOwain33l3gWNzH4Aki97YE7dlcnlLuCxtFuuIrAtl234GrZ237NODA6HD)
 
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100128773.jpeg)
+
 
 - R中坐标轴截断的不同实现方式 [2020.07.22坐标轴截断画图](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=100000243&idx=1&sn=119c4039f27b351a367ca40d1a54f0a7&chksm=6a24fe175d5377014aa610e3b5080d08e5e7f58447ca89f8c4806d418df61a8027353dd8156f#rd)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514095854330.png)
 
 
 - R可视乎|饼图[2020.07.24饼图与圆环图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484046&idx=1&sn=cc087b09448e75ed54b5364accfb3bff&chksm=ea24fd6add53747ca57137b964bdb0db371220737398e4276ee1ede27df7f09be0afd14185f8&mpshare=1&scene=1&srcid=0816aG9PZi3BixNvL0cNcVhp&sharer_sharetime=1597541989820&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=b936ead840dca7f6e5a6a9b2f01076516390ed96ff9f73bc52a446143a88f2b01f9b378ea6423ce540c7591d1f324e00481858da6cb7dc5d8b4bf6d6cab3e79763433d2818f9952e1ff4ed49e93412026b6771123e151a7f6242d0b63a58e8da7f010dd41e4e833ef9f4766ee2e8130626e801b5a3cd32b43c38a1a9809099d9&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A0VSObDydAW7hVulHfsWDDE%3D&pass_ticket=LZqYAanUOJecq6uEoCOQznjsykTBUbS15CZIvi%2FJtgBFhDLyBvXsaDBBnPRaSb0n)
 
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100123331.png)
+
 
 - R可视乎|分面一页多面[2020.08.15分面](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484186&idx=1&sn=c913a65f88132b3611e580b0318404d9&chksm=ea24fcfedd5375e87adfc3028850ee4034a0a0d34dd3855cf155b28eea9c71bfedb381d2c9e9&token=222682915&lang=zh_CN#rd)
 
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100108861.png)
+
+
 - R可视乎|马赛克图[2020.08.25马赛克](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484309&idx=1&sn=d79ce748d43fe066a0bad0221ae8e068&chksm=ea24fc71dd537567c3ca322cb216e92c2ca4bdd96c20c9873e762d81cfb892583af10198b757&token=682523778&lang=zh_CN#rd)
+
+![11861684029650_.pic](https://gitee.com/zhuang_liang_liang0825/other/raw/master/11861684029650_.pic.jpg)
+
 
 - R可视乎|混合多个图形[2020.08.26混合多个图形](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484367&idx=1&sn=30a54bd7dbf44852c380192d11a10ab9&chksm=ea24fc2bdd53753d239bbe995dfcb88232223e0a24f595acb343433fd4a053116e9f26dbf983&token=682523778&lang=zh_CN#rd)
 
+![11871684029811_.pic](https://gitee.com/zhuang_liang_liang0825/other/raw/master/11871684029811_.pic.jpg)
+
+
 - R可视乎|华夫饼图[2020.09.01华夫饼图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484631&idx=1&sn=6402ba80ab417c1d8a99c7778a48c7db&chksm=ea24fb33dd537225a7488a578b876b6da2f2157e0048b9515100d4ab64301fad2ad4f460e822&token=682523778&lang=zh_CN#rd)
+
+![11881684029842_.pic](https://gitee.com/zhuang_liang_liang0825/other/raw/master/11881684029842_.pic.jpg)
+
 
 - R可视乎|散点图系列（1）[2020.10.09散点图系列一](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485142&idx=1&sn=564bffc9e7765ebae9b9b81a17a188d9&chksm=ea24f932dd5370241a05c75975ff24a34423a8f182bf6c716c8c9ed981788d0492dcb268248a&token=682523778&lang=zh_CN#rd)
 
+![11891684029866_.pic](https://gitee.com/zhuang_liang_liang0825/other/raw/master/11891684029866_.pic.jpg)
+
+
 - R可视乎|散点图系列（2）[2020.10.27散点图系列二](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247485276&idx=1&sn=f98a2aede13555fa1c372f08c3cdec44&chksm=ea24f8b8dd5371ae9e13f3df41ff73e070775eb1ab871370783bb3f396a0a9c29d42c6a89210&token=682523778&lang=zh_CN#rd)
+
+> 以下几篇内容视为《R语言数据可视化之美》书籍的学习笔记。
+
+![11901684029902_.pic](https://gitee.com/zhuang_liang_liang0825/other/raw/master/11901684029902_.pic.jpg)
+
 
 - R可视乎|气泡图[2020.11.12气泡图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486060&idx=1&sn=b613c8d0239c93185641c1bb6a062f7b&chksm=ea24f588dd537c9e2d7a33dd5e9f32b34d0a72d5396cdb52211c51f3998269a4d843011abf9b&token=682523778&lang=zh_CN#rd)
 
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100544500.png)
+
+
 - R可视乎|三维散点图[2020.11.22三维散点图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247486366&idx=1&sn=b47d8f89f032bbf1ead4f0db75d45ef7&chksm=ea24f47add537d6c5d50a73bd64318f473071e1474be95c9d5c2f250a39a64a6877ba4d61b68&token=761595288&lang=zh_CN#rd)
 
-- R可视乎|等高线图[2020.11.28等高线](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&tempkey=MTA4OV91RDN5NjJXY1RuNlpkZWhDQ1p1WmhsbjAwX1podTU2TWdnRVNuOEdvOU1uckF6YkhWTDV4VXg5ekpMcmJpSjRHYk5icy1RZ0NRd3JWTUVIQ2c4RWhBd3g1LXlRUWh3S2hHRkJfTUdQNmpZNmJtUnBEUzNwTFktV202UnZkbnlnWVY5LXFiZktLbi1ab1RBTXdSSXRLV1BhVW9yVGRXSGR2TGFtUlVnfn4%3D&chksm=6a24f2c95d537bdf8623dae8553c8a4968b77ac57727d2337ebc6ea6891c1cbc8f0566c5b407&__mpa_temp_link_flag=1&token=761595288#rd)
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHiag5icLvBGgVhnm9qILe5Qy4cNeiaEg4n6RQxJQDsc6JL2ZK5cbXBKwMEW5t0yLY2Y8uorm9IA2bkjA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+- R可视乎|等高线图[2020.11.28等高线](https://mp.weixin.qq.com/s/eI_7qkItkqa6kHwRWM1CXA)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100817869.png)
+
 
 - R可视乎|瀑布图[2020.12.07瀑布图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487383&idx=1&sn=43e2eaf6b7c6b24510ccadb79e766f07&chksm=ea24f073dd53796546fd4145ded4cddfe8779464ad9d0d674900a65484966cd5c3f6367dcecf&token=86432493&lang=zh_CN#rd)
 
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100832157.png)
+
+
 - R可视乎|私人定制专属日历[2020.12.05日历](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247487814&idx=1&sn=aa58149b66ce8b6d1c6210ded418c71a&chksm=ea24eea2dd5367b4a24a670b9e78d377f1506399be8dd0d0a35230407e3dc131f6b07ab3d9ca&token=86432493&lang=zh_CN#rd)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100900010.png)
+
+![图片](https://gitee.com/zhuang_liang_liang0825/other/raw/master/640-20230514100924520.png)
+
 
 - R可视乎|峰峦图[2020.12.25峰峦图](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247488248&idx=1&sn=6b71d7adba5ea796fdfe8f49fe232d94&chksm=ea24ed1cdd53640a1e30271584458097fce82a732f9d63ce2084dc63fbae6fb028fd7f813bb7&token=86432493&lang=zh_CN#rd)
 
--------
-# R案例分析
+> 这篇内容很多，点击查看
 
-- 亚马逊产品的推荐算法[2020.08.14amazon](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484112&idx=1&sn=ffcb0b6ed0efb64ab25b6a76d9dba654&chksm=ea24fd34dd537422ed28f04d438b066dca643986d990711b9c9c1bdb53ba8aa38dcfef655822&mpshare=1&scene=1&srcid=081525ytkp6KQM65Wx6GX5E7&sharer_sharetime=1597501747183&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=872f9623724a6dd292ceaa369df1008b9de4f20ddfb7de21277ad15de2f0b0c0ea578533c0b11558a838423e8f5ada1126e44e9d47b11556890d71177b7641e2a7efa73be1185a7984515d48939fab85840b9561a0c846fa95d3634939a056d8fe84cbf0a6cc6d7758e0f1c09107fd171046d1580e33298cebbf3c1675e37dd1&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A0brKWx%2BS97cOS6wsgyDKSQ%3D&pass_ticket=LZqYAanUOJecq6uEoCOQznjsykTBUbS15CZIvi%2FJtgBFhDLyBvXsaDBBnPRaSb0n)
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHj3sfdbhdOEeAUWlVu9O7x01NWyxgv5wBonDccH1V9KxM8HUNibZicibnCZ0ia2W0lujaywj42HdRY21g/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-- 志愿填报|温州大学"非官方"招办专家帮你支招！[2020.07.29温大招生](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483954&idx=1&sn=047a1b1b3e9c5ce46e3876bb05b54282&chksm=ea24fdd6dd5374c0c119c680cbd595b77a0bc7479889b34d378ae3282bce5e07eff93a5d08e5&mpshare=1&scene=1&srcid=0729IxeNwC6yyOwYcJh7C7Px&sharer_sharetime=1596027172994&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=d3c7cb8eeb23bc8322a73076864458cac5ef3808dd487c233e6eda4d377bdf5bb87322ee7ffc1b6b68f86e3799092502da7e5839e8080dc5d265dbdc5a880b93c2c286acab339bbe8bf9a06458dfa653&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A1EDrAZkVUF2VzXm2Nm2UpQ%3D&pass_ticket=GHX0j6fsfiEATjqcMrcVQQYSihtF3L6yDim2tm78a1XP0v2qucpofrFRF8%2Bz4zjt)
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHj3sfdbhdOEeAUWlVu9O7x0vhkArGGX0ywqssuabGiaJ6NFnR0iasudJRo3c9m7PCNiaRQl9e00wrGOQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
-- 协同过滤算法—MovieLense数据集分析[2020.07.22Movielense](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483889&idx=1&sn=b56b5ee3374bb8e2ec0e5643f62cd4bb&chksm=ea24fe15dd5377034e245dddb4c47ae5fc4a07ffc0d117734ec81910d733173b729e11a4fd29&token=1309493585&lang=zh_CN#rd)
+
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/MIcgkkEyTHj3sfdbhdOEeAUWlVu9O7x0Z7B9G0wia2tAZrTt1nAE6jcWr4gLRNx99VlXE8XjCuJiaDe8kRXYTcnQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
+
 -----
 
 # R包介绍
@@ -105,6 +237,24 @@
 - [igraph包——绘制网络图](http://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483780&idx=1&sn=46ce562ed91ec2d08d7669477160c249&chksm=ea24fe60dd53777615de14ec0ad087c1bbc56d46d73eb51e13fdeeaa60633063b4bd415a7d01&scene=21#wechat_redirect)
 
 ------------
+
+# R文档沟通
+
+- [R Markdown 指南](https://cosname.github.io/rmarkdown-guide/)
+
+- [R Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)
+
+- [Rmarkdown 制作重复性报告](https://github.com/liangliangzhuang/R_example/tree/master/2023.04.12%20Rmarkdown%E9%87%8D%E5%A4%8D%E6%80%A7%E6%8A%A5%E5%91%8A)
+
+
+
+# R案例分析
+
+- 亚马逊产品的推荐算法[2020.08.14amazon](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247484112&idx=1&sn=ffcb0b6ed0efb64ab25b6a76d9dba654&chksm=ea24fd34dd537422ed28f04d438b066dca643986d990711b9c9c1bdb53ba8aa38dcfef655822&mpshare=1&scene=1&srcid=081525ytkp6KQM65Wx6GX5E7&sharer_sharetime=1597501747183&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=872f9623724a6dd292ceaa369df1008b9de4f20ddfb7de21277ad15de2f0b0c0ea578533c0b11558a838423e8f5ada1126e44e9d47b11556890d71177b7641e2a7efa73be1185a7984515d48939fab85840b9561a0c846fa95d3634939a056d8fe84cbf0a6cc6d7758e0f1c09107fd171046d1580e33298cebbf3c1675e37dd1&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A0brKWx%2BS97cOS6wsgyDKSQ%3D&pass_ticket=LZqYAanUOJecq6uEoCOQznjsykTBUbS15CZIvi%2FJtgBFhDLyBvXsaDBBnPRaSb0n)
+
+- 志愿填报|温州大学"非官方"招办专家帮你支招！[2020.07.29温大招生](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483954&idx=1&sn=047a1b1b3e9c5ce46e3876bb05b54282&chksm=ea24fdd6dd5374c0c119c680cbd595b77a0bc7479889b34d378ae3282bce5e07eff93a5d08e5&mpshare=1&scene=1&srcid=0729IxeNwC6yyOwYcJh7C7Px&sharer_sharetime=1596027172994&sharer_shareid=ee38888b33e1d0070e96aeb454518587&key=d3c7cb8eeb23bc8322a73076864458cac5ef3808dd487c233e6eda4d377bdf5bb87322ee7ffc1b6b68f86e3799092502da7e5839e8080dc5d265dbdc5a880b93c2c286acab339bbe8bf9a06458dfa653&ascene=1&uin=OTk1MTUyNzI2&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=A1EDrAZkVUF2VzXm2Nm2UpQ%3D&pass_ticket=GHX0j6fsfiEATjqcMrcVQQYSihtF3L6yDim2tm78a1XP0v2qucpofrFRF8%2Bz4zjt)
+
+- 协同过滤算法—MovieLense数据集分析[2020.07.22Movielense](https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247483889&idx=1&sn=b56b5ee3374bb8e2ec0e5643f62cd4bb&chksm=ea24fe15dd5377034e245dddb4c47ae5fc4a07ffc0d117734ec81910d733173b729e11a4fd29&token=1309493585&lang=zh_CN#rd)
 
 # R数据科学系列
 
@@ -143,5 +293,5 @@
 ----------
 - 欢迎关注我的公众号[庄闪闪的R语言手册]，创作不易，感谢打赏
 
-> ![微信扫码即可](vcode.jpg)
+> ![微信扫码即可](https://gitee.com/zhuang_liang_liang0825/other/raw/master/vcode.jpg)
 

@@ -1,3 +1,6 @@
+# 代码解释见推文:https://mp.weixin.qq.com/s/ZjUuFtRT1j3ksaGD-hHnLg
+# 作者：庄亮亮/庄闪闪 
+# 公众号：《庄闪闪的R语言手册》
 
 library(rgdal)
 library(ggplot2)
