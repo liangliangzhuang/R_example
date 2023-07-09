@@ -1,0 +1,41 @@
+library(plotly)
+
+# 数据导入
+d <- data.frame(
+  ids = c(
+    "North America", "Europe", "Australia", "North America - Football", "Soccer",
+    "North America - Rugby", "Europe - Football", "Rugby",
+    "Europe - American Football","Australia - Football", "Association",
+    "Australian Rules", "Autstralia - American Football", "Australia - Rugby",
+    "Rugby League", "Rugby Union"
+  ),
+  labels = c(
+    "North<br>America", "Europe", "Australia", "Football", "Soccer", "Rugby",
+    "Football", "Rugby", "American<br>Football", "Football", "Association",
+    "Australian<br>Rules", "American<br>Football", "Rugby", "Rugby<br>League",
+    "Rugby<br>Union"
+  ),
+  parents = c(
+    "", "", "", "North America", "North America", "North America", "Europe",
+    "Europe", "Europe","Australia", "Australia - Football", "Australia - Football",
+    "Australia - Football", "Australia - Football", "Australia - Rugby",
+    "Australia - Rugby"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# 另一种方法，导入数据集
+write.csv(d,"d.csv",row.names = FALSE)
+d = read.csv("d.csv")
+
+# 绘图
+fig <- plot_ly(gg, ids = ~ids, labels = ~labels, parents = ~parents, 
+               type = 'sunburst') #maxdepth=3
+fig
+
+# 保存 PDF 图形
+# 首先需要在操作系统上安装 [orca](https://github.com/plotly/orca#installation "orca")
+orca(fig, "FINAL_plot.pdf")
+
+
+
