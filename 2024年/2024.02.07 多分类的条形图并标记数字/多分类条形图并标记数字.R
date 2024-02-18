@@ -1,0 +1,43 @@
+# 科研论文中常用的图形（可靠性） =======
+# 推文：《ggplot 绘制多分类条形图并标记数字》
+# 链接：https://mp.weixin.qq.com/s?__biz=MzI1NjUwMjQxMQ==&mid=2247520840&idx=1&sn=1a13fdace99353fb984d8b1ff9ae5c99&chksm=ea276dacdd50e4ba2b668a0ccb2feb87079cf0bb7b8eae26fe51122e5031cd5ca4e289f6e0f8&token=1416591993&lang=zh_CN#rd
+
+# 多分类条形图
+library(ggplot2)
+library(viridis)
+library(forcats)
+# 示例数据
+R_all <- data.frame(
+  Scen = rep(c("A", "B", "C"), each = 5),
+  Model = rep(c("M1", "M2", "M3", "M4", "M5"), 3),
+  value = c(10, 15, 8, 12, 7, 9, 14, 18, 5, 10, 8, 11, 6, 8, 12)
+)
+
+# 设置 Model 列的因子顺序
+model_order <- c("M1", "M2", "M3", "M4", "M5")
+
+# 绘制柱状图（版本一）
+ggplot(R_all, aes(x = Scen, y = value, fill = fct_relevel(Model, model_order))) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_text(aes(label = value), position = position_dodge(width = 0.9), vjust = -0.5) +  # 添加标签
+  scale_fill_viridis(discrete = TRUE, name = "Model") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+
+
+#更加复杂的场景(多一个case变量，使用分面)
+
+# 示例数据
+R_all2 = rbind(R_all,R_all)
+R_all2$case = rep(c("Case 1", "Case 2"),each=15)
+R_all2$value = round(R_all2$value + 1* rnorm(30,0,1),2)
+
+ggplot(R_all2, aes(x = Scen, y = value, fill = fct_relevel(Model, model_order))) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  geom_text(aes(label = value), position = position_dodge(width = 0.9), vjust = -0.5) +  # 添加标签
+  facet_wrap(vars(factor(case))) + 
+  scale_fill_viridis(discrete = TRUE, name = "Model") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+
+
